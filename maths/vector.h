@@ -1,5 +1,6 @@
 #pragma once // -> Prevents Inclusion of Multiple Headers
 #include <cmath>
+#include <ostream>
 
 
 // STRUCTURES //
@@ -21,8 +22,12 @@ inline  Vector operator-(const Vector& vecA, const Vector& vecB) { // Vector Sub
 	return { (vecA.x - vecB.x), (vecA.y - vecB.y) };
 };
 
-inline  Vector operator*(const Vector& vecA, float numB) { // Scalar Multiplication
+inline  Vector operator*(const Vector& vecA, float numB) { // Scalar Multiplication (Case I)
 	return { (vecA.x * numB), (vecA.y * numB) };
+};
+
+inline Vector operator*(float numB, const Vector& vecA) { // Scalar Multiplication (Case II)
+    return vecA * numB;
 };
 
 inline float dot(const Vector& vecA, const Vector& vecB) { // Dot Product (Scalar)
