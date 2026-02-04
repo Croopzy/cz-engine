@@ -7,30 +7,30 @@
 struct Vector {
 	float x; // -> Floats Are Sufficient, Doubles May Be Overkill
 	float y;
-	Vector(float inX = 0.0f, float inY = 0.0f) : x(inX), y(inY) {} // Initialse Vector = (0, 0)
+	Vector(float inX = 0.0f, float inY = 0.0f) : x(inX), y(inY) {} // Initialise Vector = (0, 0)
 };
 
 
 // OPERATIONS //
 
-inline  Vector operator+(const Vector& a, const Vector& b) { // Vector Addition
-	return { (a.x + b.x), (a.y + b.y) };
+inline  Vector operator+(const Vector& vecA, const Vector& vecB) { // Vector Addition
+	return { (vecA.x + vecB.x), (vecA.y + vecB.y) };
 };
 
-inline  Vector operator-(const Vector& a, const Vector& b) { // Vector Subtraction
-	return { (a.x - b.x), (a.y - b.y) };
+inline  Vector operator-(const Vector& vecA, const Vector& vecB) { // Vector Subtraction
+	return { (vecA.x - vecB.x), (vecA.y - vecB.y) };
 };
 
-inline  Vector operator*(const Vector& a, float b) { // Scalar Multiplication
-	return { (a.x * b), (a.y * b) };
+inline  Vector operator*(const Vector& vecA, float numB) { // Scalar Multiplication
+	return { (vecA.x * numB), (vecA.y * numB) };
 };
 
-inline float dot(const Vector& a, const Vector& b) { // Dot Product (Scalar)
-	return (a.x * b.x) + (a.y * b.y);
+inline float dot(const Vector& vecA, const Vector& vecB) { // Dot Product (Scalar)
+	return (vecA.x * vecB.x) + (vecA.y * vecB.y);
 };
 
-inline float magnitude(const Vector& v) { // Scalar Magnitude
-	return std::sqrt(dot(v, v));
+inline float magnitude(const Vector& vecA) { // Scalar Magnitude
+	return std::sqrt(dot(vecA, vecA));
 };
 
 inline std::ostream& operator<<(std::ostream & os, const Vector & v) { // Vector Output
