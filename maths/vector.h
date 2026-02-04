@@ -8,7 +8,8 @@
 struct Vector {
 	float x; // -> Floats Are Sufficient, Doubles May Be Overkill
 	float y;
-	Vector(float inX = 0.0f, float inY = 0.0f) : x(inX), y(inY) {} // Initialise Vector = (0, 0)
+	Vector(float inX = 0.0f, float inY = 0.0f) // Initialise Vector = (0, 0)
+		: x(inX), y(inY) {}
 };
 
 
