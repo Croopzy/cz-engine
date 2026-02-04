@@ -7,6 +7,7 @@
 struct Vector {
 	float x; // -> Floats Are Sufficient, Doubles May Be Overkill
 	float y;
+	Vector(float x_ = 0.0f, float y_ = 0.0f) : x(x_), y(y_) {}
 };
 
 
