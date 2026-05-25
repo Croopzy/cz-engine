@@ -54,22 +54,22 @@ struct Vector {
 // Vector Addition: vectorA + vectorB
 constexpr  Vector operator+(const Vector& vecA, const Vector& vecB) {
 	return { (vecA.x + vecB.x), (vecA.y + vecB.y) };
-};
+}
 
 // Vector Subtraction: vectorA - vectorB
 constexpr  Vector operator-(const Vector& vecA, const Vector& vecB) {
 	return { (vecA.x - vecB.x), (vecA.y - vecB.y) };
-};
+}
 
 // Scalar Multiplication: vector * scalar
 constexpr  Vector operator*(const Vector& vecA, float numB) {
 	return { (vecA.x * numB), (vecA.y * numB) };
-};
+}
 
 // Scalar Multiplication: scalar * vector
 constexpr Vector operator*(float numB, const Vector& vecA) {
     return vecA * numB;
-};
+}
 
 // Scalar Division: vector / scalar
 constexpr Vector operator/(const Vector& vecA, float numB) {
@@ -79,7 +79,7 @@ constexpr Vector operator/(const Vector& vecA, float numB) {
 // Dot Product (Scalar): dot(vectorA, vectorB)
 constexpr float dot(const Vector& vecA, const Vector& vecB) {
 	return (vecA.x * vecB.x) + (vecA.y * vecB.y);
-};
+}
 
 // Perpendicular Vector (90° Rotation): perpendicular(vector)
 constexpr Vector perpendicular(const Vector& vecA) {
@@ -94,7 +94,7 @@ constexpr float cross(const Vector& vecA, const Vector& vecB) {
 // Scalar Magnitude: magnitude(vector)
 inline float magnitude(const Vector& vecA) {
 	return std::sqrt(dot(vecA, vecA));
-};
+}
 
 // Vector Normalisation (Unit Vector): normalise(vector)
 inline Vector normalise(const Vector& vecA) {
@@ -108,4 +108,4 @@ inline Vector normalise(const Vector& vecA) {
 // Vector Output
 inline std::ostream& operator<<(std::ostream & os, const Vector & vecA) {
 	return os << "(" << vecA.x << ", " << vecA.y << ")";
-};
+}
