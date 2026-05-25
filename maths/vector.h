@@ -39,7 +39,7 @@ constexpr float dot(const Vector& vecA, const Vector& vecB) { // Dot Product (Sc
 	return (vecA.x * vecB.x) + (vecA.y * vecB.y);
 };
 
-constexpr Vector perpendicular(const Vector& vecA) { // Perpendicular Vector
+constexpr Vector perpendicular(const Vector& vecA) { // Perpendicular Vector (90° Rotation)
     return { -vecA.y, vecA.x };
 }
 
