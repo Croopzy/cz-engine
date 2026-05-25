@@ -3,7 +3,7 @@
 #include "vector.hpp"
 #include "constants.hpp"
 
-// Unsigned Angle Between Two Vectors (Relative Angle): angle(vectorA, vectorB)
+// Unsigned Angle Between Two Vectors (Relative Angle, Unit: Radians): angle(vectorA, vectorB)
 inline float angle(const Vector& vecA, const Vector& vecB) {
     float dotProduct = dot(vecA, vecB);
     float magnitudeProduct = magnitude(vecA) * magnitude(vecB);
