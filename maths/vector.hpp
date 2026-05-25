@@ -13,37 +13,37 @@ struct Vector {
 	// Vector Methods //
 
 	// Constructor
-	Vector(float inX = 0.0f, float inY = 0.0f): // Initialise Vector = (0, 0)
+	Vector(float inX = 0.0f, float inY = 0.0f) noexcept: // Initialise Vector = (0, 0)
 		x(inX), y(inY) {}
 		
 	// Unary Negation (Vector Negation): -vector
-	[[nodiscard]] constexpr Vector operator-() const {
+	[[nodiscard]] constexpr Vector operator-() const noexcept {
 	 return { -x, -y };
 	}
 	
 	// Addition Assignment: vectorA += vectorB
-	constexpr Vector operator+=(const Vector& vecB) {
+	constexpr Vector operator+=(const Vector& vecB) noexcept {
 		x += vecB.x;
 		y += vecB.y;
 	 return *this;
 	}
 	
 	// Subtraction Assignment: vectorA -= vectorB
-	constexpr Vector operator-=(const Vector& vecB) {
+	constexpr Vector operator-=(const Vector& vecB) noexcept {
 		x -= vecB.x;
 		y -= vecB.y;
 	 return *this;
 	}
 	
 	// Scalar Multiplication Assignment: vector *= scalar
-	constexpr Vector operator*=(float numB) {
+	constexpr Vector operator*=(float numB) noexcept {
 		x *= numB;
 		y *= numB;
 	 return *this;
 	}
 	
 	// Scalar Divsion Assignment: vector /= scalar
-	constexpr Vector operator/=(float numB) {
+	constexpr Vector operator/=(float numB) noexcept {
 		if (std::fabs(numB) <= EPSILON) return *this;
 		x /= numB;
 		y /= numB;
@@ -55,52 +55,52 @@ struct Vector {
 /// OPERATIONS ///
 
 // Vector Addition: vectorA + vectorB
-[[nodiscard]] constexpr  Vector operator+(const Vector& vecA, const Vector& vecB) {
+[[nodiscard]] constexpr  Vector operator+(const Vector& vecA, const Vector& vecB) noexcept {
 	return { (vecA.x + vecB.x), (vecA.y + vecB.y) };
 }
 
 // Vector Subtraction: vectorA - vectorB
-[[nodiscard]] constexpr  Vector operator-(const Vector& vecA, const Vector& vecB) {
+[[nodiscard]] constexpr  Vector operator-(const Vector& vecA, const Vector& vecB) noexcept {
 	return { (vecA.x - vecB.x), (vecA.y - vecB.y) };
 }
 
 // Scalar Multiplication: vector * scalar
-[[nodiscard]] constexpr  Vector operator*(const Vector& vecA, float numB) {
+[[nodiscard]] constexpr  Vector operator*(const Vector& vecA, float numB) noexcept {
 	return { (vecA.x * numB), (vecA.y * numB) };
 }
 
 // Scalar Multiplication: scalar * vector
-[[nodiscard]] constexpr Vector operator*(float numB, const Vector& vecA) {
+[[nodiscard]] constexpr Vector operator*(float numB, const Vector& vecA) noexcept {
     return vecA * numB;
 }
 
 // Scalar Division: vector / scalar
-[[nodiscard]] constexpr Vector operator/(const Vector& vecA, float numB) {
+[[nodiscard]] constexpr Vector operator/(const Vector& vecA, float numB) noexcept {
     return { vecA.x / numB, vecA.y / numB }; // Does Not Account For Division Singularity
 }
 
 // Dot Product (Scalar): dot(vectorA, vectorB)
-[[nodiscard]] constexpr float dot(const Vector& vecA, const Vector& vecB) {
+[[nodiscard]] constexpr float dot(const Vector& vecA, const Vector& vecB) noexcept {
 	return (vecA.x * vecB.x) + (vecA.y * vecB.y);
 }
 
 // Perpendicular Vector (90° Rotation): perpendicular(vector)
-[[nodiscard]] constexpr Vector perpendicular(const Vector& vecA) {
+[[nodiscard]] constexpr Vector perpendicular(const Vector& vecA) noexcept {
     return { -vecA.y, vecA.x };
 }
 
 // Scalar Cross Product: cross(vectorA, vectorB)
-[[nodiscard]] constexpr float cross(const Vector& vecA, const Vector& vecB) {
+[[nodiscard]] constexpr float cross(const Vector& vecA, const Vector& vecB) noexcept {
     return vecA.x * vecB.y - vecA.y * vecB.x;
 }
 
 // Scalar Magnitude: magnitude(vector)
-[[nodiscard]] inline float magnitude(const Vector& vecA) {
+[[nodiscard]] inline float magnitude(const Vector& vecA) noexcept {
 	return std::sqrt(dot(vecA, vecA));
 }
 
 // Vector Normalisation (Unit Vector): normalise(vector)
-[[nodiscard]] inline Vector normalise(const Vector& vecA) {
+[[nodiscard]] inline Vector normalise(const Vector& vecA) noexcept {
     float magnitudeA = magnitude(vecA); // Dependency: Scalar Magnitude Operation
     if (magnitudeA <= EPSILON) { // Catch Division by Zero
         return {0.0f, 0.0f};
