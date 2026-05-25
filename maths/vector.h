@@ -42,7 +42,7 @@ struct Vector {
 	
 	// Scalar Divsion Assignment: vector /= scalar
 	constexpr Vector operator/=(float numB) {
-		x /= numB;
+		x /= numB; // Does Not Account For Division Singularity
 		y /= numB;
 	 return *this;
 	}
@@ -72,8 +72,8 @@ constexpr Vector operator*(float numB, const Vector& vecA) {
 };
 
 // Scalar Division: vector / scalar
-constexpr Vector operator/(const Vector& vector, float scalarValue) {
-    return { vector.x / scalarValue, vector.y / scalarValue }; // Does Not Account For Division Singularity
+constexpr Vector operator/(const Vector& vecA, float numB) {
+    return { vecA.x / numB, vecA.y / numB }; // Does Not Account For Division Singularity
 }
 
 // Dot Product (Scalar): dot(vectorA, vectorB)
