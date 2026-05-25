@@ -16,15 +16,18 @@ struct Vector {
 
 // OPERATIONS //
 
-constexpr  Vector operator+(const Vector& vecA, const Vector& vecB) { // Vector Addition
+// Vector Addition
+constexpr  Vector operator+(const Vector& vecA, const Vector& vecB) {
 	return { (vecA.x + vecB.x), (vecA.y + vecB.y) };
 };
 
-constexpr  Vector operator-(const Vector& vecA, const Vector& vecB) { // Vector Subtraction
+// Vector Subtraction
+constexpr  Vector operator-(const Vector& vecA, const Vector& vecB) {
 	return { (vecA.x - vecB.x), (vecA.y - vecB.y) };
 };
 
-constexpr Vector operator-(const Vector& vecA) { // Unary Minus (Vector)
+// Vector Negation (Unary Minus)
+constexpr Vector operator-(const Vector& vecA) {
     return { -vecA.x, -vecA.y };
 }
 
@@ -35,6 +38,11 @@ constexpr  Vector operator*(const Vector& vecA, float numB) { // Scalar Multipli
 constexpr Vector operator*(float numB, const Vector& vecA) { // Scalar Multiplication (Case II)
     return vecA * numB;
 };
+
+constexpr Vector operator/(const Vector& vector, float scalarValue) { // Scalar Division
+    return { vector.x / scalarValue, vector.y / scalarValue }; // Does Not Account For Division Singularity
+}
+
 
 constexpr float dot(const Vector& vecA, const Vector& vecB) { // Dot Product (Scalar)
 	return (vecA.x * vecB.x) + (vecA.y * vecB.y);
