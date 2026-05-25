@@ -39,6 +39,10 @@ constexpr float dot(const Vector& vecA, const Vector& vecB) { // Dot Product (Sc
 	return (vecA.x * vecB.x) + (vecA.y * vecB.y);
 };
 
+constexpr Vector perpendicular(const Vector& vecA) { // Perpendicular Vector (Cross Product in 2D)
+    return { -vecA.y, vecA.x };
+}
+
 inline float magnitude(const Vector& vecA) { // Scalar Magnitude
 	return std::sqrt(dot(vecA, vecA));
 };
