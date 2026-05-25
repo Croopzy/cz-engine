@@ -84,23 +84,23 @@ struct Vector {
 	return (vecA.x * vecB.x) + (vecA.y * vecB.y);
 }
 
-// Scalar Cross Product: cross(vectorA, vectorB)
-[[nodiscard]] constexpr float cross(const Vector& vecA, const Vector& vecB) noexcept {
-    return vecA.x * vecB.y - vecA.y * vecB.x;
-}
-
 // Scalar Magnitude: magnitude(vector)
 [[nodiscard]] inline float magnitude(const Vector& vecA) noexcept {
-	return std::sqrt(dot(vecA, vecA));
+	return std::sqrt(dot(vecA, vecA)); // Dependency: Dot Product
 }
 
 // Vector Normalisation (Unit Vector): normalise(vector)
 [[nodiscard]] inline Vector normalise(const Vector& vecA) noexcept {
-    float magnitudeA = magnitude(vecA); // Dependency: Scalar Magnitude Operation
+    float magnitudeA = magnitude(vecA); // Dependency: Scalar Magnitude
     if (magnitudeA <= EPSILON) { // Catch Division by Zero
         return {0.0f, 0.0f};
     }
     return { vecA.x / magnitudeA, vecA.y / magnitudeA };
+}
+
+// Scalar Cross Product: cross(vectorA, vectorB)
+[[nodiscard]] constexpr float cross(const Vector& vecA, const Vector& vecB) noexcept {
+    return (vecA.x * vecB.y) - (vecA.y * vecB.x);
 }
 
 // Perpendicular Vector (90° Rotation): perpendicular(vector)
