@@ -84,11 +84,6 @@ struct Vector {
 	return (vecA.x * vecB.x) + (vecA.y * vecB.y);
 }
 
-// Perpendicular Vector (90° Rotation): perpendicular(vector)
-[[nodiscard]] constexpr Vector perpendicular(const Vector& vecA) noexcept {
-    return { -vecA.y, vecA.x };
-}
-
 // Scalar Cross Product: cross(vectorA, vectorB)
 [[nodiscard]] constexpr float cross(const Vector& vecA, const Vector& vecB) noexcept {
     return vecA.x * vecB.y - vecA.y * vecB.x;
@@ -106,6 +101,11 @@ struct Vector {
         return {0.0f, 0.0f};
     }
     return { vecA.x / magnitudeA, vecA.y / magnitudeA };
+}
+
+// Perpendicular Vector (90° Rotation): perpendicular(vector)
+[[nodiscard]] constexpr Vector perpendicular(const Vector& vecA) noexcept {
+    return { -vecA.y, vecA.x };
 }
 
 // Vector Output
