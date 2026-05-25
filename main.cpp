@@ -15,16 +15,23 @@ int main() {
 	std::cout << "Scalar Multiplication (a * c): " << (a * c) << std::endl;
 	std::cout << "Scalar Multiplication (c * a): " << (c * a) << std::endl;
 	std::cout << "Scalar Division (a / c): " << (a * c) << std::endl;
-	std::cout << "Addition Assignment (a += b): " << (a += b) << std::endl;
-	std::cout << "Subtraction Assignment (a -= b): " << (a -= b) << std::endl;
-	std::cout << "Scalar Multiplication Assignment (a *= c): " << (a *= c) << std::endl;
-	std::cout << "Scalar Division Assignment (a /= c): " << (a /= c) << std::endl;
-	std::cout << "Scalar Cross Product (a x b): " << cross(a, b) << std::endl;
-	std::cout << "Dot Product (a • b): " << dot(a, b) << std::endl;
-	std::cout << "Magnitude (|a|): " << magnitude(a) << std::endl;
-	std::cout << "Vector Normalisatiom (â): " << normalise(a) << std::endl;
-	std::cout << "Perpendicular Vector (⊥a): " << perpendicular(a) << std::endl;
+
 	std::cout << "Unary Negation (-a): " -a << std::endl;
+	
+	Vector tempA = a;
+	std::cout << "Addition Assignment (a += b): " << (tempA += b) << std::endl;
+	Vector tempA = a;
+	std::cout << "Subtraction Assignment (a -= b): " << (tempA -= b) << std::endl;
+	Vector tempA = a;
+	std::cout << "Scalar Multiplication Assignment (a *= c): " << (tempA *= c) << std::endl;
+	Vector tempA = a;
+	std::cout << "Scalar Division Assignment (a /= c): " << (tempA /= c) << std::endl;
+
+	std::cout << "Magnitude (|a|): " << magnitude(a) << std::endl;
+	std::cout << "Dot Product (a • b): " << dot(a, b) << std::endl;
+	std::cout << "Vector Normalisation (â): " << normalise(a) << std::endl;
+	std::cout << "Perpendicular Vector (⊥a): " << perpendicular(a) << std::endl;
+	std::cout << "Scalar Cross Product (a x b): " << cross(a, b) << std::endl;
 	std::cout << "Relative Angle (θ): " << angle(a, b) << std::endl;
 	return 0;
 }
