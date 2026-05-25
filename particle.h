@@ -16,7 +16,7 @@ struct Particle {
     Particle(float inMass = 1.0f):
         position(0,0),
         velocity(0,0),
-        acceleration(0,0),
+        acceleration(0,0), // TODO: Gravity Will Be Updated Per-Particle
         mass(inMass),
         netForce(0,0)
     {
