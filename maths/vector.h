@@ -14,7 +14,7 @@ struct Vector {
 	Vector(float inX = 0.0f, float inY = 0.0f): // Initialise Vector = (0, 0)
 		x(inX), y(inY) {}
 		
-	// Vector Negation (Unary Minus): -vector
+	// Unary Negation (Vector Negation): -vector
 	constexpr Vector operator-() const {
 	 return { -x, -y };
 	}
