@@ -1,6 +1,7 @@
 #pragma once // -> Prevents Inclusion of Multiple Headers
 #include <cmath>
 #include <ostream>
+#include "constants.h"
 
 
 // STRUCTURES //
@@ -54,7 +55,7 @@ inline float magnitude(const Vector& vecA) { // Scalar Magnitude
 
 inline Vector normalise(const Vector& vecA) { // Vector Normalisation (Unit Vector)
     float magnitudeA = magnitude(vecA); // Dependency: Scalar Magnitude Operation
-    if (magnitudeA == 0.0f) { // Catch Division by Zero
+    if (magnitudeA < EPSILON) { // Catch Division by Zero
         return {0.0f, 0.0f};
     }
     return { vecA.x / magnitudeA, vecA.y / magnitudeA };
