@@ -39,22 +39,27 @@ constexpr float dot(const Vector& vecA, const Vector& vecB) { // Dot Product (Sc
 	return (vecA.x * vecB.x) + (vecA.y * vecB.y);
 };
 
-constexpr Vector perpendicular(const Vector& vecA) { // Perpendicular Vector (Cross Product in 2D)
+constexpr Vector perpendicular(const Vector& vecA) { // Perpendicular Vector
     return { -vecA.y, vecA.x };
 }
+
+constexpr float cross(const Vector& vecA, const Vector& vecB) { // Scalar Cross Product 
+    return vecA.x * vecB.y - vecA.y * vecB.x;
+}
+
 
 inline float magnitude(const Vector& vecA) { // Scalar Magnitude
 	return std::sqrt(dot(vecA, vecA));
 };
 
-inline Vector normalise(const Vector& vecA) { // Vector Normalisation
-    float magnitudeA = magnitude(v); // Requires magnitude()
+inline Vector normalise(const Vector& vecA) { // Vector Normalisation (Unit Vector)
+    float magnitudeA = magnitude(vecA); // Dependency: Scalar Magnitude Operation
     if (magnitudeA == 0.0f) { // Catch Division by Zero
         return {0.0f, 0.0f};
     }
     return { vecA.x / magnitudeA, vecA.y / magnitudeA };
 }
 
-inline std::ostream& operator<<(std::ostream & os, const Vector & v) { // Vector Output
-	return os << "(" << v.x << ", " << v.y << ")";
+inline std::ostream& operator<<(std::ostream & os, const Vector & vecA) { // Vector Output
+	return os << "(" << vecA.x << ", " << vecA.y << ")";
 };
