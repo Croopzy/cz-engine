@@ -1,7 +1,7 @@
 # Prerequisites
 *.d
 
-# Compiled Object files
+# Compiled Object Files
 *.slo
 *.lo
 *.o
@@ -17,12 +17,12 @@
 # Debugger Files
 *.pdb
 
-# Compiled Dynamic libraries
+# Compiled Dynamic Libraries
 *.so
 *.dylib
 *.dll
 
-# Fortran module files
+# Fortran Module Files
 *.mod
 *.smod
 
@@ -37,5 +37,8 @@
 *.out
 *.app
 
-# debug information files
+# Debug Information Files
 *.dwo
+
+# VS Code Local Configuration
+.vscode/
