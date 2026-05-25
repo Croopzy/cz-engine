@@ -23,6 +23,10 @@ constexpr  Vector operator-(const Vector& vecA, const Vector& vecB) { // Vector 
 	return { (vecA.x - vecB.x), (vecA.y - vecB.y) };
 };
 
+constexpr Vector operator-(const Vector& vecA) { // Unary Minus (Vector)
+    return { -vecA.x, -vecA.y };
+}
+
 constexpr  Vector operator*(const Vector& vecA, float numB) { // Scalar Multiplication (Case I)
 	return { (vecA.x * numB), (vecA.y * numB) };
 };
@@ -38,6 +42,14 @@ constexpr float dot(const Vector& vecA, const Vector& vecB) { // Dot Product (Sc
 inline float magnitude(const Vector& vecA) { // Scalar Magnitude
 	return std::sqrt(dot(vecA, vecA));
 };
+
+inline Vector normalise(const Vector& vecA) { // Vector Normalisation
+    float magnitudeA = magnitude(v); // Requires magnitude()
+    if (magnitudeA == 0.0f) { // Catch Division by Zero
+        return {0.0f, 0.0f};
+    }
+    return { vecA.x / magnitudeA, vecA.y / magnitudeA };
+}
 
 inline std::ostream& operator<<(std::ostream & os, const Vector & v) { // Vector Output
 	return os << "(" << v.x << ", " << v.y << ")";
