@@ -1,7 +1,7 @@
 #pragma once
 #include <cmath>
-#include "vector.h"
-#include "constants.h"
+#include "vector.hpp"
+#include "constants.hpp"
 
 // Unsigned Angle Between Two Vectors: angle(vectorA, vectorB)
 inline float angle(const Vector& vecA, const Vector& vecB) {
