@@ -20,7 +20,32 @@ struct Vector {
 	}
 	
 	// Addition Assignment: vectorA += vectorB
-	// ...
+	constexpr Vector operator+=(const Vector& vecB) {
+		x += vecB.x;
+		y += vecB.y;
+	 return *this;
+	}
+	
+	// Subtraction Assignment: vectorA -= vectorB
+	constexpr Vector operator-=(const Vector& vecB) {
+		x -= vecB.x;
+		y -= vecB.y;
+	 return *this;
+	}
+	
+	// Scalar Multiplication Assignment: vector *= scalar
+	constexpr Vector operator*=(float numB) {
+		x *= numB;
+		y *= numB;
+	 return *this;
+	}
+	
+	// Scalar Divsion Assignment: vector /= scalar
+	constexpr Vector operator/=(float numB) {
+		x /= numB;
+		y /= numB;
+	 return *this;
+	}
 };
 
 
