@@ -1,6 +1,6 @@
 #include <iostream>
 #include "maths/vector.hpp"
-#include "maths/geometry.hpp
+#include "maths/geometry.hpp"
 // #include "particle.hpp"
 
 
