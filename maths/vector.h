@@ -15,23 +15,23 @@ struct Vector {
 
 // OPERATIONS //
 
-inline  Vector operator+(const Vector& vecA, const Vector& vecB) { // Vector Addition
+constexpr  Vector operator+(const Vector& vecA, const Vector& vecB) { // Vector Addition
 	return { (vecA.x + vecB.x), (vecA.y + vecB.y) };
 };
 
-inline  Vector operator-(const Vector& vecA, const Vector& vecB) { // Vector Subtraction
+constexpr  Vector operator-(const Vector& vecA, const Vector& vecB) { // Vector Subtraction
 	return { (vecA.x - vecB.x), (vecA.y - vecB.y) };
 };
 
-inline  Vector operator*(const Vector& vecA, float numB) { // Scalar Multiplication (Case I)
+constexpr  Vector operator*(const Vector& vecA, float numB) { // Scalar Multiplication (Case I)
 	return { (vecA.x * numB), (vecA.y * numB) };
 };
 
-inline Vector operator*(float numB, const Vector& vecA) { // Scalar Multiplication (Case II)
+constexpr Vector operator*(float numB, const Vector& vecA) { // Scalar Multiplication (Case II)
     return vecA * numB;
 };
 
-inline float dot(const Vector& vecA, const Vector& vecB) { // Dot Product (Scalar)
+constexpr float dot(const Vector& vecA, const Vector& vecB) { // Dot Product (Scalar)
 	return (vecA.x * vecB.x) + (vecA.y * vecB.y);
 };
 
