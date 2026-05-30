@@ -1,6 +1,5 @@
 #pragma once
 #include <cmath>
-#include "engine/maths/constants.hpp"
 #include "engine/maths/vector.hpp"
 
 // Unsigned Angle Between Two Vectors (Relative Angle, Unit: Radians): angle(vectorA, vectorB)
