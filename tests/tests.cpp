@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector> // dynamic array type
-#include "maths/vector.hpp"
-#include "maths/geometry.hpp"
+#include "engine/maths/vector.hpp"
+#include "engine/maths/geometry.hpp"
 
 // Vector Unit Tests
 bool test_unary_negation() {
