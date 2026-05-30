@@ -12,6 +12,7 @@ public:
     // World Bodies
     std::vector<Particle> particles; // Collection of Particles in World
 
+
     /// Methods ///
 
     // World Constructor
