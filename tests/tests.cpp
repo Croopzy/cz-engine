@@ -68,5 +68,28 @@ int main() {
         return(result.x == 5.0f && result.y == 2.0f);
     }
 
+    bool test_basic_scalar_division() {
+        Vector vecA(15.0f, 6.0f);
+        float numB(3.0f);
+        Vector result = vecA / numB;
+        return(result.x == 5.0f && result.y == 2.0f);
+    }
+
+    bool test_dot_product() {
+        Vector vecA(3.0f, 4.0f);
+        Vector vecB(2.0f, -1.0f);
+        float result = dot(vecA, vecB)
+        return result == 2.0f; // Expected: (3 * 2) + (4 * -1) = 6 - 4 = 2
+    }
+
+    bool test_vector_magnitude() {
+        Vector vecA(3.0f, 4.0f);
+        Vector result = magnitude(vecA)
+        return result == 5.0f;
+
+    
+
+    
+
     return 0;
 }
