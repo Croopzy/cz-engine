@@ -1,4 +1,5 @@
 #include <iostream>
+#include "apple_drop.hpp"
 #include "engine/physics/world.hpp"
 
 void runAppleDrop() {
