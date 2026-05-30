@@ -16,7 +16,7 @@ int main() {
     
     // Simulate Five Seconds on Earth
 	for (int i = 0; i < 5; ++i) {
-        earth.step(1.0f); // dt = 1.0s
+        earth.step(1.0f); // dt = 1.0s (Demonstration Purposes Only)
         std::cout << "Time: " << (i + 1) << "s"
         << "\nPosition: " << apple.position << "m"
         << "\Velocity: " << apple.velocity << "m/s"
