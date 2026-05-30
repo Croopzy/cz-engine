@@ -1,3 +1,3 @@
 #pragma once
 
-void apple_drop();
+void runAppleDrop();
