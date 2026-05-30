@@ -29,7 +29,7 @@ void runAppleDrop() {
     const int steps = 625; // 10 Seconds
     float endTime = 10.0f; // Unit: Seconds
     bool contact = false;
-	for (int i = 0; i < steps; ++i) {
+    for (int i = 0; i < steps; ++i) {
         earth.step(0.016f); // Simulate Earth, dt = 0.016s
         // Ground Contact
         if (apple.y <= MathsConstants::EPSILON) {
