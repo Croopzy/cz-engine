@@ -87,9 +87,14 @@ int main() {
         Vector result = magnitude(vecA)
         return result == 5.0f;
 
+    // TODO: Additional Unit Tests (Multiple Cases) 
+        // Dot Product (Special Cases)
+        // Scalar Cross Product
+        // Perpendicular Vector
+        // Relative Angle
     
-
-    
+    // Test Harness
+    // ...
 
     return 0;
 }
