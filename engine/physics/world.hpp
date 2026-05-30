@@ -50,4 +50,8 @@ public:
         return particles.back(); // Returns Reference to New Particle
     }
 
+    // Create New Spring in World (Function)
+    inline void addSpring(int particleA, int particleB, float naturalLength, float stiffness, float damping) {
+        springs.emplace.back(particleA, particleB, naturalLength, stiffness, damping) // Constructor
+    }
 };
