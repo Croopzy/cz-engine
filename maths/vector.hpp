@@ -1,7 +1,7 @@
 #pragma once // -> Prevents Inclusion of Multiple Headers
 #include <cmath>
 #include <ostream>
-#include "constants.hpp"
+#include "maths/constants.hpp"
 
 
 /// STRUCTURES ///
@@ -44,7 +44,7 @@ struct Vector {
 	
 	// Scalar Divsion Assignment: vector /= scalar
 	constexpr Vector operator/=(float numB) noexcept {
-		if (std::fabs(numB) <= EPSILON) return *this;
+		if (std::fabs(numB) <= MathsConstants::EPSILON) return *this;
 		x /= numB;
 		y /= numB;
 	 return *this;
@@ -92,7 +92,7 @@ struct Vector {
 // Vector Normalisation (Unit Vector): normalise(vector)
 [[nodiscard]] inline Vector normalise(const Vector& vecA) noexcept {
     float magnitudeA = magnitude(vecA); // Dependency: Scalar Magnitude
-    if (magnitudeA <= EPSILON) { // Catch Division by Zero
+    if (magnitudeA <= MathsConstants::EPSILON) { // Catch Division by Zero
         return {0.0f, 0.0f};
     }
     return { vecA.x / magnitudeA, vecA.y / magnitudeA };
