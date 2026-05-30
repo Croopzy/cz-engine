@@ -1,13 +1,13 @@
 #pragma once
 #include <cmath>
-#include "vector.hpp"
-#include "constants.hpp"
+#include "maths/constants.hpp"
+#include "maths/vector.hpp"
 
 // Unsigned Angle Between Two Vectors (Relative Angle, Unit: Radians): angle(vectorA, vectorB)
 inline float angle(const Vector& vecA, const Vector& vecB) {
     float dotProduct = dot(vecA, vecB);
     float magnitudeProduct = magnitude(vecA) * magnitude(vecB);
-    if (magnitudeProduct <= EPSILON) return 0.0f;
+    if (magnitudeProduct <= MathsConstants::EPSILON) return 0.0f;
     float cosine = dotProduct / magnitudeProduct; // Does Not Account For Division Singularity
     if (cosine > 1.0f) cosine = 1.0f; // Clamp To Valid Range (For Floating Point Drift)
     if (cosine < -1.0f) cosine = -1.0f;
