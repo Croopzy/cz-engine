@@ -1,17 +1,20 @@
 #include <iostream>
-#include "maths/vector.hpp"
-#include "maths/geometry.hpp"
-// #include "physics/particle.hpp"
+#include "physics/world.hpp"
 
 int main() {
 
-	Vector position(0.0f, 0.0f);
-	Vector velocity(0.0f, 0.0f);
+    World earth; // Create Simulation of Earth
+    std::cout << "World Created: Earth\n"
+    << "Gravity: " << earth.gravity;
+    
+    Particle apple(0.1f); // Apple with Mass 0.1kg
+    apple.position = {0.0f, 10.0f} // Apple Begins Ten Metres High
+    std::cout << "Particle Created: apple"
+    << "\nMass: " << apple.mass
+    << "\nVertical Position: " << apple.y << "m";
 
 	for (int i = 0; i < 5; ++i) {
-		std::cout << "Step: " << i << "\n"
-		<< "Position: " << position <<  << "\n"
-		<< "Velocity: " << velocity <<  << "\n";
+        // ...
 	}
 
 	return 0;
