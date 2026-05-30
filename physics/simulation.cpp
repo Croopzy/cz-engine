@@ -2,12 +2,12 @@
 #include "physics/constants.hpp" // PhysicsConstants
 
 // Constructor
-Simulation::Simulation() noexcept
-    : gravity(PhysicsConstants::GRAVITY_EARTH) // Uses Intitialiser List To Set World Parameters
+World::World() noexcept // Uses Intitialiser List To Set World Parameters
+    : gravity(PhysicsConstants::GRAVITY_EARTH) // Default Gravity: Earth
 {}
 
 // Apply Step
-void Simulation::step(float dt) noexcept {
+void World::step(float dt) noexcept {
     for (Particle& body : particles) {
 
         // Apply World Gravity (F = m * g)
