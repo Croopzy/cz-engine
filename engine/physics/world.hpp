@@ -1,5 +1,5 @@
 #pragma once
-#include "engine/maths/vector.hpp"
+#include <vector>
 #include "engine/physics/particle.hpp"
 
 // Spring Structure (Binary Force Connecting Two Particles)
