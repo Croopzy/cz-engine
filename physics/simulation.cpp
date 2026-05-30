@@ -1,6 +1,12 @@
 #include "physics/simulation.hpp"
 #include "physics/constants.hpp" // PhysicsConstants
 
+// Constructor
+Simulation::Simulation() noexcept
+    : gravity(PhysicsConstants::GRAVITY_EARTH) // Uses Intitialiser List To Set World Parameters
+{}
+
+// Apply Step
 void Simulation::step(float dt) noexcept {
     for (Particle& body : particles) {
 
