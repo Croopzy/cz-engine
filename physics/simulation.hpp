@@ -2,17 +2,17 @@
 #include "maths/vector.hpp"
 #include "physics/particle.hpp"
 
-// Worlds Class: Contains the physics environment, its bodies and its rules
-class Simulation {
+// World Class: Contains the physics environment, its bodies and its rules
+class World {
 public:
     
     // World Parameters
     Vector gravity;
 
-    // Bodies in World (Collections)
-    std::vector<Particle> particles;
+    // World Bodies
+    std::vector<Particle> particles; // Collection of Particles in World
 
     // Methods
-    Simulation() noexcept;
+    World() noexcept; // World Constructor
     void step(float dt) noexcept;
 };
