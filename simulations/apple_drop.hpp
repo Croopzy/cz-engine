@@ -1,6 +1,5 @@
 #include <iostream>
 #include "engine/physics/world.hpp"
-#include "engine/maths/constants.hpp"
 
 void runAppleDrop() {
 
