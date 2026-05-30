@@ -89,13 +89,42 @@ bool test_vector_magnitude() {
     // Dot Product (Special Cases)
     // Scalar Cross Product
     // Perpendicular Vector
+
+// TODO: Geometry Unit Tests
     // Relative Angle
     
+
+// Tests Structure
+struct TestCase {
+    const char* name;
+    bool (*fn)(); // Test Function Pointer
+};
+
 
 int main() {
 
     // Test Harness
-    // ...
+    std::vector<TestCase> tests = { // Array of Tests (To Run)
+        {"Unary Negation", test_unary_negation},
+        {"Addition Assignment", test_addition_assignment},
+        {"Subtraction Assignment", test_subtraction_assignment},
+        {"Scalar Multiplication Assignment", test_scalar_multiplication_assignment},
+        {"Scalar Division Assignment", test_scalar_division_assignment},
+        // ...
+        {"Vector Magnitude", test_vector_magnitude}
+    };
+    
+    // Loop (For Each Test)
+    int numPassed = 0
+    for (auto& test : tests) {
+        bool pass = test.fn(); // Run Test
+        if (pass) numPassed++; // Count Successful Tests
+        std::cout << test.name << ":"
+        << (pass ? "PASS" : "FAIL") << "\n"; // Output Status (Per Test)
+    
+    // Tests Summary
+    std::cout << "\n Passed: " << numPassed
+    << "\nFailed: " << (tests.size() - numPassed) << "\n";
 
     return 0;
 }
