@@ -94,10 +94,11 @@ struct TestCase {
 };
 
 
+// Test Harness
 int main() {
 
-    // Test Harness
-    std::vector<TestCase> tests = { // Array of Tests (To Run)
+    // Array of Test Cases (To Run)
+    std::vector<TestCase> tests = {
         {"Unary Negation", test_unary_negation},
         {"Addition Assignment", test_addition_assignment},
         {"Subtraction Assignment", test_subtraction_assignment},
