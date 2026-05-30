@@ -1,6 +1,6 @@
 #pragma once
-#include "maths/vector.hpp"
-#include "physics/particle.hpp"
+#include "engine/maths/vector.hpp"
+#include "engine/physics/particle.hpp"
 
 // World Class: Contains the physics environment, its bodies and its rules
 class World {
