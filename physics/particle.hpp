@@ -26,4 +26,23 @@ struct Particle {
             inverseMass = 1.0f / mass;
     }
 
+    // Apply New Force
+    inline void applyForce(const Vector& force) noexcept {
+        netForce += force;
+    }
+
+    // Clear All Forces
+    inline void clearForces() noexcept {
+        netForce = {0.0f, 0.0f};
+    }
+
+    // Integrate Particle Motion
+    inline void integrate(float dt) noexcept {
+    if (inverseMass == 0.0f) return; // Special Case: Infinite Mass
+    acceleration = netForce * inverseMass; // Compute Acceleration (From Overall Force)
+    // Semi-Implicit Euler
+    velocity += acceleration * dt; // Update Particle Velocity
+    position += velocity * dt; // Update Particle Position
+}
+
 };
