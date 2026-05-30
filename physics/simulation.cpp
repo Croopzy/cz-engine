@@ -19,6 +19,6 @@ void Simulation::step(float dt) noexcept {
         body.position += body.velocity * dt; // Unit: metres
 
         // Reset For Next Frame
-        body.netForce = Vector{0.0f, 0.0f};
+        body.clearForces();
     }
 }
