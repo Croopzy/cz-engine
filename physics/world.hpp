@@ -12,7 +12,18 @@ public:
     // World Bodies
     std::vector<Particle> particles; // Collection of Particles in World
 
-    // Methods
-    World() noexcept; // World Constructor
+    /// Methods ///
+
+    // World Constructor
+    World() noexcept;
+
+    // Step Function Declaration
     void step(float dt) noexcept;
+
+    // Create New Particle in World (Function)
+    inline Particle& addParticle(float mass) { 
+        particles.emplace_back(mass); // Constructs Particle Directly Inside Particles Vector
+        return particles.back(); // Returns Reference to New Particle
+    }
+
 };
