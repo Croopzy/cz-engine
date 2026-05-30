@@ -33,6 +33,8 @@ public:
     // World Bodies
     std::vector<Particle> particles; // Collection of Particles in World
 
+    // World Springs
+    std::vector<Spring> springs; // Collection of Particles in World
 
     /// Methods ///
 
