@@ -43,6 +43,6 @@ struct Particle {
     // Semi-Implicit Euler
     velocity += acceleration * dt; // Update Particle Velocity
     position += velocity * dt; // Update Particle Position
-}
+    }
 
 };
