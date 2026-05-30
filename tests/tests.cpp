@@ -66,13 +66,6 @@ bool test_basic_scalar_division() {
     return(result.x == 5.0f && result.y == 2.0f);
 }
 
-bool test_basic_scalar_division() {
-    Vector vecA(15.0f, 6.0f);
-    float numB(3.0f);
-    Vector result = vecA / numB;
-    return(result.x == 5.0f && result.y == 2.0f);
-}
-
 bool test_dot_product() {
     Vector vecA(3.0f, 4.0f);
     Vector vecB(2.0f, -1.0f);
@@ -110,8 +103,13 @@ int main() {
         {"Subtraction Assignment", test_subtraction_assignment},
         {"Scalar Multiplication Assignment", test_scalar_multiplication_assignment},
         {"Scalar Division Assignment", test_scalar_division_assignment},
+        {"Basic Addition", test_basic_addition},
+        {"Basic Subtraction", test_basic_subtraction},
+        {"Basic Scalar Multiplication", test_basic_scalar_multiplication},
+        {"Basic Scalar Division", test_basic_scalar_division},
+        {"Dot Product", test_dot_product},
+        {"Vector Magnitude", test_vector_magnitude} // TODO: Don't Forget Comma Here
         // ...
-        {"Vector Magnitude", test_vector_magnitude}
     };
     
     // Loop (For Each Test)
