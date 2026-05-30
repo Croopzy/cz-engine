@@ -1,4 +1,6 @@
 #pragma once
 
-constexpr float EPSILON = 1e-6f;
-constexpr float PI = 3.14159265358979323846f;
+namespace Constants { // avoids polluting global namespace
+    // Mathematical Constants (Dimensionless)
+    inline constexpr float EPSILON = 1e-6f; // near-zero threshold
+    inline constexpr float PI = 3.14159265358979323846f;
