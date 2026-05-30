@@ -44,7 +44,7 @@ void runAppleDrop() {
 
     // End of Simulation Message
     std::cout << "Simulation Concluded"
-    << "\n Time: " << endTime
+    << "\n Time: " << endTime << "s"
     << "\nFinal Velocity: " << apple.velocity << "m/s";
 
     if (!contact) {
