@@ -36,12 +36,14 @@ public:
     // Apply Spring Force
     void applySpringForce(const Spring& spring);
 
-
-    // New World Planes Collisions
+    // Plane Collider Structure
     struct PlaneCollider {
         Vector normal; // Normal Vector To The Plane
         float offset; // Distance From Origin To Plane Along Normal
         float restitution; // Elasticity (Perfectly Inelastic: 0.0, Perfectly Elastic: 1.0)
     };
+
+    // World Plane Colliders
+    std::vector<PlaneCollider> planes; // Collection of Planes in World
 
 };
