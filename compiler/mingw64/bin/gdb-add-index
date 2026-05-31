@@ -22,7 +22,7 @@ GDB=${GDB:=gdb}
 OBJCOPY=${OBJCOPY:=objcopy}
 READELF=${READELF:=readelf}
 
-PKGVERSION="(GDB) "
+PKGVERSION="(GDB for MinGW-W64 x86_64, built by Brecht Sanders, r2) "
 VERSION="17.2"
 
 myname="${0##*/}"
