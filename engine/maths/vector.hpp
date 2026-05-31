@@ -1,7 +1,7 @@
 #pragma once // -> Prevents Inclusion of Multiple Headers
 #include <cmath>
 #include <ostream>
-#include "engine/maths/constants.hpp"
+#include "constants.hpp"
 
 
 /// STRUCTURES ///

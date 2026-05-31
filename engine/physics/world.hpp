@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
-#include "engine/physics/particle.hpp"
-#include "engine/physics/spring.hpp"
+#include "particle.hpp"
+#include "spring.hpp"
 
 // World Class: Contains the physics environment, its bodies and its rules
 class World {

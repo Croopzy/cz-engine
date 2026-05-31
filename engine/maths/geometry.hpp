@@ -1,6 +1,6 @@
 #pragma once
 #include <cmath>
-#include "engine/maths/vector.hpp"
+#include "vector.hpp"
 
 // Unsigned Angle Between Two Vectors (Relative Angle, Unit: Radians): angle(vectorA, vectorB)
 inline float angle(const Vector& vecA, const Vector& vecB) {
