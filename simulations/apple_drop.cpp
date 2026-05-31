@@ -16,7 +16,7 @@ void runAppleDrop() {
 
     // Create Earth Simulation
     World earth;
-    std::cout << "World Simulation Created: Earth"
+    std::cout << "\n\nWorld Simulation Created: Earth"
     << "\n- World Gravity: " << earth.gravity.y << "ms^-2" << "\n\n";
 
     // Spawn Apple (Modelled As Particle)
