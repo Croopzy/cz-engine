@@ -20,7 +20,7 @@ void World::applySpringForce(const Spring& spring) {
     float extension = currentLength - spring.naturalLength;
     // Hooke's Law (Scalar Force Magnitude)
     float stiffnessForce = spring.stiffness * extension;
-    // Damping Along Spring Axis (Scalar Force Magnitude)
+    // Damping Along Spring Axis (Signed Scalar Force)
     Vector relativeVelocity = bodyB.velocity - bodyA.velocity;
     float dampingForce = spring.damping * dot(relativeVelocity, direction);
     // Total Spring Force Vector (A -> B)
