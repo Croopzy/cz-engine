@@ -9,19 +9,19 @@ void runAppleDrop() {
     std::cout << "World Simulation Created: Earth\n"
     << "Gravity: " << earth.gravity;
     
-    // Set Apple Initial Mass
+    // Input Apple Initial Mass
     float inMass;
     std::cout << "Enter Mass (kg): ";
     std::cin >> inMass;
 
-    // Set Apple Initial Height
+    // Input Apple Initial Height
     float inHeight;
     std::cout << "Enter Height: ";
     std::cin >> inHeight;
-    apple.position = {0.0f, inHeight};
 
     // Spawn Apple (Modelled As Particle)
-    Particle& apple = earth.addParticle(inMass); // Create Apple in Earth Simulation
+    Particle& apple = earth.addParticle(inMass); // Create Apple (Mass = inMass) in Earth Simulation
+    apple.position = {0.0f, inHeight}; // Set Apple Height
     std::cout << "Particle Model Created: Apple"
     << "\nMass: " << apple.mass << "kg"
     << "\Initial Height: " << apple.y << "kg";
