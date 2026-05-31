@@ -18,26 +18,26 @@ void World::applySpringForce(const Spring& spring) {
     Vector direction = normalise(delta); // normalise(delta) == delta / currentLength
     // (+ve extension = stretched), (-ve extension = compressed)
     float extension = currentLength - spring.naturalLength;
-    // Hooke's Law (Scalar)
+    // Hooke's Law (Scalar Force Magnitude)
     float stiffnessForce = spring.stiffness * extension;
-    // Damping (Scalar)
+    // Damping Along Spring Axis (Scalar Force Magnitude)
     Vector relativeVelocity = bodyB.velocity - bodyA.velocity;
     float dampingForce = spring.damping * dot(relativeVelocity, direction);
-    // Net Vector Force (A -> B)
+    // Total Spring Force Vector (A -> B)
     Vector springForce = direction * (stiffnessForce + dampingForce); // Vector * Sum of Scalars
-    // Apply Equivalent & Opposite Forces
+    // Apply Equal & Opposite Forces
     bodyA.applyForce(springForce);
     bodyB.applyForce(-springForce);
 }
 
 // Step Simulation
 void World::step(float dt) noexcept {
-    // Simulate Particles Under Gravity
+    // Clear Forces & Simulate Particles Under Gravity
     for (Particle& body : particles) {
         body.clearForces(); // Reset Forces For Next Frame
         body.applyForce(gravity * body.mass); // Apply World Gravity (W = m * g)
     }
-    // Simulate Spring Connections To Particles
+    // Simulate Spring Connections (With Pairs of Particles)
     for (const Spring& spring : springs) {
         applySpringForce(spring); // Apply Spring Constraints (F = -kx)
     }
