@@ -49,7 +49,7 @@ void runAppleDrop() {
     << "\n- Final Velocity: " << apple.velocity.y << "m/s";
 
     if (!contact) {
-        std::cout << "- Final Height: " << apple.position.y << "m" << "\n\n";
+        std::cout << "\n- Final Height: " << apple.position.y << "m" << "\n\n";
     }
 
 }
