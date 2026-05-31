@@ -8,27 +8,42 @@ World::World() noexcept // Uses Intitialiser List To Set World Parameters
 
 // Apply Spring Force
 void World::applySpringForce(const Spring& spring) {
+    // Refer To Both Particles By Index
     Particle& bodyA = particles[spring.particleA];
     Particle& bodyB = particles[spring.particleB];
-    Vector delta = bodyB.position - bodyA.position; // Oriented From B To A, Easier Since F = -kx
-    float currentLength = magnitude(deltA);
-    if (currentLength = 0.0f) return; // Avoids Division by Zero
+    // Vector From A -> B
+    Vector delta = bodyB.position - bodyA.position; // Oriented From A To B, F = -kx
+    float currentLength = magnitude(delta);
+    if (currentLength == 0.0f) return; // Avoids Division by Zero
     Vector direction = normalise(delta); // normalise(delta) == delta / currentLength
+    // (+ve extension = stretched), (-ve extension = compressed)
     float extension = currentLength - spring.naturalLength;
+    // Hooke's Law (Scalar)
     float stiffnessForce = spring.stiffness * extension;
+    // Damping (Scalar)
     Vector relativeVelocity = bodyB.velocity - bodyA.velocity;
     float dampingForce = spring.damping * dot(relativeVelocity, direction);
-    Vector springForce = direction * (stiffnessForce + dampingForce);
-    bodyA.netForce += springForce;
-    bodyB.netForce -= springForce;
+    // Net Vector Force (A -> B)
+    Vector springForce = direction * (stiffnessForce + dampingForce); // Vector * Sum of Scalars
+    // Apply Equivalent & Opposite Forces
+    bodyA.applyForce(springForce);
+    bodyB.applyForce(-springForce);
 }
 
 // Step Simulation
 void World::step(float dt) noexcept {
-    // Simulate Motion of Particles
+    // Simulate Particles Under Gravity
     for (Particle& body : particles) {
+        body.clearForces(); // Reset Forces For Next Frame
         body.applyForce(gravity * body.mass); // Apply World Gravity (W = m * g)
-        body.integrate(); // Integrate Particle Motion
-        body.clearForces(); // Reset For Next Frame
     }
+    // Simulate Spring Connections To Particles
+    for (Spring& spring : springs) {
+        spring.applySpringForce; // Apply Spring Constraints (F = -kx)
+    }
+    
+    for (Particle& body : particles) {
+        body.integrate(); // Integrate Particle Motion
+    }
+    
 }
