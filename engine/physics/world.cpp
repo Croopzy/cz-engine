@@ -12,7 +12,7 @@ void World::applySpringForce(const Spring& spring) {
     Particle& bodyA = particles[spring.particleA];
     Particle& bodyB = particles[spring.particleB];
     // Vector From A -> B
-    Vector delta = bodyB.position - bodyA.position; // Oriented From A To B, F = -kx
+    Vector delta = bodyB.position - bodyA.position;
     float currentLength = magnitude(delta);
     if (currentLength == 0.0f) return; // Avoids Division by Zero
     Vector direction = normalise(delta); // normalise(delta) == delta / currentLength
@@ -39,11 +39,11 @@ void World::step(float dt) noexcept {
     }
     // Simulate Spring Connections To Particles
     for (Spring& spring : springs) {
-        spring.applySpringForce; // Apply Spring Constraints (F = -kx)
+        applySpringForce(spring); // Apply Spring Constraints (F = -kx)
     }
     
     for (Particle& body : particles) {
-        body.integrate(); // Integrate Particle Motion
+        body.integrate(dt); // Integrate Particle Motion
     }
     
 }
