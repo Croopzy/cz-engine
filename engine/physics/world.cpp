@@ -18,13 +18,16 @@ void World::applySpringForce(const Spring& spring) {
     Vector direction = normalise(delta); // normalise(delta) == delta / currentLength
     // (+ve extension = stretched), (-ve extension = compressed)
     float extension = currentLength - spring.naturalLength;
-    // Hooke's Law (Scalar Force Magnitude)
-    float stiffnessForce = spring.stiffness * extension;
-    // Damping Along Spring Axis (Signed Scalar Force)
-    Vector relativeVelocity = bodyB.velocity - bodyA.velocity;
-    float dampingForce = spring.damping * dot(relativeVelocity, direction);
+    // Hooke's Law: F = -k * x * d
+    Vector stiffnessForce = -spring.stiffness * extension * direction;
+    // Relative Velocity
+    Vector relativeVelocity = bodyB.velocity - bodyA.velocity; // Velocity of B Relative to Velocity of A
+    // Component of Relative Velocity Along Spring Axis (Signed Scalar)
+    float vParallel = dot(relativeVelocity, direction); // This changes the extension because its direction is parallel to the spring
+    // Damping Force: F = -k * v_p * d
+    Vector dampingForce = -spring.damping * dot(relativeVelocity, direction) * direction;
     // Total Spring Force Vector (A -> B)
-    Vector springForce = direction * (stiffnessForce + dampingForce); // Vector * Sum of Scalars
+    Vector springForce = stiffnessForce + dampingForce;
     // Apply Equal & Opposite Forces
     bodyA.applyForce(springForce); // A Pulled Towards B
     bodyB.applyForce(-springForce); // B Pulled Towards A
