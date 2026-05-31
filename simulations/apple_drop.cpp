@@ -7,7 +7,7 @@ void runAppleDrop() {
     // Create Earth Simulation
     World earth;
     std::cout << "World Simulation Created: Earth\n"
-    << "Gravity: " << earth.gravity;
+    << "Gravity: " << earth.gravity << "\n";
     
     // Input Apple Initial Mass
     float inMass;
@@ -24,7 +24,7 @@ void runAppleDrop() {
     apple.position = {0.0f, inHeight}; // Set Apple Height
     std::cout << "Particle Model Created: Apple"
     << "\nMass: " << apple.mass << "kg"
-    << "\Initial Height: " << apple.y << "kg";
+    << "\nInitial Height: " << apple.position.y << "kg";
 
     // Simulation Loop
     const int steps = 625; // 10 Seconds
@@ -33,13 +33,13 @@ void runAppleDrop() {
     for (int i = 0; i < steps; ++i) {
         earth.step(0.016f); // Simulate Earth, dt = 0.016s
         // Ground Contact
-        if (apple.y <= MathsConstants::EPSILON) {
-            bool contact = true;
+        if (apple.position.y <= MathsConstants::EPSILON) {
+            contact = true;
             endTime = i;
             std::cout << "GROUND REACHED"
             << "\nTime: " << i << "s"
-            << "\Velocity: " << apple.velocity << "m/s";
-            break // Prevents Output Repetition
+            << "\nVelocity: " << apple.velocity << "m/s";
+            break; // Prevents Output Repetition
         }
     }
 
@@ -49,8 +49,7 @@ void runAppleDrop() {
     << "\nFinal Velocity: " << apple.velocity << "m/s";
 
     if (!contact) {
-        std::cout << "\nFinal Height: " << apple.y << "m";
+        std::cout << "\nFinal Height: " << apple.position.y << "m";
     }
 
-	return 0;
 }

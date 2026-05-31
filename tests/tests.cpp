@@ -41,14 +41,14 @@ bool test_scalar_division_assignment() {
 bool test_basic_addition() {
     Vector vecA(3.0f, 4.0f);
     Vector vecB(7.0f, 1.0f);
-    Vector result = vecA + vecB
+    Vector result = vecA + vecB;
     return(result.x == 10.0f && result.y == 5.0f);
 }
 
 bool test_basic_subtraction() {
     Vector vecA(10.0f, 5.0f);
     Vector vecB(7.0f, 1.0f);
-    Vector result = vecA + vecB
+    Vector result = vecA + vecB;
     return(result.x == 3.0f && result.y == 4.0f);
 }
 
@@ -69,14 +69,15 @@ bool test_basic_scalar_division() {
 bool test_dot_product() {
     Vector vecA(3.0f, 4.0f);
     Vector vecB(2.0f, -1.0f);
-    float result = dot(vecA, vecB)
+    float result = dot(vecA, vecB);
     return result == 2.0f; // Expected: (3 * 2) + (4 * -1) = 6 - 4 = 2
 }
 
 bool test_vector_magnitude() {
     Vector vecA(3.0f, 4.0f);
-    Vector result = magnitude(vecA)
+    float result = magnitude(vecA);
     return result == 5.0f;
+}
 
 // TODO: Additional Unit Tests (Multiple Cases) 
     // Dot Product (Special Cases)
@@ -114,16 +115,17 @@ int main() {
     };
     
     // Loop (For Each Test)
-    int numPassed = 0
+    int numPassed = 0;
     for (auto& test : tests) {
         bool pass = test.fn(); // Run Test
         if (pass) numPassed++; // Count Successful Tests
         std::cout << test.name << ":"
         << (pass ? "PASS" : "FAIL") << "\n"; // Output Status (Per Test)
+    }
     
     // Tests Summary
     std::cout << "\n Passed: " << numPassed
     << "\nFailed: " << (tests.size() - numPassed) << "\n";
 
     return 0;
-}
+};

@@ -13,37 +13,37 @@ struct Vector {
 	// Vector Methods //
 
 	// Constructor
-	Vector(float inX = 0.0f, float inY = 0.0f) noexcept: // Initialise Vector = (0, 0)
+	constexpr Vector(float inX = 0.0f, float inY = 0.0f) noexcept: // Initialise Vector = (0, 0)
 		x(inX), y(inY) {}
 		
 	// Unary Negation (Vector Negation): -vector
-	[[nodiscard]] inline Vector operator-() const noexcept {
+	[[nodiscard]] inline constexpr Vector operator-() const noexcept {
 	 return { -x, -y };
 	}
 	
 	// Addition Assignment: vectorA += vectorB
-	inline Vector operator+=(const Vector& vecB) noexcept {
+	inline constexpr Vector operator+=(const Vector& vecB) noexcept {
 		x += vecB.x;
 		y += vecB.y;
 	 return *this;
 	}
 	
 	// Subtraction Assignment: vectorA -= vectorB
-	inline Vector operator-=(const Vector& vecB) noexcept {
+	inline constexpr Vector operator-=(const Vector& vecB) noexcept {
 		x -= vecB.x;
 		y -= vecB.y;
 	 return *this;
 	}
 	
 	// Scalar Multiplication Assignment: vector *= scalar
-	inline Vector operator*=(float numB) noexcept {
+	inline constexpr Vector operator*=(float numB) noexcept {
 		x *= numB;
 		y *= numB;
 	 return *this;
 	}
 	
 	// Scalar Divsion Assignment: vector /= scalar
-	inline Vector operator/=(float numB) noexcept {
+	inline constexpr Vector operator/=(float numB) noexcept {
 		if (std::fabs(numB) <= MathsConstants::EPSILON) return *this;
 		x /= numB;
 		y /= numB;
@@ -55,27 +55,27 @@ struct Vector {
 /// OPERATIONS ///
 
 // Vector Addition: vectorA + vectorB
-[[nodiscard]] inline  Vector operator+(const Vector& vecA, const Vector& vecB) noexcept {
+[[nodiscard]] inline Vector operator+(const Vector& vecA, const Vector& vecB) noexcept {
 	return { (vecA.x + vecB.x), (vecA.y + vecB.y) };
 }
 
 // Vector Subtraction: vectorA - vectorB
-[[nodiscard]] inline  Vector operator-(const Vector& vecA, const Vector& vecB) noexcept {
+[[nodiscard]] inline constexpr Vector operator-(const Vector& vecA, const Vector& vecB) noexcept {
 	return { (vecA.x - vecB.x), (vecA.y - vecB.y) };
 }
 
 // Scalar Multiplication: vector * scalar
-[[nodiscard]] inline  Vector operator*(const Vector& vecA, float numB) noexcept {
+[[nodiscard]] inline constexpr Vector operator*(const Vector& vecA, float numB) noexcept {
 	return { (vecA.x * numB), (vecA.y * numB) };
 }
 
 // Scalar Multiplication: scalar * vector
-[[nodiscard]] inline Vector operator*(float numB, const Vector& vecA) noexcept {
+[[nodiscard]] inline constexpr Vector operator*(float numB, const Vector& vecA) noexcept {
     return vecA * numB;
 }
 
 // Scalar Division: vector / scalar
-[[nodiscard]] inline Vector operator/(const Vector& vecA, float numB) noexcept {
+[[nodiscard]] inline constexpr Vector operator/(const Vector& vecA, float numB) noexcept {
     return { vecA.x / numB, vecA.y / numB }; // Does Not Account For Division Singularity
 }
 
@@ -85,7 +85,7 @@ struct Vector {
 }
 
 // Scalar Magnitude: magnitude(vector)
-[[nodiscard]] inline float magnitude(const Vector& vecA) noexcept {
+[[nodiscard]] inline constexpr float magnitude(const Vector& vecA) noexcept {
 	return std::sqrt(dot(vecA, vecA)); // Dependency: Dot Product
 }
 
@@ -104,11 +104,11 @@ struct Vector {
 }
 
 // Perpendicular Vector (90° Rotation): perpendicular(vector)
-[[nodiscard]] inline Vector perpendicular(const Vector& vecA) noexcept {
+[[nodiscard]] inline constexpr Vector perpendicular(const Vector& vecA) noexcept {
     return { -vecA.y, vecA.x };
 }
 
 // Vector Output
-inline std::ostream& operator<<(std::ostream & os, const Vector & vecA) {
+inline std::ostream& operator<<(std::ostream & os, const Vector & vecA) { // Operator Overload (<<)
 	return os << "(" << vecA.x << ", " << vecA.y << ")";
 }

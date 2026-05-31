@@ -1,9 +1,9 @@
-winlibs personal build version gcc-16.1.0-mingw-w64msvcrt-14.0.0-r2
+winlibs personal build version gcc-16.1.0-mingw-w64ucrt-14.0.0-r2
 
 This is the winlibs Intel/AMD 64-bit standalone build of:
 - GCC 16.1.0
 - GDB 17.2
-- MinGW-w64 14.0.0 (linked with msvcrt)
+- MinGW-w64 14.0.0 (linked with ucrt)
 - GNU Binutils 2.46.0.20260210
 - GNU Make 4.4.1
 - dos2unix 7.5.5
@@ -24,7 +24,7 @@ This is the winlibs Intel/AMD 64-bit standalone build of:
 - winlibs-tools 1.0.24
 
 Thread model: posix
-Runtime library: MSVCRT
+Runtime library: UCRT (Windows 10 or higher, or when [Update for Universal C Runtime](https://support.microsoft.com/en-us/topic/update-for-universal-c-runtime-in-windows-322bf30f-4735-bb94-3949-49f5c49f4732) is installed on older Windows versions, not supported on systems older than Windows 7 SP1 and Windows Server 2008 R2 SP1)
 
 This build was compiled with GCC 16.1.0 and packaged on 2026-05-16.
 

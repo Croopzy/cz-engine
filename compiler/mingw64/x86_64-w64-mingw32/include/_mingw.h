@@ -233,7 +233,7 @@ limitations in handling dllimport attribute.  */
 # elif defined(_UCRT)
 #  define __MSVCRT_VERSION__ 0xE00
 # else
-#  define __MSVCRT_VERSION__ 0x600
+#  define __MSVCRT_VERSION__ 0xE00
 # endif
 #endif
 

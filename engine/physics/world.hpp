@@ -30,7 +30,7 @@ public:
 
     // New World Spring
     inline void addSpring(int particleA, int particleB, float naturalLength, float stiffness, float damping) {
-        springs.emplace_back(particleA, particleB, naturalLength, stiffness, damping) // Constructor
+        springs.emplace_back(particleA, particleB, naturalLength, stiffness, damping); // Constructor
     }
 
     // Apply Spring Force
