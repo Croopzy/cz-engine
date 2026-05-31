@@ -38,7 +38,7 @@ void World::step(float dt) noexcept {
         body.applyForce(gravity * body.mass); // Apply World Gravity (W = m * g)
     }
     // Simulate Spring Connections To Particles
-    for (Spring& spring : springs) {
+    for (const Spring& spring : springs) {
         applySpringForce(spring); // Apply Spring Constraints (F = -kx)
     }
     
