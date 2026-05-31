@@ -26,8 +26,8 @@ void World::applySpringForce(const Spring& spring) {
     // Total Spring Force Vector (A -> B)
     Vector springForce = direction * (stiffnessForce + dampingForce); // Vector * Sum of Scalars
     // Apply Equal & Opposite Forces
-    bodyA.applyForce(springForce);
-    bodyB.applyForce(-springForce);
+    bodyA.applyForce(springForce); // A Pulled Towards B
+    bodyB.applyForce(-springForce); // B Pulled Towards A
 }
 
 // Step Simulation
