@@ -1,4 +1,4 @@
-/* Generated automatically by the program 'C:\Prog\winlibs_staging_ucrt\home64\gcc-16.1.0\build_mingw\gcc\build\genpreds.exe'
+/* Generated automatically by the program 'C:\Prog\winlibs_staging_msvcrt\home64\gcc-16.1.0\build_mingw\gcc\build\genpreds.exe'
    from the machine description file '../../gcc/config/i386/i386.md'.  */
 
 #ifndef GCC_TM_PREDS_H

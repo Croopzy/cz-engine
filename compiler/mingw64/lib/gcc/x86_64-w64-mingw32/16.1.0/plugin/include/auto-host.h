@@ -2504,7 +2504,7 @@
 
 /* Define to PREFIX/include if cpp should also search that directory. */
 #ifndef USED_FOR_TARGET
-#define PREFIX_INCLUDE_DIR "/c/Prog/winlibs_staging_ucrt/home64/inst_gcc-16.1.0/share/gcc/include"
+#define PREFIX_INCLUDE_DIR "/c/Prog/winlibs_staging_msvcrt/home64/inst_gcc-16.1.0/share/gcc/include"
 #endif
 
 
