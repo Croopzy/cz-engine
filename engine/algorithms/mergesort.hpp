@@ -13,8 +13,10 @@ void merge(std::vector<T>& arrIn, int low, int mid, int high) {
 	// Merging Arrays
 	while (pos1 < len1 && pos2 < (high + 1)) { // While Not At End of List
 		if (arr1[pos1] < arrIn[pos2]) { // Current Buffer Array Element < Current Second Array Element
-			arrIn[posM] = arr1[pos1]; // Write Buffer Element To Merged Array
-			pos1++;
+			arrIn[posM] = arr1[pos1]; // Write Current Buffer Element To Merged Array
+			pos1++; // Next Item in Buffer Array
+		} else {
+					arrIn[posM] = arrIn[pos2] // Write Current Element From Second Array To Merged Array
 		}
 	}
 }
