@@ -6,7 +6,8 @@ T merge(std::vector<T>& arrIn, int low, int mid, int high) {
     int pos2 = mid + 1 // Position In Second Arrsy (Second Half of arrIn)
     int posM = low // Merge Position
     
-    std::vector<T> arr1 = arrIn // Buffer Array (arrIn between low and (mid + 1))
+	// Create Buffer Array (Slice arrIn Between low and middle
+    std::vector<T> arr1((arrIn.begin() + low), (arrIn.begin() + mid + 1)); // Starts Inclusive, Ends Exclusive (Hence mid -> (mid + 1))
 
     return arrIn
 }
