@@ -17,7 +17,9 @@ void merge(std::vector<T>& arrIn, int low, int mid, int high) {
 			pos1++; // Next Item in Buffer Array
 		} else {
 					arrIn[posM] = arrIn[pos2] // Write Current Element From Second Array To Merged Array
+					pos2++ // Next Item in Second Array
 		}
+		posM++ // Always Increment Merged Array
 	}
 }
 
