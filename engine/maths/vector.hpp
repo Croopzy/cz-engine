@@ -1,4 +1,4 @@
-#pragma once // -> Prevents Inclusion of Multiple Headers
+#pragma once // Prevents Inclusion of Multiple Headers
 #include <cmath>
 #include <ostream>
 #include "constants.hpp"
