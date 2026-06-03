@@ -1,9 +1,8 @@
 #pragma once
-
-template<typename T> // Templates Are Inline By Definition
-
+#include <vector>
 
 // Merge Algorithm
+template<typename T> // Templates Are Inline By Definition
 void merge(std::vector<T>& arrIn, int low, int mid, int high) {
 	int pos1 = 0; // Position in Buffer Array (First Half of arrIn)
     int pos2 = mid + 1; // Position In Second Half of arrIn
@@ -40,6 +39,7 @@ void merge(std::vector<T>& arrIn, int low, int mid, int high) {
 
 
 // Full Merge Sort Algorithm
+template<typename T>
 void mergeSort(std::vector<T>& arrIn, int low, int high) {
 	if (low < high){
 		int mid = (low + high) / 2;
