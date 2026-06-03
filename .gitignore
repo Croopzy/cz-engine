@@ -39,3 +39,7 @@
 
 # Debug Information Files
 *.dwo
+
+# Local Files
+.vscode/
+compiler/
