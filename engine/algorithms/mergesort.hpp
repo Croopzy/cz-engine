@@ -10,7 +10,7 @@ void merge(std::vector<T>& arrIn, int low, int mid, int high) {
     
 	// Create Buffer Array (Slice arrIn From low To middle)
     std::vector<T> arr1((arrIn.begin() + low), (arrIn.begin() + mid + 1)); // Starts Inclusive, Ends Exclusive (Hence mid -> (mid + 1))
-	int len1 = mid + 1 - low; // Number of Items in Buffer Array
+	int len1 = arr1.size(); // Number of Items in Buffer Array
 
 	// Merging Arrays
 	while (pos1 < len1 && pos2 <= high) { // While Not At End of Either List
