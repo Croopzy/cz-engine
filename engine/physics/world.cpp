@@ -50,7 +50,7 @@ void World::step(float dt) noexcept {
         body.integrate(dt);
     }
 
-    // Resolve Collisions
+    // Resolve Collisions (Between Particles and Plane Colliders)
     for (Particle& body : particles) {
         for (PlaneCollider& plane : planes) {
             float distance = dot(plane.normal, body.position) - plane.offset; // Signed Shortest Distance Between Body and Plane (Along Plane's Normal Axis)

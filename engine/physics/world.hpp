@@ -49,4 +49,9 @@ public:
     // World Plane Colliders
     std::vector<PlaneCollider> planes; // Collection of Planes in World
 
+    // New World Plane Collider
+    inline void addPlane(const Vector& vecN, float planeConstant, float elasticity) { 
+        planes.emplace_back(vecN, planeConstant, elasticity); // Constructor
+    }
+
 };
