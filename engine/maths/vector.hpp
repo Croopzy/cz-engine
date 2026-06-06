@@ -108,6 +108,11 @@ struct Vector {
     return { -vecA.y, vecA.x };
 }
 
+// Zero Vector Check: isZero(vector)
+[[nodiscard]] constexpr bool isZero(const Vector& vecA, float epsilon = MathsConstants::EPSILON) noexcept{
+	return ((vecA.x * vecA.x) + (vecA.y + vecA.y)) < (epsilon * epsilon); // Magnitude^2 < Epsilon^2 (No Use of sqrt: More Stabilise & Efficient)
+}
+
 // Vector Output
 inline std::ostream& operator<<(std::ostream & os, const Vector & vecA) { // Operator Overload (<<)
 	return os << "(" << vecA.x << ", " << vecA.y << ")";

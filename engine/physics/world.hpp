@@ -42,15 +42,17 @@ public:
         float offset; // Shortest Perpendicular Distance From Origin To Plane (Along Normal)
         float restitution; // Elasticity (Perfectly Inelastic: 0.0, Perfectly Elastic: 1.0)
 
-        PlaneCollider(const Vector& vecN, float planeConstant, float elasticity = 0.3f) noexcept
-        : normal(normalise(vecN)), offset(planeConstant), restitution(elasticity) {}
+        PlaneCollider(const Vector& vecN = {0.0f, 1.0f}, float planeConstant = 0, float elasticity = 0.3f) noexcept
+        : normal(isZero(vecN) ? Vector(0.0f, 1.0f) : normalise(vecN)),
+        offset(planeConstant),
+        restitution(elasticity) {}
     };
 
     // World Plane Colliders
     std::vector<PlaneCollider> planes; // Collection of Planes in World
 
     // New World Plane Collider
-    inline void addPlane(const Vector& vecN, float planeConstant, float elasticity) { 
+    inline void addPlane(const Vector& vecN = {0.0f, 1.0f}, float planeConstant = 0, float elasticity = 0.3f) { 
         planes.emplace_back(vecN, planeConstant, elasticity); // Constructor
     }
 
