@@ -38,9 +38,12 @@ public:
 
     // Plane Collider Structure
     struct PlaneCollider {
-        Vector normal; // Normal Vector To The Plane
-        float offset; // Distance From Origin To Plane Along Normal
+        Vector normal; // Normal Vector To The Plane (Unit Vector)
+        float offset; // Shortest Perpendicular Distance From Origin To Plane (Along Normal)
         float restitution; // Elasticity (Perfectly Inelastic: 0.0, Perfectly Elastic: 1.0)
+
+        PlaneCollider(const Vector& vecN, float planeConstant, float elasticity = 0.3f) noexcept
+        : normal(normalise(vecN)), offset(planeConstant), restitution(elasticity) {}
     };
 
     // World Plane Colliders

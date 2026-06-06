@@ -35,7 +35,7 @@ void merge(std::vector<T>& arrIn, int low, int mid, int high) {
     	pos2++; // Next Item in Second Half
     	posM++; // Increment Position in Merged Array
 	}
-}
+};
 
 
 // Full Merge Sort Algorithm
