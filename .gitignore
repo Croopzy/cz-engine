@@ -43,3 +43,4 @@
 # Local Files
 .vscode/
 compiler/
+build/
