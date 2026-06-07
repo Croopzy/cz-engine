@@ -44,6 +44,11 @@ void World::step(float dt) noexcept {
     for (const Spring& spring : springs) {
         applySpringForce(spring); // Apply Spring Constraints (F = -kx)
     }
+        
+    // Integrate Particle Motion
+    for (Particle& body : particles) {
+        body.integrate(dt);
+    }
 
     // Resolve Collisions (Between Particles and Plane Colliders)
     for (Particle& body : particles) {
@@ -52,6 +57,9 @@ void World::step(float dt) noexcept {
             // Event: Body Penetrates Plane
             if (distance <= 0.0f) {
                 float vNormal = dot(body.velocity, plane.normal); // Scalar Magnitude of (Component of) Body Velocity Acting Along Normal
+                // Position Correction
+                float constraintViolation = -distance; // (Penetration Depth = -distance)
+                body.position += plane.normal * constraintViolation; // Teleport Body Out of Plane
                 // Only Bounce IF Body Moving Into Plane
                 if (vNormal < -PhysicsConstants::GROUND_EPSILON){ // Negative (Downward) Velocity Check
                     float bounceFactor = 1.0f + plane.restitution; // Scalar Proportion of Velocity: Current Kinetic Energy + Bounce Energy
@@ -60,18 +68,10 @@ void World::step(float dt) noexcept {
                 } else { // Remove Small Normal Velocity When In Resting Contact
                     body.velocity -= (plane.normal * vNormal);
                 }
-                // Position Correction
-                float constraintViolation = -distance; // (Penetration Depth = -distance)
-                body.position += plane.normal * constraintViolation; // Teleport Body Out of Plane
 
             }
 
         }
-    }
-        
-    // Integrate Particle Motion
-    for (Particle& body : particles) {
-        body.integrate(dt);
     }
     
 }
