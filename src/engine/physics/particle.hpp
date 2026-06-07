@@ -1,5 +1,5 @@
 #pragma once
-#include "engine/maths/vector.hpp"
+#include "engine/maths/Vector.hpp"
 
 // STRUCTURES //
 

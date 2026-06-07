@@ -1,0 +1,25 @@
+#include "Application.hpp"
+
+Application::Application()
+    : window("Cryoze Engine", 1200, 720),
+    renderer(window)
+{}
+
+void Application::run() {
+    bool active = true;
+    SDL_Event event;
+
+    while (active) {
+        while (SDL_PollEvent(&event)) {
+            if (event.type == SDL_EVENT_QUIT) active = false;
+        }
+
+        renderer.clear();
+
+        // TEST DRAWING
+        renderer.drawLine(0, 50, 100, 50, SDL_Color{255, 255, 255, 255}); // Draw White Line Along y = 100px
+        renderer.drawPoint(50, 100, SDL_Color{255, 0, 0, 255}); // Draw Red Point At (50, 100)px in Cartesian Plane (x, y)
+
+        renderer.present();
+    }
+}

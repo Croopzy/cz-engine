@@ -1,5 +1,5 @@
 #include "constants.hpp" // namespace PhysicsConstants
-#include "world.hpp"
+#include "World.hpp"
 
 // Constructor
 World::World() noexcept // Uses Intitialiser List To Set World Parameters
