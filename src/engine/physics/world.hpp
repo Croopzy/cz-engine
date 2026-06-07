@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include "constants.hpp" // namespace PhysicsConstants
 #include "Particle.hpp"
 #include "Spring.hpp"
 
@@ -7,34 +8,16 @@
 class World {
 public:
 
-    // World Constructor
-    World() noexcept;
-
     // Step Function Declaration
     void step(float dt) noexcept;
 
-    // World Parameters
-    Vector gravity;
+    // World Constructor
+    World(const std::string& inName = "Earth", // Default World: Earth
+    const Vector& inGravity = PhysicsConstants::GRAVITY_EARTH) noexcept;
 
-    // World Particles
-    std::vector<Particle> particles; // Collection of Particles in World
+    // Output World Information
+    void printInfo(const bool listParticles = false) noexcept;
 
-    // New World Particle
-    inline Particle& addParticle(float mass) { 
-        particles.emplace_back(mass); // Constructs Particle Directly Inside Particles Vector
-        return particles.back(); // Returns Reference to New Particle
-    }
-
-    // World Springs
-    std::vector<Spring> springs; // Collection of Springs in World
-
-    // New World Spring
-    inline void addSpring(int particleA, int particleB, float naturalLength, float stiffness, float damping) {
-        springs.emplace_back(particleA, particleB, naturalLength, stiffness, damping); // Constructor
-    }
-
-    // Apply Spring Force
-    void applySpringForce(const Spring& spring);
 
     // Plane Collider Structure
     struct PlaneCollider {
@@ -48,12 +31,38 @@ public:
         restitution(elasticity) {}
     };
 
+    // World Name
+    std::string name;
+
+    // World Parameters
+    Vector gravity;
+
     // World Plane Colliders
     std::vector<PlaneCollider> planes; // Collection of Planes in World
+
+    // World Particles
+    std::vector<Particle> particles; // Collection of Particles in World
+
+    // World Springs
+    std::vector<Spring> springs; // Collection of Springs in World
 
     // New World Plane Collider
     inline void addPlane(const Vector& vecN = {0.0f, 1.0f}, float planeConstant = 0, float elasticity = 0.3f) { 
         planes.emplace_back(vecN, planeConstant, elasticity); // Constructor
     }
+
+    // New World Particle
+    inline Particle& addParticle(float mass) { 
+        particles.emplace_back(mass); // Constructs Particle Directly Inside Particles Vector
+        return particles.back(); // Returns Reference to New Particle
+    }
+
+    // New World Spring
+    inline void addSpring(int particleA, int particleB, float naturalLength, float stiffness, float damping) {
+        springs.emplace_back(particleA, particleB, naturalLength, stiffness, damping); // Constructor
+    }
+
+    // Apply Spring Force
+    void applySpringForce(const Spring& spring);
 
 };

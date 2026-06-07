@@ -7,8 +7,6 @@
 #include <thread>
 
 int main() {
-    SDL_Init(SDL_INIT_VIDEO);
-    Application app;
 
     std::vector<int> arr1 = {1, 4, 5, 2, 3};
     mergeSort(arr1, 0, 4, true);
@@ -19,7 +17,10 @@ int main() {
 
     runAppleDrop();
 
+    SDL_Init(SDL_INIT_VIDEO);
+    Application app;
     app.run();
     SDL_Quit();
+
 	return 0;
 }

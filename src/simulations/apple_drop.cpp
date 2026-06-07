@@ -18,8 +18,8 @@ void runAppleDrop() {
 
     // Create Earth Simulation
     World earth;
-    std::cout << "\n\nWorld Simulation Created: Earth"
-    << "\n- World Gravity: " << earth.gravity.y << "ms^-2" << "\n\n";
+    std::cout << "\n\nWorld Simulation Created: " << earth.name << "\n"
+    << "Gravity: " << earth.gravity.y << "ms^-2\n";
 
     // Spawn Apple (Modelled As Particle)
     Particle& apple = earth.addParticle(inMass); // Create Apple (Mass = inMass) in Earth Simulation
@@ -29,7 +29,11 @@ void runAppleDrop() {
     << "\n- Apple Initial Height: " << apple.position.y << "m" << "\n\n";
 
     // Add Earth Surface (Ground Plane Collider)
-    earth.addPlane(); // Uses Default Parameters -- DISABLED, NOT YET FUNCTIONAL
+    earth.addPlane(); // Uses Default Plane Parameters
+
+    // Display World Information
+    std::cout << "Simulation Construction Successful";
+    earth.printInfo(true);
 
     // Simulation Loop
     const int steps = 625; // 10 Seconds
@@ -39,27 +43,27 @@ void runAppleDrop() {
         auto start = std::chrono::high_resolution_clock::now();
         earth.step(0.016f); // Simulate Earth, dt = 0.016s
         if (i % 125 == 0) { // Every Two Seconds
-            std::cout << "\nCurrent Time: " << (i * dt) << "s" <<
+            std::cout << "\n\nCurrent Time: " << (i * dt) << "s" <<
             "\nCurrent Velocity: " << apple.velocity.y << "m/s" <<
-            "\nCurrent Height: " << apple.position.y << "m" << "\n\n";
+            "\nCurrent Height: " << apple.position.y << "m" << "\n";
         }
         std::this_thread::sleep_until(start + std::chrono::milliseconds(16));
         // Ground Contact
         if (contact == false && apple.position.y <= 0.0f) {
             contact = true;
-            std::cout << "\nGROUND REACHED"
+            std::cout << "\n\nGROUND REACHED"
             << "\n- Time: " << (i * dt) << "s" // stepCount * dt = Time
-            << "\n- Velocity: " << apple.velocity.y << "m/s" << "\n\n";
+            << "\n- Velocity: " << apple.velocity.y << "m/s" << "\n";
         }
     }
 
     // End of Simulation Message
-    std::cout << "\nSimulation Concluded"
+    std::cout << "\n\nSimulation Concluded"
     << "\n- Time: " << (steps * dt) << "s"
     << "\n- Final Velocity: " << apple.velocity.y << "m/s";
 
     if (!contact) {
         std::cout << "\n- Final Height: " << apple.position.y << "m" << "\n\n";
-    }
+    } else std::cout << "\n\n";
 
 }

@@ -4,6 +4,8 @@
 // STRUCTURES //
 
 struct Particle {
+    std::string name; // Printable Name of Particle
+
     Vector position; // Current Position (Unit: metres, m)
     Vector velocity; // Current Velocity (Unit: ms^-1)
     Vector acceleration; // Acceleration = netForce * inverseMass (Unit: ms^-2)
@@ -13,11 +15,12 @@ struct Particle {
 
     Vector netForce; // Resultant Force (Unit: Newtons)
 
-    Particle(float inMass = 1.0f):
+    Particle(float inMass = 1.0f, std::string inName = "DefaultParticle"):
+        name(inName),
+        mass(inMass),
         position(0,0),
         velocity(0,0),
         acceleration(0,0),
-        mass(inMass),
         netForce(0,0)
     {
         if (mass == 0.0f) // Infinite Mass

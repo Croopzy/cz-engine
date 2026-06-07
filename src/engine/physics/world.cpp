@@ -1,10 +1,23 @@
-#include "constants.hpp" // namespace PhysicsConstants
+#include <iostream>
 #include "World.hpp"
 
 // Constructor
-World::World() noexcept // Uses Intitialiser List To Set World Parameters
-    : gravity(PhysicsConstants::GRAVITY_EARTH) // Default Gravity: Earth
+World::World(const std::string& inName, const Vector& inGravity) noexcept // Uses Intitialiser List To Set World Parameters
+    : name(inName),
+    gravity(inGravity)
 {}
+
+void World::printInfo(const bool listParticles) noexcept {
+    std::cout << "\nWorld: " << World::name << " {"
+    << "\n- Gravity = " << World::gravity.y << "ms^-2";
+    if (listParticles) {
+        std::cout << "\n- Particles: ";
+        for (Particle& body : particles) {
+            std::cout << body.name << " (" << "Mass = " << body.mass << "kg, " << "Position = " << body.position << " ";
+        }
+    }
+    std::cout << "}\n";
+}
 
 // Apply Spring Force
 void World::applySpringForce(const Spring& spring) {
