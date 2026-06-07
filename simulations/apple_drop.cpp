@@ -29,7 +29,7 @@ void runAppleDrop() {
     << "\n- Apple Initial Height: " << apple.position.y << "m" << "\n\n";
 
     // Add Earth Surface (Ground Plane Collider)
-    // earth.addPlane(); // Uses Default Parameters -- DISABLED, NOT YET FUNCTIONAL
+    earth.addPlane(); // Uses Default Parameters -- DISABLED, NOT YET FUNCTIONAL
 
     // Simulation Loop
     const int steps = 625; // 10 Seconds
@@ -38,6 +38,11 @@ void runAppleDrop() {
     for (int i = 0; i < steps; ++i) { // i = stepCount
         auto start = std::chrono::high_resolution_clock::now();
         earth.step(0.016f); // Simulate Earth, dt = 0.016s
+        if (i % 125 == 0) { // Every Two Seconds
+            std::cout << "\nCurrent Time: " << (i * dt) << "s" <<
+            "\nCurrent Velocity: " << apple.velocity.y << "m/s" <<
+            "\nCurrent Height: " << apple.position.y << "m" << "\n\n";
+        }
         std::this_thread::sleep_until(start + std::chrono::milliseconds(16));
         // Ground Contact
         if (contact == false && apple.position.y <= 0.0f) {

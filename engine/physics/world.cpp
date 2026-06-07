@@ -44,11 +44,6 @@ void World::step(float dt) noexcept {
     for (const Spring& spring : springs) {
         applySpringForce(spring); // Apply Spring Constraints (F = -kx)
     }
-    
-    // Integrate Particle Motion
-    for (Particle& body : particles) {
-        body.integrate(dt);
-    }
 
     // Resolve Collisions (Between Particles and Plane Colliders)
     for (Particle& body : particles) {
@@ -56,18 +51,27 @@ void World::step(float dt) noexcept {
             float distance = dot(plane.normal, body.position) - plane.offset; // Signed Shortest Distance Between Body and Plane (Along Plane's Normal Axis)
             // Event: Body Penetrates Plane
             if (distance <= 0.0f) {
-                float constraintViolation = plane.offset - dot(plane.normal, body.position); // Penetration Depth = -distance (Avoids Dependency On distance)
-                body.position += plane.normal * constraintViolation; // Move Body Out of Plane
-                float vNormal = dot(body.velocity, plane.normal); // Scalar Magnitude of Component of Body Velocity Acting Along Normal
+                float vNormal = dot(body.velocity, plane.normal); // Scalar Magnitude of (Component of) Body Velocity Acting Along Normal
                 // Only Bounce IF Body Moving Into Plane
-                if (vNormal < 0.0f) {
-                    float bounceFactor = 1.0f + plane.restitution; // Proportion of Velocity: Current Kinetic Energy + Bounce Energy
-                    float deltaVn = bounceFactor * vNormal; // Proportion * Component of Current Body Velocity Along Plane Normal
+                if (vNormal < -PhysicsConstants::GROUND_EPSILON){ // Negative (Downward) Velocity Check
+                    float bounceFactor = 1.0f + plane.restitution; // Scalar Proportion of Velocity: Current Kinetic Energy + Bounce Energy
+                    float deltaVn = bounceFactor * vNormal; // Scalar Proportion * (Component of) Current Body Velocity Along Plane Normal
                     body.velocity -= (plane.normal * deltaVn); // Reverse Body's Normal Velocity and Apply Restitution (Energy Loss Due to Bounce)
+                } else { // Remove Small Normal Velocity When In Resting Contact
+                    body.velocity -= (plane.normal * vNormal);
                 }
+                // Position Correction
+                float constraintViolation = -distance; // (Penetration Depth = -distance)
+                body.position += plane.normal * constraintViolation; // Teleport Body Out of Plane
 
             }
+
         }
+    }
+        
+    // Integrate Particle Motion
+    for (Particle& body : particles) {
+        body.integrate(dt);
     }
     
 }
