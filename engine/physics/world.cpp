@@ -55,7 +55,7 @@ void World::step(float dt) noexcept {
         for (PlaneCollider& plane : planes) {
             float distance = dot(plane.normal, body.position) - plane.offset; // Signed Shortest Distance Between Body and Plane (Along Plane's Normal Axis)
             // Event: Body Penetrates Plane
-            if (distance <= MathsConstants::EPSILON) {
+            if (distance <= 0.0f) {
                 float constraintViolation = plane.offset - dot(plane.normal, body.position); // Penetration Depth = -distance (Avoids Dependency On distance)
                 body.position += plane.normal * constraintViolation; // Move Body Out of Plane
                 float vNormal = dot(body.velocity, plane.normal); // Scalar Magnitude of Component of Body Velocity Acting Along Normal
