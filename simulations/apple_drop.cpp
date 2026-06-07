@@ -29,7 +29,7 @@ void runAppleDrop() {
     << "\n- Apple Initial Height: " << apple.position.y << "m" << "\n\n";
 
     // Add Earth Surface (Ground Plane Collider)
-    // earth.addPlane(); // Uses Default Parameters
+    // earth.addPlane(); // Uses Default Parameters -- DISABLED, NOT YET FUNCTIONAL
 
     // Simulation Loop
     const int steps = 625; // 10 Seconds
