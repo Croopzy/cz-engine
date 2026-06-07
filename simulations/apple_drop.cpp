@@ -1,6 +1,8 @@
 #include <iostream>
 #include "apple_drop.hpp"
 #include "engine/physics/world.hpp"
+#include <chrono>
+#include <thread>
 
 void runAppleDrop() {
     
@@ -34,7 +36,9 @@ void runAppleDrop() {
     float endTime = 10.0f; // Unit: Seconds
     bool contact = false;
     for (int i = 0; i < steps; ++i) { // i = stepCount
+        auto start = std::chrono::high_resolution_clock::now();
         earth.step(0.016f); // Simulate Earth, dt = 0.016s
+        std::this_thread::sleep_until(start + std::chrono::milliseconds(16));
         // Ground Contact
         if (apple.position.y <= MathsConstants::EPSILON) {
             contact = true;
