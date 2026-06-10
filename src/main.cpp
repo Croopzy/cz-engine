@@ -1,12 +1,15 @@
 #include <iostream>
 #include <SDL3/SDL.h>
-#include "engine/core/Application.hpp"
-#include "engine/algorithms/mergesort.hpp"
-#include "simulations/apple_drop.hpp"
+#include "src/engine/core/Application.hpp"
+#include "src/engine/algorithms/mergesort.hpp"
+#include "tests/tests.hpp"
+#include "src/simulations/apple_drop.hpp"
 #include <chrono>
 #include <thread>
 
 int main() {
+
+    runMathsTests();
 
     std::vector<int> arr1 = {1, 4, 5, 2, 3};
     mergeSort(arr1, 0, 4, true);

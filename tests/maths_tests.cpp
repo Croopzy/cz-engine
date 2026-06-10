@@ -1,7 +1,11 @@
 #include <iostream>
 #include <vector> // dynamic array type
-#include "engine/maths/vector.hpp"
-#include "engine/maths/geometry.hpp"
+#include "src/engine/maths/vector.hpp"
+#include "src/engine/maths/geometry.hpp"
+#include "tests.hpp"
+#define RESET   "\033[0m"
+#define RED     "\033[31m"
+#define GREEN   "\033[32m"
 
 // Vector Unit Tests
 bool test_unary_negation() {
@@ -48,7 +52,7 @@ bool test_basic_addition() {
 bool test_basic_subtraction() {
     Vector vecA(10.0f, 5.0f);
     Vector vecB(7.0f, 1.0f);
-    Vector result = vecA + vecB;
+    Vector result = vecA - vecB;
     return(result.x == 3.0f && result.y == 4.0f);
 }
 
@@ -84,19 +88,35 @@ bool test_vector_magnitude() {
     // Scalar Cross Product
     // Perpendicular Vector
 
-// TODO: Geometry Unit Tests
-    // Relative Angle
-    
+bool test_angle_case_same() {
+    Vector vecA(3.0f, 4.0f);
+    Vector vecB(6.0f, 8.0f);
+    return angle(vecA, vecB) == 0.0f;
+}
 
-// Tests Structure
-struct TestCase {
-    const char* name;
-    bool (*fn)(); // Test Function Pointer
-};
+bool test_angle_case_acute() {
+    Vector vecA(1.0f, 0.0f);
+    Vector vecB(1.0f, 1.0f);
+    return angle(vecA, vecB) == MathsConstants::PI / 4;
+}
+
+bool test_angle_case_perpendicular() {
+    Vector vecA(1.0f, 0.0f);
+    Vector vecB(0.0f, 1.0f);
+    return angle(vecA, vecB) == MathsConstants::PI / 2;
+}
+
+bool test_angle_case_opposite() {
+    Vector vecA(1.0f, 0.0f);
+    Vector vecB(-1.0f, 0.0f);
+    return angle(vecA, vecB) == MathsConstants::PI;
+}
 
 
-// Test Harness
-int main() {
+// Test Harness: Maths
+void runMathsTests() {
+
+    std::cout << "UNIT TESTS: MATHS\n\n";
 
     // Array of Test Cases (To Run)
     std::vector<TestCase> tests = {
@@ -110,22 +130,25 @@ int main() {
         {"Basic Scalar Multiplication", test_basic_scalar_multiplication},
         {"Basic Scalar Division", test_basic_scalar_division},
         {"Dot Product", test_dot_product},
-        {"Vector Magnitude", test_vector_magnitude} // TODO: Don't Forget Comma Here
+        {"Vector Magnitude", test_vector_magnitude},
         // ...
+        {"Angle Between Vectors (Same)", test_angle_case_same},
+        {"Angle Between Vectors (Acute)", test_angle_case_acute},
+        {"Angle Between Vectors (Perpendicular)", test_angle_case_perpendicular},
+        {"Angle Between Vectors (Opposite)", test_angle_case_opposite},
     };
-    
+
     // Loop (For Each Test)
     int numPassed = 0;
     for (auto& test : tests) {
         bool pass = test.fn(); // Run Test
         if (pass) numPassed++; // Count Successful Tests
-        std::cout << test.name << ":"
-        << (pass ? "PASS" : "FAIL") << "\n"; // Output Status (Per Test)
+        std::cout << test.name << ": "
+        << (pass ? (GREEN "PASS") : (RED "FAIL")) << RESET << "\n"; // Output Status (Per Test)
     }
     
     // Tests Summary
-    std::cout << "\n Passed: " << numPassed
-    << "\nFailed: " << (tests.size() - numPassed) << "\n";
+    std::cout << "\nPassed: " << numPassed
+    << "\nFailed: " << (tests.size() - numPassed) << "\n\n";
 
-    return 0;
-};
+}
