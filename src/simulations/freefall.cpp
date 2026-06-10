@@ -1,10 +1,10 @@
 #include <iostream>
-#include "apple_drop.hpp"
+#include "scenarios.hpp"
 #include "src/engine/physics/world.hpp"
 #include <chrono>
 #include <thread>
 
-void runAppleDrop() {
+void runFreefall() {
     
     // Input Apple Initial Mass
     float inMass;

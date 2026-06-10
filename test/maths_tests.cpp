@@ -1,25 +1,25 @@
 #include <iostream>
-#include <vector> // dynamic array type
+#include "test_utils.hpp"
 #include "src/engine/maths/vector.hpp"
 #include "src/engine/maths/geometry.hpp"
-#include "tests.hpp"
-#define RESET   "\033[0m"
-#define RED     "\033[31m"
-#define GREEN   "\033[32m"
 
-// Vector Unit Tests
+
+/// Vector Unit Tests ///
+
 bool test_unary_negation() {
     Vector vecA(3.0f, 4.0f);
     Vector result = -vecA;
     return(result.x == -3.0f && result.y == -4.0f);
 }
-    
+
+
 bool test_addition_assignment() {
     Vector vecA(3.0f, 4.0f);
     Vector vecB(7.0f, 1.0f);
     vecA += vecB;
     return(vecA.x == 10.0f && vecA.y == 5.0f);
 }
+
 
 bool test_subtraction_assignment() {
     Vector vecA(10.0f, 5.0f);
@@ -28,12 +28,14 @@ bool test_subtraction_assignment() {
     return(vecA.x == 3.0f && vecA.y == 4.0f);
 }
 
+
 bool test_scalar_multiplication_assignment() {
     Vector vecA(5.0, 2.0f);
     float numB(3.0f);
     vecA *= numB;
     return(vecA.x == 15.0f && vecA.y == 6.0f);
 }
+
 
 bool test_scalar_division_assignment() {
     Vector vecA(15.0f, 6.0f);
@@ -42,12 +44,14 @@ bool test_scalar_division_assignment() {
     return(vecA.x == 5.0f && vecA.y == 2.0f);
 }
 
+
 bool test_basic_addition() {
     Vector vecA(3.0f, 4.0f);
     Vector vecB(7.0f, 1.0f);
     Vector result = vecA + vecB;
     return(result.x == 10.0f && result.y == 5.0f);
 }
+
 
 bool test_basic_subtraction() {
     Vector vecA(10.0f, 5.0f);
@@ -56,12 +60,14 @@ bool test_basic_subtraction() {
     return(result.x == 3.0f && result.y == 4.0f);
 }
 
+
 bool test_basic_scalar_multiplication() {
     Vector vecA(5.0, 2.0f);
     float numB(3.0f);
     Vector result = vecA * numB;
     return(result.x == 15.0f && result.y == 6.0f);
 }
+
 
 bool test_basic_scalar_division() {
     Vector vecA(15.0f, 6.0f);
@@ -70,12 +76,14 @@ bool test_basic_scalar_division() {
     return(result.x == 5.0f && result.y == 2.0f);
 }
 
+
 bool test_dot_product() {
     Vector vecA(3.0f, 4.0f);
     Vector vecB(2.0f, -1.0f);
     float result = dot(vecA, vecB);
-    return result == 2.0f; // Expected: (3 * 2) + (4 * -1) = 6 - 4 = 2
+    return result == 2.0f;
 }
+
 
 bool test_vector_magnitude() {
     Vector vecA(3.0f, 4.0f);
@@ -83,10 +91,12 @@ bool test_vector_magnitude() {
     return result == 5.0f;
 }
 
-// TODO: Additional Unit Tests (Multiple Cases) 
-    // Dot Product (Special Cases)
-    // Scalar Cross Product
-    // Perpendicular Vector
+
+// TODO: Additional Unit Tests (Multiple Cases) {Dot Product (Special Cases), Scalar Cross Product, Perpendicular Vector}
+
+
+
+/// Geometry Unit Tests ///
 
 bool test_angle_case_same() {
     Vector vecA(3.0f, 4.0f);
@@ -94,17 +104,20 @@ bool test_angle_case_same() {
     return angle(vecA, vecB) == 0.0f;
 }
 
+
 bool test_angle_case_acute() {
     Vector vecA(1.0f, 0.0f);
     Vector vecB(1.0f, 1.0f);
     return angle(vecA, vecB) == MathsConstants::PI / 4;
 }
 
+
 bool test_angle_case_perpendicular() {
     Vector vecA(1.0f, 0.0f);
     Vector vecB(0.0f, 1.0f);
     return angle(vecA, vecB) == MathsConstants::PI / 2;
 }
+
 
 bool test_angle_case_opposite() {
     Vector vecA(1.0f, 0.0f);
@@ -114,11 +127,8 @@ bool test_angle_case_opposite() {
 
 
 // Test Harness: Maths
-void runMathsTests() {
+void runMathsTests(const bool showCases) {
 
-    std::cout << "UNIT TESTS: MATHS\n\n";
-
-    // Array of Test Cases (To Run)
     std::vector<TestCase> tests = {
         {"Unary Negation", test_unary_negation},
         {"Addition Assignment", test_addition_assignment},
@@ -138,17 +148,6 @@ void runMathsTests() {
         {"Angle Between Vectors (Opposite)", test_angle_case_opposite},
     };
 
-    // Loop (For Each Test)
-    int numPassed = 0;
-    for (auto& test : tests) {
-        bool pass = test.fn(); // Run Test
-        if (pass) numPassed++; // Count Successful Tests
-        std::cout << test.name << ": "
-        << (pass ? (GREEN "PASS") : (RED "FAIL")) << RESET << "\n"; // Output Status (Per Test)
-    }
-    
-    // Tests Summary
-    std::cout << "\nPassed: " << numPassed
-    << "\nFailed: " << (tests.size() - numPassed) << "\n\n";
+    runTestGroup("Maths", tests, showCases);
 
 }
