@@ -1,7 +1,8 @@
 #include "Application.hpp"
 
+
 Application::Application()
-    : window("Cryoze Engine", 1200, 720),
+    : window("Cryoze Engine", DEFAULT_WIDTH, DEFAULT_HEIGHT),
     renderer(window)
 {}
 
@@ -17,8 +18,8 @@ void Application::run() {
         renderer.clear();
 
         // TEST DRAWING
-        renderer.drawLine(0, 50, 100, 50, SDL_Color{255, 255, 255, 255}); // Draw White Line Along y = 100px
-        renderer.drawPoint(50, 100, SDL_Color{255, 0, 0, 255}); // Draw Red Point At (50, 100)px in Cartesian Plane (x, y)
+        renderer.drawLine(0, 50, 100, 50, SDL_Color{255, 255, 255, 255}); // Draw White Line Along y = 100m
+        renderer.drawPoint(50, 100, SDL_Color{255, 0, 0, 255}); // Draw Red Point At (50, 100)m in Cartesian Plane (x, y)
 
         renderer.present();
     }

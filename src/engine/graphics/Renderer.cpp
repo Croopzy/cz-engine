@@ -1,29 +1,44 @@
 #include "Renderer.hpp"
 
-Renderer::Renderer(Window& window) {
-    renderer = SDL_CreateRenderer(window.get(), nullptr);
+Renderer::Renderer(Window& window)
+    : window(window)
+{
+    renderer = SDL_CreateRenderer(window.getSDLWindow(), nullptr);
 }
 
 Renderer::~Renderer() {
     SDL_DestroyRenderer(renderer);
 }
 
-void::Renderer::clear() {
+void Renderer::clear() {
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);
 }
 
-void::Renderer::present() {
+void Renderer::present() {
     SDL_RenderPresent(renderer);
 }
 
 
-void::Renderer::drawPoint(int x, int y, SDL_Color colour) {
-    SDL_SetRenderDrawColor(renderer, colour.r, colour.g, colour.b, colour.a);
-    SDL_RenderPoint(renderer, x, y);
+/// Conversions: Metres -> Pixels ///
+
+int Renderer::projectX(float metres) const {
+    return static_cast<int>(metres * PPM); // Left To Right, Convert Metres To Pixels
 }
 
-void::Renderer::drawLine(int x1, int y1, int x2, int y2, SDL_Color colour) {
-    SDL_SetRenderDrawColor(renderer, colour.r, colour.b, colour.g, colour.a);
-    SDL_RenderLine(renderer, x1, y1, x2, y2);
+int Renderer::projectY(float metres) const {
+    return window.getHeight() - static_cast<int>(metres * PPM); // Top To Bottom (SDL3 Default) Inverted, Convert Metres To Pixels
+}
+
+
+/// Draw Functions ///
+
+void Renderer::drawPoint(float x, float y, SDL_Color colour) {
+    SDL_SetRenderDrawColor(renderer, colour.r, colour.g, colour.b, colour.a);
+    SDL_RenderPoint(renderer, projectX(x), projectY(y));
+}
+
+void Renderer::drawLine(float x1, float y1, float x2, float y2, SDL_Color colour) {
+    SDL_SetRenderDrawColor(renderer, colour.r, colour.g, colour.b, colour.a);
+    SDL_RenderLine(renderer, projectX(x1), projectY(y1), projectX(x2), projectY(y2));
 }

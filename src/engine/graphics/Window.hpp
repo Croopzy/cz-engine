@@ -6,8 +6,16 @@ class Window {
         Window(const char* title, int width, int height); // Unit (of Width, Height): px
         ~Window();
 
-        SDL_Window* get() const { return window; }
+        SDL_Window* getSDLWindow() const;
+
+        int getWidth() const;
+        int getHeight() const;
+
+        void setWidth(int newWidth);
+        void setHeight(int newHeight);
 
     private:
         SDL_Window* window = nullptr;
+        int width = 1200;
+        int height = 720;
 };

@@ -1,9 +1,28 @@
 #include "Window.hpp"
 
-Window::Window(const char* title, int width, int height) {
-    window = SDL_CreateWindow(title, width, height, SDL_WINDOW_RESIZABLE);
+Window::Window(const char* title, int w, int h)
+    : width(w), height(h)
+{
+    window = SDL_CreateWindow(title, w, h, SDL_WINDOW_RESIZABLE);
 }
 
 Window::~Window() {
     SDL_DestroyWindow(window);
+}
+
+SDL_Window* Window::getSDLWindow() const {
+    return window;
+}
+
+int Window::getWidth() const { return width; }
+int Window::getHeight() const { return height; }
+
+void Window::setWidth(int newWidth) {
+    width = newWidth;
+    SDL_SetWindowSize(window, width, height);
+}
+
+void Window::setHeight(int newHeight) {
+    height = newHeight;
+    SDL_SetWindowSize(window, width, height);
 }

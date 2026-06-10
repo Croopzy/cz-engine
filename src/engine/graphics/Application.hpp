@@ -8,4 +8,6 @@ class Application {
     private:
         Window window;
         Renderer renderer;
+        static constexpr int DEFAULT_WIDTH = 1200;
+        static constexpr int DEFAULT_HEIGHT = 720;
 };
