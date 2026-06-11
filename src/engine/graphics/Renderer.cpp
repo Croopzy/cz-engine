@@ -22,12 +22,12 @@ void Renderer::present() {
 
 /// Conversions: Metres -> Pixels ///
 
-int Renderer::projectX(float metres) const {
-    return static_cast<int>(metres * PPM); // Left To Right, Convert Metres To Pixels
+int Renderer::projectX(float metresX) const {
+    return static_cast<int>(metresX * PPM); // Left To Right, Convert Metres To Pixels
 }
 
-int Renderer::projectY(float metres) const {
-    return window.getHeight() - static_cast<int>(metres * PPM); // Top To Bottom (SDL3 Default) Inverted, Convert Metres To Pixels
+int Renderer::projectY(float metresY) const {
+    return window.getHeight() - static_cast<int>(metresY * PPM); // Top To Bottom (SDL3 Default) Inverted, Convert Metres To Pixels
 }
 
 
