@@ -17,7 +17,7 @@ class Renderer {
         SDL_Renderer* renderer = nullptr;
         Window& window;
 
-        static constexpr float PPM = 50.0f; // Unit Conversion: 1.0m = 50.0px
+        static constexpr float PPM = 12.0f; // Unit Conversion: 12.0px = 1.0m
 
         int projectX(float metres) const; // Project: world_x -> screen_x
         int projectY(float metres) const; // Project: world_y -> screen_y
