@@ -8,14 +8,10 @@ Window::Window(const char* title, int w, int h)
 }
 
 // Window Deconstructor
-Window::~Window() {
-    SDL_DestroyWindow(window);
-}
+Window::~Window() { SDL_DestroyWindow(window); }
 
 // Get Window Pointer
-SDL_Window* Window::getSDLWindow() const {
-    return window;
-}
+SDL_Window* Window::getSDLWindow() const { return window; }
 
 // Get Window Dimensions
 int Window::getWidth() const { return width; }
