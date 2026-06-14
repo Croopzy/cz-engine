@@ -3,8 +3,8 @@
 
 class Window {
     public:
-        Window(const char* title, int width, int height); // Unit (of Width, Height): px
-        ~Window();
+        Window(const char* title, int width, int height); // Constructor, Parameter Units [Width, Height]: px
+        ~Window(); // Deconstructor Declaration
 
         SDL_Window* getSDLWindow() const;
 
