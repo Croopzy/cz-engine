@@ -11,6 +11,7 @@ class Window {
         int getWidth() const;
         int getHeight() const;
 
+        void setSize(int newWidth, int newHeight);
         void setWidth(int newWidth);
         void setHeight(int newHeight);
 
