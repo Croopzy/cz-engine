@@ -17,12 +17,18 @@ SDL_Window* Window::getSDLWindow() const {
 int Window::getWidth() const { return width; }
 int Window::getHeight() const { return height; }
 
+void Window::setSize(int newWidth, int newHeight) {
+    width = newWidth;
+    height = newHeight;
+    SDL_SetWindowSize(window, width, height);
+}
+
 void Window::setWidth(int newWidth) {
     width = newWidth;
-    SDL_SetWindowSize(window, width, height);
+    setSize(width, height;
 }
 
 void Window::setHeight(int newHeight) {
     height = newHeight;
-    SDL_SetWindowSize(window, width, height);
+    setSize(width, height;
 }
