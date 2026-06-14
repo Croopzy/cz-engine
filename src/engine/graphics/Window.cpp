@@ -24,11 +24,9 @@ void Window::setSize(int newWidth, int newHeight) {
 }
 
 void Window::setWidth(int newWidth) {
-    width = newWidth;
-    setSize(width, height;
+    setSize(newWidth, height;
 }
 
 void Window::setHeight(int newHeight) {
-    height = newHeight;
-    setSize(width, height;
+    setSize(width, newHeight;
 }
