@@ -1,23 +1,24 @@
 #include "Renderer.hpp"
 
+// Renderer Constructor
 Renderer::Renderer(Window& window)
     : window(window)
 {
     renderer = SDL_CreateRenderer(window.getSDLWindow(), nullptr);
 }
 
-Renderer::~Renderer() {
-    SDL_DestroyRenderer(renderer);
-}
+// Renderer Deconstructor
+Renderer::~Renderer() { SDL_DestroyRenderer(renderer); }
 
+// Reset Back Buffer (Empty Canvas)
 void Renderer::clear() {
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);
 }
 
-void Renderer::present() {
-    SDL_RenderPresent(renderer);
-}
+
+// Displays Back Buffer Contents on Front Buffer (Screen)
+void Renderer::present() { SDL_RenderPresent(renderer); }
 
 
 /// Conversions: Metres -> Pixels ///
