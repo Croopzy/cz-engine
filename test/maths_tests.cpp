@@ -150,7 +150,7 @@ bool test_vector_unit_zero() {
 }
 
 bool test_vector_unit_idempotent() {
-    Vector vecA(0.1f, 0.1f);
+    Vector vecA(1.0f, 0.0f);
     Vector result = normalise(vecA);
     return (result.x == vecA.x) && (result.y == vecA.y);
 }
