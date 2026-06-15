@@ -77,11 +77,27 @@ bool test_basic_scalar_division() {
 }
 
 
-bool test_dot_product() {
+bool test_dot_product_acute() {
     Vector vecA(3.0f, 4.0f);
-    Vector vecB(2.0f, -1.0f);
-    float result = dot(vecA, vecB);
-    return result == 2.0f;
+    Vector vecB(2.0f, 1.0f);
+    float result = dot(vecA, vecB); // (3 * 2) + (4 * 1) = 10
+    return result == 10.0f; // Positive: Acute Angle
+}
+
+
+bool test_dot_product_obtuse() {
+    Vector vecA(2.0f, 3.0f);
+    Vector vecB(-4.0f, 1.0f);
+    float result = dot(vecA, vecB); // (2 * -4) + (3 * 1) = -5
+    return result == -5.0f; // Negative: Obtuse Angle
+}
+
+
+bool test_dot_product_perpendicular() {
+    Vector vecA(1.0f, 0.0f);
+    Vector vecB(0.0f, 5.0f);
+    float result = dot(vecA, vecB); // (1 * 0) + (0 * 5) = 0
+    return result == 0.0f; // Zero: Perpendicular
 }
 
 
@@ -92,7 +108,7 @@ bool test_vector_magnitude() {
 }
 
 
-// TODO: Additional Unit Tests (Multiple Cases) {Dot Product (Special Cases), Scalar Cross Product, Perpendicular Vector}
+// TODO: Additional Unit Tests (Multiple Cases): Scalar Cross Product, Perpendicular Vector}
 
 
 
@@ -139,7 +155,9 @@ void runMathsTests(const bool showCases) {
         {"Basic Subtraction", test_basic_subtraction},
         {"Basic Scalar Multiplication", test_basic_scalar_multiplication},
         {"Basic Scalar Division", test_basic_scalar_division},
-        {"Dot Product", test_dot_product},
+        {"Dot Product (Acute)", test_dot_product_acute}
+        {"Dot Product (Obtuse)", test_dot_product_obtuse}
+        {"Dot Product (Perpendicular)", test_dot_product_perpendicular}
         {"Vector Magnitude", test_vector_magnitude},
         // ...
         {"Angle Between Vectors (Same)", test_angle_case_same},
