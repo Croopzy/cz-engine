@@ -17,6 +17,6 @@ namespace tests::modules { // Hides Engine Tests From Public API
 	void runMathsTests(bool showCases = false);
 }
 
-inline void runAllTests(bool showCases = false) {
+inline void runEngineTests(bool showCases = false) {
 	tests::modules::runMathsTests(showCases);
 }
