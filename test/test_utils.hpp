@@ -8,7 +8,7 @@ struct TestCase {
 };
 
 // Generic Test Harness Declaration
-void runTestGroup(const std::string& groupName, const std::vector<TestCase>& tests, const bool showCases);
+void runTestGroup(const std::string& groupName, const std::vector<TestCase>& tests, const bool showCases = false);
 
 // Test Harness Declarations
-void runMathsTests(bool showCases);
+void runMathsTests(bool showCases = false);
