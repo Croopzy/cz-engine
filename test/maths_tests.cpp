@@ -197,6 +197,7 @@ bool test_angle_case_opposite() {
 
 ///// Test Harness: Maths /////
 
+namespace tests::modules {
 void runMathsTests(const bool showCases) {
 
     std::vector<TestCase> mathsTests = {
@@ -227,6 +228,7 @@ void runMathsTests(const bool showCases) {
         {"Angle Between Vectors (Opposite)", test_angle_case_opposite},
     };
 
-    runTestGroup("MATHS", mathsTests, showCases);
+    tests::detail::runTestGroup("MATHS", mathsTests, showCases);
 
-}
+} // End runMathsTests() Function
+} // End tests::modules Namespace
