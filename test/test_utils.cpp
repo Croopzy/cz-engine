@@ -7,7 +7,7 @@
 #define GREEN   "\033[32m"
 
 
-void runTestGroup(const std::string& groupName, const std::vector<TestCase>& tests, const bool showCases) {
+void runTestGroup(const std::string& groupName, const std::vector<TestCase>& tests, const bool showCases = false) {
 
     std::cout << "\nUNIT TESTS: " << groupName << "\n";
 
