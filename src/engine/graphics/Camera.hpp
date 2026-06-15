@@ -2,7 +2,8 @@
 
 #include "src/engine/maths/vector.hpp"
 
-/// Camera Structure ///
+
+// Camera Structure
 struct Camera {
 	Vector position; // Centre Position
 	float zoom; // Scale Factor (PPM, Pixels Per Metre) -- TODO: REMOVE FROM RENDERER
@@ -15,6 +16,31 @@ struct Camera {
 };
 
 
-/// Transform Functions (API) ///
 
-// ...
+namespace CameraSpace {
+
+/// Screen Projection Functions ///
+
+// Transformation: World To Camera View (Intermediate Step)
+Vector worldToView(const Camera& camera, const Vector& worldPosition);
+
+// Transformation: Camera View To Screen (Intermediate Step)
+Vector viewToScreen(const Camera& camera, const Vector& viewPosition);
+
+// Full Projection: World To Screen
+Vector worldToScreen(const Camera& camera, const Vector& worldPosition);
+
+
+
+/// Camera Control Functions ///
+
+// Move Camera in World Space
+void pan(Camera& camera, const Vector& deltaMetres);
+
+// Adjust Zoom (Pixels Per Metre)
+void zoom(Camera& camera, float deltaZoom);
+
+// Smooth Follow (Camera Chases Target)
+void follow(Camera& camera, const Vector& target, float stiffness);
+
+}
