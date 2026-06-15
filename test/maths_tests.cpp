@@ -164,9 +164,10 @@ bool test_vector_perpendicular() {
 
 
 
-
 ///// Geometry Unit Tests /////
 
+
+/// Geometry Operations ///
 
 bool test_angle_case_same() {
     Vector vecA(3.0f, 4.0f);
@@ -193,10 +194,12 @@ bool test_angle_case_opposite() {
 }
 
 
-// Test Harness: Maths
+
+///// Test Harness: Maths /////
+
 void runMathsTests(const bool showCases) {
 
-    std::vector<TestCase> tests = {
+    std::vector<TestCase> mathsTests = {
         {"Unary Negation", test_unary_negation},
         {"Addition Assignment", test_addition_assignment},
         {"Subtraction Assignment", test_subtraction_assignment},
@@ -224,6 +227,6 @@ void runMathsTests(const bool showCases) {
         {"Angle Between Vectors (Opposite)", test_angle_case_opposite},
     };
 
-    runTestGroup("MATHS", tests, showCases);
+    runTestGroup("MATHS", mathsTests, showCases);
 
 }
