@@ -136,8 +136,31 @@ bool test_vector_magnitude() {
     return result == 5.0f;
 }
 
+bool test_vector_unit_basic() {
+    Vector vecA(3.0f, 4.0f);
+    Vector vecB(0.6f, 0.8f);
+    Vector result = normalise(vecA);
+    return (result.x == vecB.x) && (result.y == vecB.y);
+}
 
-// TODO: Additional Unit Tests: Perpendicular Vector etc...}
+bool test_vector_unit_zero() {
+    Vector vecA(0.0f, 0.0f);
+    Vector result = normalise(vecA);
+    return (result.x == vecA.x) && (result.y == vecA.y);
+}
+
+bool test_vector_unit_idempotent() {
+    Vector vecA(0.1f, 0.1f);
+    Vector result = normalise(vecA);
+    return (result.x == vecA.x) && (result.y == vecA.y);
+}
+
+bool test_vector_perpendicular() {
+    Vector vecA(1.0f, 0.0f);
+    Vector vecB(0.0f, 1.0f);
+    Vector result = perpendicular(vecA);
+    return (result.x == vecB.x) && (result.y == vecB.y);
+}
 
 
 
@@ -190,8 +213,11 @@ void runMathsTests(const bool showCases) {
 		{"Cross Product (Anti-Clockwise)", test_cross_product_anticlockwise},
 		{"Cross Product (Parallel)", test_cross_product_parallel},
 		{"Cross Product (Anti-Parallel)", test_cross_product_antiparallel},
-        {"Vector Magnitude", test_vector_magnitude},
-        // ...
+        {"Scalar Magnitude of Vector", test_vector_magnitude},
+        {"Basic Normalisation (Unit Vector)", test_vector_unit_basic},
+        {"Zero Vector Normalisation (Unit Vector", test_vector_unit_zero},
+        {"Idempotent Normalisation (Unit Vector)", test_vector_unit_idempotent},
+        {"Perpendicular Vector", test_vector_perpendicular},
         {"Angle Between Vectors (Same)", test_angle_case_same},
         {"Angle Between Vectors (Acute)", test_angle_case_acute},
         {"Angle Between Vectors (Perpendicular)", test_angle_case_perpendicular},
