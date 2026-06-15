@@ -4,7 +4,10 @@
 #include "src/engine/maths/geometry.hpp"
 
 
-/// Vector Unit Tests ///
+///// Vector Unit Tests /////
+
+
+/// Vector Methods ///
 
 bool test_unary_negation() {
     Vector vecA(3.0f, 4.0f);
@@ -45,13 +48,14 @@ bool test_scalar_division_assignment() {
 }
 
 
+/// Vector Operations ///
+
 bool test_basic_addition() {
     Vector vecA(3.0f, 4.0f);
     Vector vecB(7.0f, 1.0f);
     Vector result = vecA + vecB;
     return(result.x == 10.0f && result.y == 5.0f);
 }
-
 
 bool test_basic_subtraction() {
     Vector vecA(10.0f, 5.0f);
@@ -60,14 +64,12 @@ bool test_basic_subtraction() {
     return(result.x == 3.0f && result.y == 4.0f);
 }
 
-
 bool test_basic_scalar_multiplication() {
     Vector vecA(5.0, 2.0f);
     float numB(3.0f);
     Vector result = vecA * numB;
     return(result.x == 15.0f && result.y == 6.0f);
 }
-
 
 bool test_basic_scalar_division() {
     Vector vecA(15.0f, 6.0f);
@@ -84,7 +86,6 @@ bool test_dot_product_acute() {
     return result == 10.0f; // Positive: Acute Angle
 }
 
-
 bool test_dot_product_obtuse() {
     Vector vecA(2.0f, 3.0f);
     Vector vecB(-4.0f, 1.0f);
@@ -92,12 +93,40 @@ bool test_dot_product_obtuse() {
     return result == -5.0f; // Negative: Obtuse Angle
 }
 
-
 bool test_dot_product_zero() {
     Vector vecA(1.0f, 0.0f);
     Vector vecB(0.0f, 5.0f);
     float result = dot(vecA, vecB); // (1 * 0) + (0 * 5) = 0
     return result == 0.0f; // Zero: Perpendicular
+}
+
+
+bool test_cross_product_clockwise() { // vecB Clockwise From vecA
+    Vector vecA(0.0f, 1.0f);
+    Vector vecB(1.0f, 0.0f);
+    float result = cross(vecA, vecB);
+    return result == -1.0f; // Negative: Clockwise
+}
+
+bool test_cross_product_anticlockwise() { // vecB Anti-Clockwise From vecA
+    Vector vecA(1.0f, 0.0f);
+    Vector vecB(0.0f, 1.0f);
+    float result = cross(vecA, vecB);
+    return result == 1.0f; // Positive: Anti-Clockwise
+}
+
+bool test_cross_product_parallel() { // vecA Parallel To vecB
+    Vector vecA(2.0f, 2.0f);
+    Vector vecB(4.0f, 4.0f);
+    float result = cross(vecA, vecB);
+    return result == 0.0f; // Zero: Parallel (Same Direction)
+}
+
+bool test_cross_product_antiparallel() { // vecA Anti-Parallel To vecB
+    Vector vecA(1.0f, 2.0f);
+    Vector vecB(-1.0f, -2.0f);
+    float result = cross(vecA, vecB);
+    return result == 0.0f; // Zero: Parallel (Opposite Directions)
 }
 
 
@@ -108,19 +137,13 @@ bool test_vector_magnitude() {
 }
 
 
-bool test_cross_product_anticlockwise() { // vecB Anticlockwise From vecA
-    Vector vecA(1.0f, 0.0f);
-    Vector vecB(0.0f, 1.0f);
-    float result = cross(vecA, vecB);
-    return result == 1.0f; // Positive: Anticlockwise
-} // NEXT: (-ve: Clockwise), (Zero: Parallel), (Zero: Opposite)
-
-
-// TODO: Additional Unit Tests: Zero Vector, Perpendicular Vector etc...}
+// TODO: Additional Unit Tests: Perpendicular Vector etc...}
 
 
 
-/// Geometry Unit Tests ///
+
+///// Geometry Unit Tests /////
+
 
 bool test_angle_case_same() {
     Vector vecA(3.0f, 4.0f);
@@ -128,20 +151,17 @@ bool test_angle_case_same() {
     return angle(vecA, vecB) == 0.0f;
 }
 
-
 bool test_angle_case_acute() {
     Vector vecA(1.0f, 0.0f);
     Vector vecB(1.0f, 1.0f);
     return angle(vecA, vecB) == MathsConstants::PI / 4;
 }
 
-
 bool test_angle_case_perpendicular() {
     Vector vecA(1.0f, 0.0f);
     Vector vecB(0.0f, 1.0f);
     return angle(vecA, vecB) == MathsConstants::PI / 2;
 }
-
 
 bool test_angle_case_opposite() {
     Vector vecA(1.0f, 0.0f);
@@ -151,7 +171,7 @@ bool test_angle_case_opposite() {
 
 
 // Test Harness: Maths
-void runMathsTests(const bool showCases = false) {
+void runMathsTests(const bool showCases) {
 
     std::vector<TestCase> tests = {
         {"Unary Negation", test_unary_negation},
@@ -166,8 +186,11 @@ void runMathsTests(const bool showCases = false) {
         {"Dot Product (Acute)", test_dot_product_acute},
         {"Dot Product (Obtuse)", test_dot_product_obtuse},
         {"Dot Product (Zero)", test_dot_product_zero},
+		{"Cross Product (Clockwise)", test_cross_product_clockwise},
+		{"Cross Product (Anti-Clockwise)", test_cross_product_anticlockwise},
+		{"Cross Product (Parallel)", test_cross_product_parallel},
+		{"Cross Product (Anti-Parallel)", test_cross_product_antiparallel},
         {"Vector Magnitude", test_vector_magnitude},
-		{"Cross Product (Anticlockwise)", test_cross_product_anticlockwise},
         // ...
         {"Angle Between Vectors (Same)", test_angle_case_same},
         {"Angle Between Vectors (Acute)", test_angle_case_acute},

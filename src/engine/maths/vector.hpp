@@ -14,8 +14,9 @@ struct Vector {
 
 	// Constructor
 	constexpr Vector(float inX = 0.0f, float inY = 0.0f) noexcept: // Initialise Vector = (0, 0)
-		x(inX), y(inY) {}
-		
+		x(inX), y(inY) {
+	}
+
 	// Unary Negation (Vector Negation): -vector
 	[[nodiscard]] inline constexpr Vector operator-() const noexcept {
 	 return { -x, -y };
@@ -84,9 +85,19 @@ struct Vector {
 	return (vecA.x * vecB.x) + (vecA.y * vecB.y);
 }
 
+// Scalar Cross Product: cross(vectorA, vectorB)
+[[nodiscard]] constexpr float cross(const Vector& vecA, const Vector& vecB) noexcept {
+    return (vecA.x * vecB.y) - (vecA.y * vecB.x);
+}
+
 // Scalar Magnitude: magnitude(vector)
 [[nodiscard]] inline constexpr float magnitude(const Vector& vecA) noexcept {
 	return std::sqrt(dot(vecA, vecA)); // Dependency: Dot Product
+}
+
+// Zero Vector Check: isZero(vector)
+[[nodiscard]] constexpr bool isZero(const Vector& vecA, float epsilon = MathsConstants::EPSILON) noexcept{
+	return ((vecA.x * vecA.x) + (vecA.y + vecA.y)) < (epsilon * epsilon); // Magnitude^2 < Epsilon^2 (No Use of sqrt: More Stabilise & Efficient)
 }
 
 // Vector Normalisation (Unit Vector): normalise(vector)
@@ -98,19 +109,9 @@ struct Vector {
     return { vecA.x / magnitudeA, vecA.y / magnitudeA };
 }
 
-// Scalar Cross Product: cross(vectorA, vectorB)
-[[nodiscard]] constexpr float cross(const Vector& vecA, const Vector& vecB) noexcept {
-    return (vecA.x * vecB.y) - (vecA.y * vecB.x);
-}
-
 // Perpendicular Vector (90° Rotation): perpendicular(vector)
 [[nodiscard]] inline constexpr Vector perpendicular(const Vector& vecA) noexcept {
     return { -vecA.y, vecA.x };
-}
-
-// Zero Vector Check: isZero(vector)
-[[nodiscard]] constexpr bool isZero(const Vector& vecA, float epsilon = MathsConstants::EPSILON) noexcept{
-	return ((vecA.x * vecA.x) + (vecA.y + vecA.y)) < (epsilon * epsilon); // Magnitude^2 < Epsilon^2 (No Use of sqrt: More Stabilise & Efficient)
 }
 
 // Vector Output

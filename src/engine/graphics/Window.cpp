@@ -26,10 +26,10 @@ void Window::setSize(int newWidth, int newHeight) {
 
 // Window Width Adjustment
 void Window::setWidth(int newWidth) {
-    setSize(newWidth, height;
+    setSize(newWidth, height);
 }
 
 // Window Height Adjustment
 void Window::setHeight(int newHeight) {
-    setSize(width, newHeight;
+    setSize(width, newHeight);
 }
