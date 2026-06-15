@@ -4,7 +4,7 @@
 
 /// Camera Structure ///
 struct Camera {
-	vector position; // Centre Position
+	Vector position; // Centre Position
 	float zoom; // Scale Factor (PPM, Pixels Per Metre) -- TODO: REMOVE FROM RENDERER
 	float viewportW; // Defines Width (px) of Draw Area
 	float viewportH; // Defines Height (px) of Draw Area

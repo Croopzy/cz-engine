@@ -6,7 +6,7 @@
 
 int main() {
 
-    runMathsTests(true);
+    runMathsTests();
 
     runFreefall();
 

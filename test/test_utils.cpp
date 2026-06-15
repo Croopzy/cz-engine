@@ -9,10 +9,11 @@
 
 void runTestGroup(const std::string& groupName, const std::vector<TestCase>& tests, const bool showCases) {
 
-    std::cout << "\nUNIT TESTS: " << groupName << "\n";
+    std::cout << "\nUNIT TESTS INITIALISED: " << groupName;
 
     // Test Loop
     int numPassed = 0;
+    if (showCases) std::cout << "\n\n";
     for (auto& test : tests) {
         bool pass = test.fn(); // Run Test Case
         if (pass) numPassed++; // Count Successful Tests
@@ -20,9 +21,11 @@ void runTestGroup(const std::string& groupName, const std::vector<TestCase>& tes
             std::cout << test.name << ": " << (pass ? (GREEN "PASS") : (RED "FAIL")) << RESET << "\n"; // Output Status (Per Test, Colour-Coded)
         }
     }
+    if (!showCases) std::cout << "\n";
     
     // Test Group Summary
-    std::cout << GREEN << "\nPassed: " << RESET << numPassed
-    << RED << "\nFailed: " << RESET << (tests.size() - numPassed) << "\n\n";
+    std::cout << "\n" << "[" << groupName << "] " << "UNIT TESTS SUMMARY:" << "\n"
+    << "- " << GREEN << "Passed: " << RESET << numPassed << "\n"
+    << "- " << RED << "Failed: " << RESET << (tests.size() - numPassed) << "\n\n\n";
 
 }

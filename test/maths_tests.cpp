@@ -198,6 +198,6 @@ void runMathsTests(const bool showCases) {
         {"Angle Between Vectors (Opposite)", test_angle_case_opposite},
     };
 
-    runTestGroup("Maths", tests, showCases);
+    runTestGroup("MATHS", tests, showCases);
 
 }

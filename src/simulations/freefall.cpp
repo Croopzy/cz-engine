@@ -6,6 +6,8 @@
 
 void runFreefall() {
     
+    std::cout << "SIMULATION INITIALISED: FREEFALL\n\n";
+
     // Input Apple Initial Mass
     float inMass;
     std::cout << "Enter Apple Mass (kg): ";
