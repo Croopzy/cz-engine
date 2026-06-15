@@ -108,7 +108,15 @@ bool test_vector_magnitude() {
 }
 
 
-// TODO: Additional Unit Tests (Multiple Cases): Scalar Cross Product, Perpendicular Vector}
+bool test_cross_product_anticlockwise() { // vecB Anticlockwise From vecA
+    Vector vecA(1.0f, 0.0f);
+    Vector vecB(0.0f, 1.0f);
+    float result = cross(vecA, vecB);
+    return result == 1.0f; // Positive: Anticlockwise
+}
+
+
+// TODO: Additional Unit Tests: Zero Vector, Perpendicular Vector etc...}
 
 
 
