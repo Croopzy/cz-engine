@@ -93,7 +93,7 @@ bool test_dot_product_obtuse() {
 }
 
 
-bool test_dot_product_perpendicular() {
+bool test_dot_product_zero() {
     Vector vecA(1.0f, 0.0f);
     Vector vecB(0.0f, 5.0f);
     float result = dot(vecA, vecB); // (1 * 0) + (0 * 5) = 0
@@ -157,7 +157,7 @@ void runMathsTests(const bool showCases) {
         {"Basic Scalar Division", test_basic_scalar_division},
         {"Dot Product (Acute)", test_dot_product_acute}
         {"Dot Product (Obtuse)", test_dot_product_obtuse}
-        {"Dot Product (Perpendicular)", test_dot_product_perpendicular}
+        {"Dot Product (Zero)", test_dot_product_zero}
         {"Vector Magnitude", test_vector_magnitude},
         // ...
         {"Angle Between Vectors (Same)", test_angle_case_same},
