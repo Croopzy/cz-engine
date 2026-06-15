@@ -32,10 +32,7 @@ Vector worldToScreen(const Camera& camera, const Vector& worldPosition);
 
 
 
-/// Camera Control Functions ///
-
-// Move Camera in World Space
-void pan(Camera& camera, const Vector& deltaMetres);
+/// Camera Adjustment Functions ///
 
 // Adjust Zoom (Pixels Per Metre)
 void zoom(Camera& camera, float deltaZoom);
