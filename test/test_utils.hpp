@@ -8,7 +8,15 @@ struct TestCase {
 };
 
 // Generic Test Harness Declaration
-void runTestGroup(const std::string& groupName, const std::vector<TestCase>& tests, const bool showCases = false);
+namespace tests::detail { // Hides Infastructure From Public API
+	void runTestGroup(const std::string& groupName, const std::vector<TestCase>& tests, const bool showCases = false);
+}
 
-// Test Harness Declarations
-void runMathsTests(bool showCases = false);
+// Internal Test Harness Declarations
+namespace tests::modules { // Hides Engine Tests From Public API
+	void runMathsTests(bool showCases = false);
+}
+
+inline void runAllTests(bool showCases = false) {
+	tests::modules::runMathsTests(showCases);
+}
