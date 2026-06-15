@@ -7,6 +7,7 @@
 #define GREEN   "\033[32m"
 
 
+namespace tests::detail {
 void runTestGroup(const std::string& groupName, const std::vector<TestCase>& tests, const bool showCases) {
 
     std::cout << "\nUNIT TESTS INITIALISED: " << groupName;
@@ -28,4 +29,5 @@ void runTestGroup(const std::string& groupName, const std::vector<TestCase>& tes
     << "- " << GREEN << "Passed: " << RESET << numPassed << "\n"
     << "- " << RED << "Failed: " << RESET << (tests.size() - numPassed) << "\n\n\n";
 
-}
+} // End runTestGroup() Function
+} // End tests::detail Namespace
