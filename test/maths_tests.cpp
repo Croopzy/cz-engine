@@ -151,7 +151,7 @@ bool test_angle_case_opposite() {
 
 
 // Test Harness: Maths
-void runMathsTests(const bool showCases) {
+void runMathsTests(const bool showCases = false) {
 
     std::vector<TestCase> tests = {
         {"Unary Negation", test_unary_negation},
