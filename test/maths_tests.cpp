@@ -113,7 +113,7 @@ bool test_cross_product_anticlockwise() { // vecB Anticlockwise From vecA
     Vector vecB(0.0f, 1.0f);
     float result = cross(vecA, vecB);
     return result == 1.0f; // Positive: Anticlockwise
-}
+} // NEXT: (-ve: Clockwise), (Zero: Parallel), (Zero: Opposite)
 
 
 // TODO: Additional Unit Tests: Zero Vector, Perpendicular Vector etc...}
@@ -163,10 +163,11 @@ void runMathsTests(const bool showCases) {
         {"Basic Subtraction", test_basic_subtraction},
         {"Basic Scalar Multiplication", test_basic_scalar_multiplication},
         {"Basic Scalar Division", test_basic_scalar_division},
-        {"Dot Product (Acute)", test_dot_product_acute}
-        {"Dot Product (Obtuse)", test_dot_product_obtuse}
-        {"Dot Product (Zero)", test_dot_product_zero}
+        {"Dot Product (Acute)", test_dot_product_acute},
+        {"Dot Product (Obtuse)", test_dot_product_obtuse},
+        {"Dot Product (Zero)", test_dot_product_zero},
         {"Vector Magnitude", test_vector_magnitude},
+		{"Cross Product (Anticlockwise)", test_cross_product_anticlockwise},
         // ...
         {"Angle Between Vectors (Same)", test_angle_case_same},
         {"Angle Between Vectors (Acute)", test_angle_case_acute},
