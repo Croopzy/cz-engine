@@ -23,12 +23,7 @@ Vector worldToScreen(const Camera& camera, const Vector& worldPosition)
 }
 
 
-/// Camera Control Functions ///
-
-void pan(Camera& camera, const Vector& deltaMetres)
-{
-    camera.position += deltaMetres; // Update Position
-}
+/// Camera Adjustment Functions ///
 
 void zoom(Camera& camera, float deltaZoom)
 {
