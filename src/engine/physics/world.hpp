@@ -9,7 +9,7 @@ class World {
 public:
 
     // Step Function Declaration
-    void step(float dt) noexcept;
+    void step(float dt = (1.0f / 60.0f)) noexcept;
 
     // World Constructor
     World(const std::string& inName = "Earth", // Default World: Earth

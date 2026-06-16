@@ -1,17 +1,12 @@
 #include <iostream>
 #include "scenarios.hpp"
-#include "src/engine/core/Application.hpp"
+#include "src/engine/physics/World.hpp"
 #include <chrono>
 #include <thread>
 
 void runFreefall() {
     
     std::cout << "SIMULATION INITIALISED: FREEFALL\n\n";
-
-    SDL_Init(SDL_INIT_VIDEO);
-    Application app;
-    app.run();
-
 
     // Input Apple Initial Mass
     float inMass;
@@ -44,11 +39,11 @@ void runFreefall() {
 
     // Simulation Loop
     const int steps = 625; // 10 Seconds
-    const float dt = 0.016; // Timestep, Unit: Seconds
+    const float dt = (1.0f / 60.0f); // Timestep, Unit: Seconds
     bool contact = false;
     for (int i = 0; i < steps; ++i) { // i = stepCount
         auto start = std::chrono::high_resolution_clock::now();
-        earth.step(0.016f); // Simulate Earth, dt = 0.016s
+        earth.step(dt); // Simulate Earth
         if (i % 125 == 0) { // Every Two Seconds
             std::cout << "\n\nCurrent Time: " << (i * dt) << "s" <<
             "\nCurrent Velocity: " << apple.velocity.y << "m/s" <<
@@ -74,5 +69,4 @@ void runFreefall() {
         std::cout << "\n- Final Height: " << apple.position.y << "m" << "\n\n";
     } else std::cout << "\n\n";
 
-    SDL_Quit();
 }
