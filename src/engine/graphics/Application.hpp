@@ -1,6 +1,5 @@
 #pragma once
 #include "Renderer.hpp"
-#include "src/engine/physics/World.hpp"
 
 class Application {
     public:

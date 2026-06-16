@@ -24,15 +24,39 @@ void Renderer::present() { SDL_RenderPresent(renderer); }
 
 /// Draw Functions ///
 
-void Renderer::drawPoint(Camera& camera, float x, float y, SDL_Color colour) {
+void Renderer::drawPoint(const Camera& camera, float x, float y, SDL_Color colour) {
     Vector vecPosition = CameraSpace::screenP(camera, x, y);
     SDL_SetRenderDrawColor(renderer, colour.r, colour.g, colour.b, colour.a);
     SDL_RenderPoint(renderer, vecPosition.x, vecPosition.y);
 }
 
-void Renderer::drawLine(Camera& camera, float x1, float y1, float x2, float y2, SDL_Color colour) {
+void Renderer::drawLine(const Camera& camera, float x1, float y1, float x2, float y2, SDL_Color colour) {
     Vector vecPos1 = CameraSpace::screenP(camera, x1, y1);
     Vector vecPos2 = CameraSpace::screenP(camera, x2, y2);
     SDL_SetRenderDrawColor(renderer, colour.r, colour.g, colour.b, colour.a);
     SDL_RenderLine(renderer, vecPos1.x, vecPos1.y, vecPos2.x, vecPos2.y);
+}
+
+
+/// World Draw Functions///
+void Renderer::drawParticles(const World& world, const Camera& camera) {
+    for (const Particle& body : world.particles) {
+        Renderer::drawPoint(camera, body.position.x, body.position.y, SDL_Color{255, 255, 255, 255});
+    }
+}
+
+void Renderer::drawPlanes(const World& world, const Camera& camera) {
+    for (const World::PlaneCollider& plane : world.planes) {
+        Vector planePoint = plane.normal * plane.offset;
+        Vector tangent = perpendicular(plane.normal);
+        float planeLength = 10000.0f; // Fixed Plane Length (Default -> Infinity)
+        Vector startPoint = planePoint + (tangent * planeLength);
+        Vector endPoint = planePoint - (tangent * planeLength);
+        Renderer::drawLine(camera, startPoint.x, startPoint.y, endPoint.x, endPoint.y, SDL_Color{255, 255, 255, 255});
+    }
+}
+
+void Renderer::drawWorld(const World& world, const Camera& camera) {
+    Renderer::drawParticles(world, camera);
+    Renderer::drawPlanes(world, camera);
 }
