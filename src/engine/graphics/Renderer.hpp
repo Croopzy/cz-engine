@@ -1,7 +1,6 @@
 #pragma once
 #include "Window.hpp"
 #include "Camera.hpp"
-
 #include "src/engine/physics/World.hpp"
 
 class Renderer {
@@ -26,6 +25,5 @@ class Renderer {
         SDL_Renderer* renderer = nullptr; // Renderer Pointer (Constructed Here)
         Window& window; // Window Reference (Initialised in Application.hpp)
         Camera& camera; // Camera Reference (Initialised in Application.hpp)
-
 
 };
