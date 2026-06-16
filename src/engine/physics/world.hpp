@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-#include "constants.hpp" // namespace PhysicsConstants
+#include "PhysicsConstants.hpp"
 #include "Particle.hpp"
 #include "Spring.hpp"
 

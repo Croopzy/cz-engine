@@ -8,6 +8,7 @@ Application::Application()
     renderer(window, camera) {
     }
 
+
 void Application::run() {
     bool active = true;
     SDL_Event event;
@@ -18,11 +19,7 @@ void Application::run() {
         }
 
         renderer.clear();
-
-        // TEST DRAWING
-        renderer.drawLine(camera, 0, 50, 100, 50, SDL_Color{255, 255, 255, 255}); // Draw White Line Along y = 100m
-        renderer.drawPoint(camera, 50, 100, SDL_Color{255, 0, 0, 255}); // Draw Red Point At (50, 100)m in Cartesian Plane (x, y)
-
+        renderer.drawWorld(world, camera);
         renderer.present();
     }
 }

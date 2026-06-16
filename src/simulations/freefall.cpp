@@ -1,6 +1,6 @@
 #include <iostream>
 #include "scenarios.hpp"
-#include "src/engine/graphics/Application.hpp"
+#include "src/engine/core/Application.hpp"
 #include <chrono>
 #include <thread>
 
@@ -54,6 +54,7 @@ void runFreefall() {
             "\nCurrent Velocity: " << apple.velocity.y << "m/s" <<
             "\nCurrent Height: " << apple.position.y << "m" << "\n";
         }
+
         std::this_thread::sleep_until(start + std::chrono::milliseconds(16));
         // Ground Contact
         if (contact == false && apple.position.y <= 0.0f) {

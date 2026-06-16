@@ -1,5 +1,5 @@
 #pragma once
-#include "Renderer.hpp"
+#include "src/engine/graphics/Renderer.hpp"
 
 class Application {
     public:
