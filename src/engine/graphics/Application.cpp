@@ -3,8 +3,10 @@
 
 Application::Application()
     : window("Cryoze Engine", DEFAULT_WIDTH, DEFAULT_HEIGHT),
-    renderer(window)
-{}
+    world(),
+    camera(Vector(0, 0), 1.0f, DEFAULT_WIDTH, DEFAULT_HEIGHT),
+    renderer(window, camera) {
+    }
 
 void Application::run() {
     bool active = true;
@@ -18,8 +20,8 @@ void Application::run() {
         renderer.clear();
 
         // TEST DRAWING
-        renderer.drawLine(0, 50, 100, 50, SDL_Color{255, 255, 255, 255}); // Draw White Line Along y = 100m
-        renderer.drawPoint(50, 100, SDL_Color{255, 0, 0, 255}); // Draw Red Point At (50, 100)m in Cartesian Plane (x, y)
+        renderer.drawLine(camera, 0, 50, 100, 50, SDL_Color{255, 255, 255, 255}); // Draw White Line Along y = 100m
+        renderer.drawPoint(camera, 50, 100, SDL_Color{255, 0, 0, 255}); // Draw Red Point At (50, 100)m in Cartesian Plane (x, y)
 
         renderer.present();
     }

@@ -1,12 +1,17 @@
 #include <iostream>
 #include "scenarios.hpp"
-#include "src/engine/physics/world.hpp"
+#include "src/engine/graphics/Application.hpp"
 #include <chrono>
 #include <thread>
 
 void runFreefall() {
     
     std::cout << "SIMULATION INITIALISED: FREEFALL\n\n";
+
+    SDL_Init(SDL_INIT_VIDEO);
+    Application app;
+    app.run();
+
 
     // Input Apple Initial Mass
     float inMass;
@@ -68,4 +73,5 @@ void runFreefall() {
         std::cout << "\n- Final Height: " << apple.position.y << "m" << "\n\n";
     } else std::cout << "\n\n";
 
+    SDL_Quit();
 }

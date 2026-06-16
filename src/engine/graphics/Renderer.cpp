@@ -1,8 +1,9 @@
 #include "Renderer.hpp"
 
 // Renderer Constructor
-Renderer::Renderer(Window& window)
-    : window(window)
+Renderer::Renderer(Window& window, Camera& camera)
+    : window(window),
+    camera(camera)
 {
     renderer = SDL_CreateRenderer(window.getSDLWindow(), nullptr);
 }
@@ -21,25 +22,17 @@ void Renderer::clear() {
 void Renderer::present() { SDL_RenderPresent(renderer); }
 
 
-/// Conversions: Metres -> Pixels ///
-
-int Renderer::projectX(float metresX) const {
-    return static_cast<int>(metresX * PPM); // Left To Right, Convert Metres To Pixels
-}
-
-int Renderer::projectY(float metresY) const {
-    return window.getHeight() - static_cast<int>(metresY * PPM); // Top To Bottom (SDL3 Default) Inverted, Convert Metres To Pixels
-}
-
-
 /// Draw Functions ///
 
-void Renderer::drawPoint(float x, float y, SDL_Color colour) {
+void Renderer::drawPoint(Camera& camera, float x, float y, SDL_Color colour) {
+    Vector vecPosition = CameraSpace::screenP(camera, x, y);
     SDL_SetRenderDrawColor(renderer, colour.r, colour.g, colour.b, colour.a);
-    SDL_RenderPoint(renderer, projectX(x), projectY(y));
+    SDL_RenderPoint(renderer, vecPosition.x, vecPosition.y);
 }
 
-void Renderer::drawLine(float x1, float y1, float x2, float y2, SDL_Color colour) {
+void Renderer::drawLine(Camera& camera, float x1, float y1, float x2, float y2, SDL_Color colour) {
+    Vector vecPos1 = CameraSpace::screenP(camera, x1, y1);
+    Vector vecPos2 = CameraSpace::screenP(camera, x2, y2);
     SDL_SetRenderDrawColor(renderer, colour.r, colour.g, colour.b, colour.a);
-    SDL_RenderLine(renderer, projectX(x1), projectY(y1), projectX(x2), projectY(y2));
+    SDL_RenderLine(renderer, vecPos1.x, vecPos1.y, vecPos2.x, vecPos2.y);
 }
