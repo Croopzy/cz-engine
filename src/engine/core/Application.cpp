@@ -29,10 +29,10 @@ void Application::run(World& world) {
         timeAccumulator += frameTime;
 
         // Step Physics
-        while (timeAccumulator >= FIXED_DT)
+        while (timeAccumulator >= DT)
         {
-            world.step(FIXED_DT);
-            timeAccumulator -= FIXED_DT;
+            world.step(DT);
+            timeAccumulator -= DT;
         }
 
         // Render Frame
