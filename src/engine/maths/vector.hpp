@@ -97,7 +97,7 @@ struct Vector {
 
 // Zero Vector Check: isZero(vector)
 [[nodiscard]] constexpr bool isZero(const Vector& vecA, float epsilon = MathsConstants::EPSILON) noexcept{
-	return ((vecA.x * vecA.x) + (vecA.y + vecA.y)) < (epsilon * epsilon); // Magnitude^2 < Epsilon^2 (No Use of sqrt: More Stabilise & Efficient)
+	return ((vecA.x * vecA.x) + (vecA.y * vecA.y)) < (epsilon * epsilon); // Magnitude^2 < Epsilon^2 (No Use of sqrt: More Stabilise & Efficient)
 }
 
 // Vector Normalisation (Unit Vector): normalise(vector)
