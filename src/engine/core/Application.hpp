@@ -17,5 +17,5 @@ class Application {
         static constexpr int DEFAULT_HEIGHT = 720;
 
         // Timestep
-        static constexpr float dt = PhysicsConstants::FIXED_DT;
+        static constexpr float DT = PhysicsConstants::FIXED_DT;
 };
