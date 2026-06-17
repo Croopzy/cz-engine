@@ -219,7 +219,7 @@ void runMathsTests(const bool showCases) {
 		{"Cross Product (Anti-Parallel)", test_cross_product_antiparallel},
         {"Scalar Magnitude of Vector", test_vector_magnitude},
         {"Basic Normalisation (Unit Vector)", test_vector_unit_basic},
-        {"Zero Vector Normalisation (Unit Vector", test_vector_unit_zero},
+        {"Zero Vector Normalisation (Unit Vector)", test_vector_unit_zero},
         {"Idempotent Normalisation (Unit Vector)", test_vector_unit_idempotent},
         {"Perpendicular Vector", test_vector_perpendicular},
         {"Angle Between Vectors (Same)", test_angle_case_same},
