@@ -1,4 +1,5 @@
 #pragma once
+#include "src/engine/physics/World.hpp"
 #include "src/engine/graphics/Renderer.hpp"
 
 class Application {
@@ -16,5 +17,5 @@ class Application {
         static constexpr int DEFAULT_HEIGHT = 720;
 
         // Timestep
-        static constexpr float FIXED_DT = 1.0f / 60.0f;
+        static constexpr float dt = PhysicsConstants::FIXED_DT;
 };
