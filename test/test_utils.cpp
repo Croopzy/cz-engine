@@ -1,5 +1,6 @@
-#include <iostream>
 #include "test_utils.hpp"
+#include <iostream>
+#include <string>
 
 // Text Markdown (Colour)
 #define RESET   "\033[0m"
