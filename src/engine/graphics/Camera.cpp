@@ -19,9 +19,9 @@ Vector worldToView(const Camera& camera, const Vector& worldPosition)
 
 Vector viewToScreen(const Camera& camera, const Vector& viewPosition)
 {
-    // Move Camera To Middle of Screen
-    float cameraX = camera.viewportWidth * 0.5f;
-    float cameraY = camera.viewportHeight * 0.5f;
+    // Move Camera To Middle of Screen, Add Offset
+    float cameraX = (camera.viewportWidth * 0.5f) + viewPosition.x;
+    float cameraY = (camera.viewportHeight * 0.5f) + viewPosition.y;
     Vector screenPosition(cameraX, cameraY);
     return(screenPosition);
 }
