@@ -4,12 +4,6 @@ namespace CameraSpace {
 
 /// Screen Projection Functions ///
 
-Vector vecP(const float x, const float y)
-{
-    Vector vecPosition(x, y);
-    return (vecPosition);
-}
-
 Vector worldToView(const Camera& camera, const Vector& worldPosition)
 {
     Vector relativePosition = worldPosition - camera.position; // Translate Position Vector
@@ -33,9 +27,9 @@ Vector worldToScreen(const Camera& camera, const Vector& worldPosition)
     return (screenPosition);
 }
 
-Vector screenP(const Camera& camera, const float x, const float y)
+Vector screenProjection(const Camera& camera, const float x, const float y)
 {
-    Vector vecPosition = vecP(x, y);
+    Vector worldPosition(x, y);
     return (worldToScreen(camera, vecPosition));
 }
 
