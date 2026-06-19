@@ -20,9 +20,6 @@ namespace CameraSpace {
 
 /// Screen Projection Functions ///
 
-// Convert Coordinates To Position Vector
-Vector vecP(const float x, const float y);
-
 // Transformation: World To Camera View (Intermediate Step)
 Vector worldToView(const Camera& camera, const Vector& worldPosition);
 
@@ -33,7 +30,7 @@ Vector viewToScreen(const Camera& camera, const Vector& viewPosition);
 Vector worldToScreen(const Camera& camera, const Vector& worldPosition);
 
 // Project Position Onto Screen
-Vector screenP(const Camera& camera, const float x, const float y);
+Vector screenProjection(const Camera& camera, const float x, const float y);
 
 
 /// Camera Adjustment Functions ///
