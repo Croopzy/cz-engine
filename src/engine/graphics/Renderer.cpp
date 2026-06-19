@@ -25,14 +25,14 @@ void Renderer::present() { SDL_RenderPresent(renderer); }
 /// Draw Functions ///
 
 void Renderer::drawPoint(const Camera& camera, float x, float y, SDL_Color colour) {
-    Vector vecPosition = CameraSpace::screenPosition(camera, x, y);
+    Vector vecPosition = CameraSpace::screenProjection(camera, x, y);
     SDL_SetRenderDrawColor(renderer, colour.r, colour.g, colour.b, colour.a);
     SDL_RenderPoint(renderer, vecPosition.x, vecPosition.y);
 }
 
 void Renderer::drawLine(const Camera& camera, float x1, float y1, float x2, float y2, SDL_Color colour) {
-    Vector vecPos1 = CameraSpace::screenPosition(camera, x1, y1);
-    Vector vecPos2 = CameraSpace::screenPosition(camera, x2, y2);
+    Vector vecPos1 = CameraSpace::screenProjection(camera, x1, y1);
+    Vector vecPos2 = CameraSpace::screenProjection(camera, x2, y2);
     SDL_SetRenderDrawColor(renderer, colour.r, colour.g, colour.b, colour.a);
     SDL_RenderLine(renderer, vecPos1.x, vecPos1.y, vecPos2.x, vecPos2.y);
 }
