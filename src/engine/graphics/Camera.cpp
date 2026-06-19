@@ -30,7 +30,7 @@ Vector worldToScreen(const Camera& camera, const Vector& worldPosition)
 Vector screenProjection(const Camera& camera, const float x, const float y)
 {
     Vector worldPosition(x, y);
-    return (worldToScreen(camera, vecPosition));
+    return (worldToScreen(camera, worldPosition));
 }
 
 
