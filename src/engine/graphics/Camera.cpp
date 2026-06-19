@@ -13,6 +13,7 @@ Vector vecP(const float x, const float y)
 Vector worldToView(const Camera& camera, const Vector& worldPosition)
 {
     Vector relativePosition = worldPosition - camera.position; // Translate Position Vector
+    relativePosition.y = -relativePosition.y; // Invert Y-Position (SDL Flips Y)
     return (relativePosition * camera.zoom); // Scale Position Vector By Zoom
 }
 
