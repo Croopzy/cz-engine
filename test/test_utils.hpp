@@ -1,5 +1,6 @@
 #pragma once
 #include <vector> // Dynamic Array Type
+#include <string>
 
 // Tests Structure
 struct TestCase {

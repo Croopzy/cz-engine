@@ -1,5 +1,5 @@
 #pragma once
-#include "src/engine/maths/vector.hpp"
+#include "src/engine/maths/Vector.hpp"
 
 
 // Camera Structure

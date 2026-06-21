@@ -1,6 +1,6 @@
 #include <iostream>
 #include "test_utils.hpp"
-#include "src/engine/maths/vector.hpp"
+#include "src/engine/maths/Vector.hpp"
 #include "src/engine/maths/geometry.hpp"
 
 

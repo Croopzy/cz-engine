@@ -50,7 +50,7 @@ void runFreefall() {
             "\nCurrent Height: " << apple.position.y << "m" << "\n";
         }
 
-        std::this_thread::sleep_until(start + std::chrono::milliseconds(16));
+        std::this_thread::sleep_until(start + std::chrono::milliseconds(1000/60));
         // Ground Contact
         if (contact == false && apple.position.y <= 0.0f) {
             contact = true;
