@@ -52,8 +52,8 @@ public:
     }
 
     // New World Particle
-    inline Particle& addParticle(float mass) { 
-        particles.emplace_back(mass); // Constructs Particle Directly Inside Particles Vector
+    inline Particle& addParticle(float mass, std::string name = "DefaultParticle") { 
+        particles.emplace_back(mass, name); // Constructs Particle Directly Inside Particles Vector
         return particles.back(); // Returns Reference to New Particle
     }
 

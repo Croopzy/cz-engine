@@ -4,14 +4,16 @@
 // STRUCTURES //
 
 struct Particle {
+private:
+    float mass; // Mass (Unit: kilograms, kg)
+    float inverseMass; // (mass^-1 = 0 when mass -> infinity)
+
+public:
     std::string name; // Printable Name of Particle
 
     Vector position; // Current Position (Unit: metres, m)
     Vector velocity; // Current Velocity (Unit: ms^-1)
     Vector acceleration; // Acceleration = netForce * inverseMass (Unit: ms^-2)
-
-    float mass; // Mass (Unit: kilograms, kg)
-    float inverseMass; // (mass^-1 = 0 when mass -> infinity)
 
     Vector netForce; // Resultant Force (Unit: Newtons)
 
