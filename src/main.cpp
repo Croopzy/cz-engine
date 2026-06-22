@@ -6,7 +6,8 @@ int main() {
 
     runEngineTests();
 
-    Freefall::runScenario();
+    Freefall freefall;
+    freefall.runScenario();
 
 	return 0;
 }
