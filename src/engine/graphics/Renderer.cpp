@@ -8,7 +8,7 @@ Renderer::Renderer(Window& window, Camera& camera)
     renderer = SDL_CreateRenderer(window.getSDLWindow(), nullptr);
 }
 
-// Renderer Deconstructor
+// Renderer Destructor
 Renderer::~Renderer() { SDL_DestroyRenderer(renderer); }
 
 // Reset Back Buffer (Empty Canvas)

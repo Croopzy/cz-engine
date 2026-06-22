@@ -1,6 +1,5 @@
 #include <iostream>
-#include "scenarios.hpp"
-#include "src/engine/physics/World.hpp"
+#include "freefall.hpp"
 #include <chrono>
 #include <thread>
 

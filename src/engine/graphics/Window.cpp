@@ -7,7 +7,7 @@ Window::Window(const char* title, int w, int h)
     window = SDL_CreateWindow(title, w, h, SDL_WINDOW_RESIZABLE);
 }
 
-// Window Deconstructor
+// Window Destructor
 Window::~Window() { SDL_DestroyWindow(window); }
 
 // Get Window Pointer

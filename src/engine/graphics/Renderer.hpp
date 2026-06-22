@@ -6,7 +6,7 @@
 class Renderer {
     public:
         Renderer(Window& window, Camera& camera); // Constructor
-        ~Renderer(); // Deconstructor
+        ~Renderer(); // Destructor
 
         // Core Functions
         void clear();

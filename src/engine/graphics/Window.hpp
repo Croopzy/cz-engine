@@ -4,7 +4,7 @@
 class Window {
     public:
         Window(const char* title, int width, int height); // Constructor, Parameter Units [Width, Height]: px
-        ~Window(); // Deconstructor Declaration
+        ~Window(); // Destructor Declaration
 
         SDL_Window* getSDLWindow() const;
 
