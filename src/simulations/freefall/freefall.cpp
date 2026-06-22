@@ -26,7 +26,7 @@ void Freefall::start() {
     std::cin >> inHeight;
 
     // Spawn Apple (Modelled As Particle)
-    apple.mass = inMass; // Set Apple Mass
+    apple.setMass(inMass); // Set Apple Mass
     apple.position = {0.0f, inHeight}; // Set Apple Height
     std::cout << "\nParticle Model Created: Apple"
     << "\n- Apple Mass: " << apple.mass << "kg"

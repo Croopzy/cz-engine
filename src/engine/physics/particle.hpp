@@ -29,6 +29,11 @@ struct Particle {
             inverseMass = 1.0f / mass;
     }
 
+    inline void setMass(float inMass) {
+        mass = inMass;
+        inverseMass = (inMass == 0.0f ? 0.0f : 1.0f / inMass);
+    }
+
     // Apply New Force
     inline void applyForce(const Vector& force) noexcept {
         netForce += force;
