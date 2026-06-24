@@ -19,9 +19,6 @@ class Application {
         static constexpr int DEFAULT_WIDTH = 1200;
         static constexpr int DEFAULT_HEIGHT = 720;
 
-        // Define Timestep
-        static constexpr float DT = PhysicsConstants::FIXED_DT;
-
         // Render Frame
         void renderFrame(Scenario& scenario) {
             renderer.clear();

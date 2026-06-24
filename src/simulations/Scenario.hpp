@@ -13,12 +13,12 @@ class Scenario { // Base Class (No Independent Constructor)
             world.printInfo(false);
         }
 
-        int numSteps = 1; 
+        int numSteps = 1;
+        const float dt = PhysicsConstants::FIXED_DT;
 
         virtual void step() {
             world.step(dt);
             stepID++;
-            // wait();
         }
 
         virtual void poll() {} // Default Empty
@@ -26,11 +26,13 @@ class Scenario { // Base Class (No Independent Constructor)
         virtual void end() {
             std::cout << "\n\nSimulation Concluded"
             << "\n- Time: " << (numSteps * dt) << "s";
+            // PRESS ENTER TO TERMINATE SCENARIO
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cin.get(); // Await Input: ENTER
         }
 
 
     protected:
-        float dt = PhysicsConstants::FIXED_DT;
         int stepID = 0;
 
     private:
