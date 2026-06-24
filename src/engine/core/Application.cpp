@@ -6,10 +6,9 @@
 Application::Application()
     : window("Cryoze Engine", DEFAULT_WIDTH, DEFAULT_HEIGHT),
     camera(Vector(0, 0), 1.0f, DEFAULT_WIDTH, DEFAULT_HEIGHT),
-    renderer(window, camera) {
-    }
+    renderer(window, camera) {}
 
-void Application::run(Scenario& scenario, bool visualiser = true) {
+void Application::run(Scenario& scenario, bool visualiser) {
 
     scenario.start();
     bool active = true;
@@ -20,8 +19,8 @@ void Application::run(Scenario& scenario, bool visualiser = true) {
             if (event.type == SDL_EVENT_QUIT) active = false;
         }
 
-        for (int stepID = 0; stepID < scenario.numSteps; ++stepID) {
-            scenario.step(stepID); // Step Physics
+        for (int i = 0; i < scenario.numSteps; ++i) {
+            scenario.step(); // Step Physics
 
             scenario.poll(); // Handle Events
 

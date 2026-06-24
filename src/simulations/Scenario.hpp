@@ -2,7 +2,7 @@
 #include "src/engine/physics/World.hpp"
 #include <iostream>
 
-class Scenario { // Parent-Only Class (No Independent Constructor)
+class Scenario { // Base Class (No Independent Constructor)
     public:
         virtual ~Scenario() = default; // 'virtual': Explicitly Enables Polymorphism, 'default': Compiler Generates Destructor Body
 
@@ -15,8 +15,9 @@ class Scenario { // Parent-Only Class (No Independent Constructor)
 
         int numSteps = 1; 
 
-        virtual void step(int stepID = 0) {
+        virtual void step() {
             world.step(dt);
+            stepID++;
         }
 
         virtual void poll() {} // Default Empty
@@ -29,6 +30,7 @@ class Scenario { // Parent-Only Class (No Independent Constructor)
 
     protected:
         float dt = PhysicsConstants::FIXED_DT;
+        int stepID = 0;
 
     private:
         World world;

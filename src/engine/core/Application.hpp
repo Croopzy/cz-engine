@@ -7,7 +7,7 @@ class Application {
     public:
         Application();
 
-        void run(Scenario& scenario, bool visualiser);
+        void run(Scenario& scenario, bool visualiser = true);
 
     private:
         // Visualiser Components
@@ -15,11 +15,11 @@ class Application {
         Camera camera;
         Renderer renderer;
 
-        // Window
+        // Define Window
         static constexpr int DEFAULT_WIDTH = 1200;
         static constexpr int DEFAULT_HEIGHT = 720;
 
-        // Timestep
+        // Define Timestep
         static constexpr float DT = PhysicsConstants::FIXED_DT;
 
         // Render Frame
