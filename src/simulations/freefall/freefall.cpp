@@ -3,8 +3,8 @@
 #include <chrono>
 #include <thread>
 
-Freefall::Freefall() {
-    steps = 600; // Selected Fixed Number of Steps
+Freefall::Freefall(int inSteps) {
+    steps = inSteps; // Selected Fixed Number of Steps
 }
 
 void Freefall::start() {
@@ -51,7 +51,7 @@ void Freefall::step(int i) {
     }
 
     std::this_thread::sleep_until(start + std::chrono::milliseconds(1000/60));
-    // Ground Contact
+    // Event: Ground Contact
     if (contact == false && apple.position.y <= 0.0f) {
         contact = true;
         std::cout << "\n\nGROUND REACHED"

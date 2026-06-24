@@ -3,7 +3,7 @@
 
 class Freefall : public Scenario { // Child Class of Scenario
 public:
-    Freefall(); // Constructor
+    Freefall(int inSteps = 600); // Constructor
     void runScenario() override; // Polymorphic Override of Function in Scenario Class
 
 private:

@@ -17,10 +17,10 @@ class Scenario {
 
         World& getWorld() { return world; }
 
-        virtual void start() = 0; // 'Virtual ... = 0': Purely Virtual Function (Only Child Classes Define This Function)
-
         float dt = PhysicsConstants::FIXED_DT;
         int steps = 1;
+
+        virtual void start() = 0; // 'Virtual ... = 0': Purely Virtual Function (Only Child Classes Define This Function)
 
         virtual void step() {} // Single Step (Primarily For Event-Driven Scenarios)
         virtual void step(int stepID  ) { step(); } // Fixed Step (Set Number of Steps)
