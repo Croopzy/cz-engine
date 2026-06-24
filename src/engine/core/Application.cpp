@@ -9,35 +9,27 @@ Application::Application()
     renderer(window, camera) {
     }
 
+void Application::run(Scenario& scenario, bool visualiser = true) {
 
-void Application::run(World& world) {
+    scenario.start();
     bool active = true;
+
     SDL_Event event;
-
-    auto previousTime = std::chrono::high_resolution_clock::now();
-    float timeAccumulator = 0.0f;
-
     while (active) {
         while (SDL_PollEvent(&event)) {
             if (event.type == SDL_EVENT_QUIT) active = false;
         }
 
-        // Frame Timing
-        auto timeNow = std::chrono::high_resolution_clock::now();
-        float frameTime = std::chrono::duration<float>(timeNow - previousTime).count();
-        previousTime = timeNow;
-        timeAccumulator += frameTime;
+        for (int stepID = 0; stepID < scenario.numSteps; ++stepID) {
+            scenario.step(stepID); // Step Physics
 
-        // Step Physics
-        while (timeAccumulator >= DT)
-        {
-            world.step(DT);
-            timeAccumulator -= DT;
+            scenario.poll(); // Handle Events
+
+            if (visualiser == true) {
+                renderFrame(scenario); // Render Frame
+            }
         }
-
-        // Render Frame
-        renderer.clear();
-        renderer.drawWorld(world, camera);
-        renderer.present();
     }
+
+    scenario.end();
 }

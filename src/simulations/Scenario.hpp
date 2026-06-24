@@ -1,31 +1,34 @@
 #pragma once
 #include "src/engine/physics/World.hpp"
+#include <iostream>
 
-class Scenario {
+class Scenario { // Parent-Only Class (No Independent Constructor)
     public:
         virtual ~Scenario() = default; // 'virtual': Explicitly Enables Polymorphism, 'default': Compiler Generates Destructor Body
 
-        virtual void runScenario() {
-            start();
-            for (int stepID = 0; stepID < steps; ++stepID) {
-                step(stepID);
-            }
-            end();
-        }
-
-    protected:
-
         World& getWorld() { return world; }
 
+        virtual void start() {
+            std::cout << "SIMULATION INITIALISED" << "\n\n";
+            world.printInfo(false);
+        }
+
+        int numSteps = 1; 
+
+        virtual void step(int stepID = 0) {
+            world.step(dt);
+        }
+
+        virtual void poll() {} // Default Empty
+
+        virtual void end() {
+            std::cout << "\n\nSimulation Concluded"
+            << "\n- Time: " << (numSteps * dt) << "s";
+        }
+
+
+    protected:
         float dt = PhysicsConstants::FIXED_DT;
-        int steps = 1;
-
-        virtual void start() = 0; // 'Virtual ... = 0': Purely Virtual Function (Only Child Classes Define This Function)
-
-        virtual void step() {} // Single Step (Primarily For Event-Driven Scenarios)
-        virtual void step(int stepID  ) { step(); } // Fixed Step (Set Number of Steps)
-
-        virtual void end() = 0;
 
     private:
         World world;
