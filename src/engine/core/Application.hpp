@@ -7,7 +7,7 @@ class Application {
     public:
         Application();
 
-        void run(Scenario& scenario, bool visualiser = true);
+        void run(Scenario& scenario, bool visualiserEnabled = true);
 
     private:
         // Visualiser Components

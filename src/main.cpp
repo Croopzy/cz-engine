@@ -8,8 +8,8 @@ int main() {
     runEngineTests();
 
     Application demo;
-    FreefallScenario freefall;
-    demo.run(freefall);
+    FreefallScenario freefall(600);
+    demo.run(freefall, true);
 
 	return 0;
 }

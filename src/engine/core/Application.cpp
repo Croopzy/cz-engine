@@ -6,28 +6,31 @@
 Application::Application()
     : window("Cryoze Engine", DEFAULT_WIDTH, DEFAULT_HEIGHT),
     camera(Vector(0, 0), 1.0f, DEFAULT_WIDTH, DEFAULT_HEIGHT),
-    renderer(window, camera) {}
+    renderer(window, camera) {
+}
 
-void Application::run(Scenario& scenario, bool visualiser) {
+
+void Application::run(Scenario& scenario, bool visualiserEnabled) {
 
     scenario.start();
-    bool active = true;
 
+    bool visualiserActive = true;
     SDL_Event event;
-    while (active) {
-        while (SDL_PollEvent(&event)) {
-            if (event.type == SDL_EVENT_QUIT) active = false;
+
+    for (int i = 0; i < scenario.numSteps; ++i) {
+
+        while (SDL_PollEvent(&event)) { // Always Poll Events
+            if (event.type == SDL_EVENT_QUIT) visualiserActive = false;
         }
 
-        for (int i = 0; i < scenario.numSteps; ++i) {
-            scenario.step(); // Step Physics
+        scenario.step(); // Step Physics
 
-            scenario.poll(); // Handle Events
+        scenario.poll(); // Handle Events
 
-            if (visualiser == true) {
-                renderFrame(scenario); // Render Frame
-            }
+        if (visualiserEnabled && visualiserActive) {
+            renderFrame(scenario); // Render Frame
         }
+
     }
 
     scenario.end();
