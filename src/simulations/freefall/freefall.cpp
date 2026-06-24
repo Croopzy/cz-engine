@@ -29,7 +29,7 @@ void Freefall::start() {
     apple.setMass(inMass); // Set Apple Mass
     apple.position = {0.0f, inHeight}; // Set Apple Height
     std::cout << "\nParticle Model Created: Apple"
-    << "\n- Apple Mass: " << apple.mass << "kg"
+    << "\n- Apple Mass: " << apple.getMass() << "kg"
     << "\n- Apple Initial Height: " << apple.position.y << "m" << "\n\n";
 
     // Add Earth Surface (Ground Plane Collider)

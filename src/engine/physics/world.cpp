@@ -13,7 +13,7 @@ void World::printInfo(const bool listParticles) noexcept {
     if (listParticles) {
         std::cout << "\n- Particles: ";
         for (Particle& body : particles) {
-            std::cout << body.name << " (" << "Mass = " << body.mass << "kg, " << "Position = " << body.position << " ";
+            std::cout << body.name << " (" << "Mass = " << body.getMass() << "kg, " << "Position = " << body.position << " ";
         }
     }
     std::cout << "}\n";
@@ -51,7 +51,7 @@ void World::step(float dt) noexcept {
     // Clear Forces & Simulate Particles Under Gravity
     for (Particle& body : particles) {
         body.clearForces(); // Reset Forces For Next Frame
-        body.applyForce(gravity * body.mass); // Apply World Gravity (W = m * g)
+        body.applyForce(gravity * body.getMass()); // Apply World Gravity (W = m * g)
     }
     // Simulate Spring Connections (With Pairs of Particles)
     for (const Spring& spring : springs) {

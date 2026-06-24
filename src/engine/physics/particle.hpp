@@ -17,7 +17,7 @@ public:
 
     Vector netForce; // Resultant Force (Unit: Newtons)
 
-    Particle(float inMass = 1.0f, std::string inName = "DefaultParticle"):
+    Particle(float inMass = 0.0f, std::string inName = "DefaultParticle"): // Default: Fixed Immovable Point (Infinite Mass)
         name(inName),
         mass(inMass),
         position(0,0),
@@ -35,6 +35,10 @@ public:
         mass = inMass;
         inverseMass = (inMass == 0.0f ? 0.0f : 1.0f / inMass);
     }
+
+    inline float getMass() const { return mass; }
+    inline float getInverseMass() const { return inverseMass; }
+
 
     // Apply New Force
     inline void applyForce(const Vector& force) noexcept {
