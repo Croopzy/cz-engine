@@ -38,6 +38,44 @@ void Renderer::drawLine(const Camera& camera, float x1, float y1, float x2, floa
 }
 
 
+void Renderer::drawCircle(const Camera& camera, float centreX, float centreY, float inRadius, bool fillEnabled, SDL_Color colour) { // Bresenham Circle Algorithm (AKA Midpoint Circle Algorithm)
+    int radius = (int)inRadius; // Casting Radius To Integer Type
+
+    // Current Position in First Octant (Top of Circle)
+    int x = 0;
+    int y = radius;
+
+    // Evaluation of f(x, y) At Midpoint, Tracked Incrementally
+    int mpCircleF = 3 - (radius * 2); // Dervied From Implicit Circle Equation: f(x, y) = x^2 + y^2 - r^2
+
+    // Draw Eight Symmetric Points Around Circle
+    auto plotEight = [&](int offsetX, int offsetY) { // Capture All Variables From Surrounding Scope By Reference Using [&]
+        drawPoint(camera, (centreX + offsetX), (centreY + offsetY), colour);
+        drawPoint(camera, (centreX + offsetX), (centreY - offsetY), colour);
+        drawPoint(camera, (centreX - offsetX), (centreY + offsetY), colour);
+        drawPoint(camera, (centreX - offsetX), (centreY - offsetY), colour);
+        drawPoint(camera, (centreX + offsetY), (centreY + offsetX), colour);
+        drawPoint(camera, (centreX + offsetY), (centreY - offsetX), colour);
+        drawPoint(camera, (centreX - offsetY), (centreY + offsetX), colour);
+        drawPoint(camera, (centreX - offsetY), (centreY - offsetX), colour);
+    };
+
+    // Walk From Top of Circle To 45° Diagonal
+    while (y >= x) { // Continue Until Reaching 45° Diagonal
+        plotEight(x, y);
+        x++; // Always Move Right (By One Pixel)
+        if (mpCircleF > 0) {// True Curve Below Midpoint (Midpoint Positioned Outside of Circle)
+            y--; // Move Down (By One Pixel)
+            mpCircleF += (4 * (x - y)) + 10;
+        }
+        else { // Midpoint Positioned Inside OR On Circle
+            mpCircleF += (4 * x) + 6; // Stay Level
+        }
+    }
+
+}
+
+
 /// World Draw Functions///
 void Renderer::drawParticles(const World& world, const Camera& camera) {
     for (const Particle& body : world.particles) {
