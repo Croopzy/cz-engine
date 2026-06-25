@@ -8,12 +8,12 @@ World::World(const std::string& inName, const Vector& inGravity) noexcept // Use
 {}
 
 void World::printInfo(const bool listParticles) noexcept {
-    std::cout << "\nWorld: " << World::name << " {"
-    << "\n- Gravity = " << World::gravity.y << "ms^-2";
+    std::cout << "\nWorld: " << World::name << "\n"
+    << "- Gravity = " << World::gravity.y << "ms^-2";
     if (listParticles) {
-        std::cout << "\n- Particles: ";
+        std::cout << "\n- Particles:";
         for (Particle& body : particles) {
-            std::cout << body.name << " (" << "Mass = " << body.getMass() << "kg, " << "Position = " << body.position << " ";
+            std::cout << "\n  --> " << body.name << " (" << "Mass = " << body.getMass() << "kg, " << "Position = " << body.position << " ";
         }
     }
     std::cout << "}\n";
