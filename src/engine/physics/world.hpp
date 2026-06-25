@@ -31,6 +31,7 @@ public:
         restitution(elasticity) {}
     };
 
+
     // World Name
     std::string name;
 
@@ -46,15 +47,16 @@ public:
     // World Springs
     std::vector<Spring> springs; // Collection of Springs in World
 
+
     // New World Plane Collider
     inline void addPlane(const Vector& vecN = {0.0f, 1.0f}, float planeConstant = 0, float elasticity = 0.3f) { 
         planes.emplace_back(vecN, planeConstant, elasticity); // Constructor
     }
 
     // New World Particle
-    inline Particle& addParticle(float mass, std::string name = "DefaultParticle") { 
-        particles.emplace_back(mass, name); // Constructs Particle Directly Inside Particles Vector
-        return particles.back(); // Returns Reference to New Particle
+    inline int addParticle(float mass = 0.0f, std::string name = "DefaultParticle", Vector position = Vector(0.0f, 0.0f)) { 
+        particles.emplace_back(mass, name, position); // Constructs Particle Directly Inside Particles Vector
+        return (particles.size() - 1); // Returns Index of New Particle
     }
 
     // New World Spring
@@ -65,4 +67,9 @@ public:
     // Apply Spring Force
     void applySpringForce(const Spring& spring);
 
+
+    // Get World Particle
+    inline Particle& getParticle(int index) {
+        return particles[index];
+    }
 };

@@ -5,7 +5,7 @@
 
 Application::Application()
     : window("Cryoze Engine", DEFAULT_WIDTH, DEFAULT_HEIGHT),
-    camera(Vector(0, 0), 1.0f, DEFAULT_WIDTH, DEFAULT_HEIGHT),
+    camera(Vector(0, 0), 5, DEFAULT_WIDTH, DEFAULT_HEIGHT),
     renderer(window, camera) {
 }
 
@@ -44,4 +44,9 @@ void Application::run(Scenario& scenario, bool visualiserEnabled) {
     }
 
     scenario.end();
+    
+    // PRESS ENTER TO TERMINATE SCENARIO
+    std::cout << "\n\nPRESS ENTER TO END SIMULATION ";
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    std::cin.get(); // Await Input: ENTER
 }

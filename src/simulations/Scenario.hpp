@@ -26,9 +26,6 @@ class Scenario { // Base Class (No Independent Constructor)
         virtual void end() {
             std::cout << "\n\nSimulation Concluded"
             << "\n- Time: " << (numSteps * dt) << "s";
-            // PRESS ENTER TO TERMINATE SCENARIO
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            std::cin.get(); // Await Input: ENTER
         }
 
 

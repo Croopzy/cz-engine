@@ -11,6 +11,6 @@ class FreefallScenario : public Scenario { // Child Class of Scenario
 
     private:
         World& earth = getWorld();
-        Particle& apple = earth.addParticle(0, "Apple"); // Create Apple (Mass = inMass) in Earth Simulation, Default: Infinite Mass
+        int apple = earth.addParticle(10.0f, "Apple", Vector(0.0f, 100.0f)); // Create Apple (Mass = inMass) in Earth Simulation, Default: Infinite Mass
         bool groundContact = false;
 };
