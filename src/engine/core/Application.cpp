@@ -5,7 +5,7 @@
 
 Application::Application()
     : window("Cryoze Engine", DEFAULT_WIDTH, DEFAULT_HEIGHT),
-    camera(Vector(0, 0), 5, DEFAULT_WIDTH, DEFAULT_HEIGHT),
+    camera(Vector(0, 0), 2.5, DEFAULT_WIDTH, DEFAULT_HEIGHT),
     renderer(window, camera) {
 }
 

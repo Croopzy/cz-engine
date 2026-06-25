@@ -13,6 +13,9 @@ void FreefallScenario::start() {
     std::cout << "World Simulation Created: " << earth.name << "\n"
     << "Gravity: " << earth.gravity.y << "ms^-2\n\n";
 
+    // Create Earth Surface (Ground Plane Collider)
+    earth.addPlane();
+
     // Input Apple Initial Mass
     float inMass;
     std::cout << "Enter Apple Mass (kg): ";
@@ -30,15 +33,13 @@ void FreefallScenario::start() {
     << "\n- Apple Mass: " << earth.getParticle(apple).getMass() << "kg"
     << "\n- Apple Initial Height: " << earth.getParticle(apple).position.y << "m" << "\n\n";
 
-    // Create Earth Surface (Ground Plane Collider)
-    earth.addPlane();
+    // Create Additional Particles
+    earth.addParticle(85, "Superman", Vector(50.0f, 200.0f));
+    earth.addParticle(10, "Rock", Vector(100.0f, 400.0f));
 
     // Display World Information
     std::cout << "Simulation Construction Successful";
     earth.printInfo(true);
-
-    earth.addParticle(85, "Superman", Vector(50.0f, 200.0f));
-    earth.addParticle(10, "Rock", Vector(100.0f, 400.0f));
 }
 
 
