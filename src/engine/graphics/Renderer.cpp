@@ -49,7 +49,7 @@ void Renderer::drawCircle(const Camera& camera, float centreX, float centreY, fl
     int mpCircleF = 3 - (radius * 2); // Dervied From Implicit Circle Equation: f(x, y) = x^2 + y^2 - r^2
 
     // Draw Eight Symmetric Points Around Circle
-    auto plotEight = [&](int offsetX, int offsetY) { // Capture All Variables From Surrounding Scope By Reference Using [&]
+    auto plotPoints = [&](int offsetX, int offsetY) { // Capture All Variables From Surrounding Scope By Reference Using [&]
         drawPoint(camera, (centreX + offsetX), (centreY + offsetY), colour);
         drawPoint(camera, (centreX + offsetX), (centreY - offsetY), colour);
         drawPoint(camera, (centreX - offsetX), (centreY + offsetY), colour);
@@ -60,9 +60,29 @@ void Renderer::drawCircle(const Camera& camera, float centreX, float centreY, fl
         drawPoint(camera, (centreX - offsetY), (centreY - offsetX), colour);
     };
 
+    // Draw Four Lines Between Symmetric Points Around Circle
+    auto plotLines = [&](int offsetX, int offsetY) { // Capture All Variables From Surrounding Scope By Reference Using [&]
+        // Horizontal Span Using (x, y)
+        float leftX  = centreX - offsetX;
+        float rightX = centreX + offsetX;
+        float topY   = centreY + offsetY;
+        float bottomY = centreY - offsetY;
+        // Horizontal Span Swapped (y, x)
+        float swapLeftX  = centreX - offsetY;
+        float swapRightX = centreX + offsetY;
+        float swapTopY   = centreY + offsetX;
+        float swapBottomY = centreY - offsetX;
+        // Draw Lines
+        drawLine(camera, leftX, topY, rightX, topY, colour);
+        drawLine(camera, leftX, bottomY, rightX, bottomY, colour);
+        drawLine(camera, swapLeftX, swapTopY, swapRightX, swapTopY, colour);
+        drawLine(camera, swapLeftX, swapBottomY, swapRightX, swapBottomY, colour);
+    };
+
     // Walk From Top of Circle To 45° Diagonal
     while (y >= x) { // Continue Until Reaching 45° Diagonal
-        plotEight(x, y);
+        if (fillEnabled) {plotLines(x, y); }
+        else { plotPoints(x, y); }
         x++; // Always Move Right (By One Pixel)
         if (mpCircleF > 0) {// True Curve Below Midpoint (Midpoint Positioned Outside of Circle)
             y--; // Move Down (By One Pixel)
@@ -79,7 +99,7 @@ void Renderer::drawCircle(const Camera& camera, float centreX, float centreY, fl
 /// World Draw Functions///
 void Renderer::drawParticles(const World& world, const Camera& camera) {
     for (const Particle& body : world.particles) {
-        Renderer::drawPoint(camera, body.position.x, body.position.y, SDL_Color{255, 255, 255, 255});
+        Renderer::drawCircle(camera, body.position.x, body.position.y, 5.00f, true, SDL_Color{255, 255, 255, 255});
     }
 }
 
