@@ -47,15 +47,12 @@ void Projectile::start() {
 
 void Projectile::poll() {
 
-    // EVENT: Every Two Seconds
-    if (stepID % 120 == 0) {
+    // EVENT: Every Second
+    if (stepID % 60 == 0) {
         std::cout << "\n\nCurrent Time: " << (stepID * dt) << "s" <<
         "\nCurrent Velocity: " << earth.getParticle(apple).velocity << "m/s" <<
         "\nCurrent Height: " << earth.getParticle(apple).position.y << "m" << "\n";
-    }
 
-    // EVENT: Every Second
-    if (stepID % 60 == 0) {
         int trail = earth.addParticle(0, "Trail Point", Vector(earth.getParticle(apple).position.x, earth.getParticle(apple).position.y));
         earth.getParticle(trail).visuals.r = 50;
         earth.getParticle(trail).visuals.g = 0;
