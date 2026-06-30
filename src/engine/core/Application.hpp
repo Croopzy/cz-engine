@@ -1,6 +1,5 @@
 #pragma once
-#include "src/engine/physics/World.hpp"
-#include "src/engine/graphics/Renderer.hpp"
+#include "src/engine/core/Visualiser.hpp"
 #include "src/simulations/Scenario.hpp"
 
 class Application {
@@ -10,10 +9,13 @@ class Application {
         void run(Scenario& scenario, bool visualiserEnabled = true);
 
     private:
-        // Visualiser Components
+        // Graphics Member Declarations
         Window window;
         Camera camera;
         Renderer renderer;
+
+        // Core Member Declarations
+        Visualiser visualiser;
 
         // Define Window
         static constexpr int DEFAULT_WIDTH = 1200;
@@ -22,7 +24,7 @@ class Application {
         // Render Frame
         void renderFrame(Scenario& scenario) {
             renderer.clear();
-            renderer.drawWorld(scenario.getWorld(), camera);
+            visualiser.drawWorld(scenario.getWorld(), camera);
             renderer.present();
         }
 };

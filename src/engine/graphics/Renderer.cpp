@@ -111,27 +111,3 @@ void Renderer::drawCircle(const Camera& camera, float inCentreX, float inCentreY
     }
 
 }
-
-
-/// World Draw Functions///
-void Renderer::drawParticles(const World& world, const Camera& camera) {
-    for (const Particle& body : world.particles) {
-        Renderer::drawCircle(camera, body.position.x, body.position.y, 10.00f, true, SDL_Color{255, 255, 255, 255});
-    }
-}
-
-void Renderer::drawPlanes(const World& world, const Camera& camera) {
-    for (const World::PlaneCollider& plane : world.planes) {
-        Vector planePoint = plane.normal * plane.offset;
-        Vector tangent = perpendicular(plane.normal);
-        float planeLength = 10000.0f; // Fixed Plane Length (Default -> Infinity)
-        Vector startPoint = planePoint + (tangent * planeLength);
-        Vector endPoint = planePoint - (tangent * planeLength);
-        Renderer::drawLine(camera, startPoint.x, startPoint.y, endPoint.x, endPoint.y, SDL_Color{255, 255, 255, 255});
-    }
-}
-
-void Renderer::drawWorld(const World& world, const Camera& camera) {
-    Renderer::drawParticles(world, camera);
-    Renderer::drawPlanes(world, camera);
-}

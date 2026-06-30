@@ -30,6 +30,8 @@ void ProjectileScenario::start() {
     // Display World Information
     std::cout << "Simulation Construction Successful";
     earth.printInfo(true);
+
+    earth.addParticle(0, "Trail Point", Vector(earth.getParticle(apple).position.x, earth.getParticle(apple).position.y));
 }
 
 
@@ -40,6 +42,11 @@ void ProjectileScenario::poll() {
         std::cout << "\n\nCurrent Time: " << (stepID * dt) << "s" <<
         "\nCurrent Velocity: " << earth.getParticle(apple).velocity << "m/s" <<
         "\nCurrent Height: " << earth.getParticle(apple).position.y << "m" << "\n";
+    }
+
+    // EVENT: Every X Seconds
+    if (stepID % 12 == 0) {
+        earth.addParticle(0, "Trail Point", Vector(earth.getParticle(apple).position.x, earth.getParticle(apple).position.y));
     }
 
     // EVENT: Apple Hits Ground
