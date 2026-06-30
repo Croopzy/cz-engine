@@ -10,7 +10,7 @@ Visualiser::Visualiser(Renderer& renderer)
 
 void Visualiser::drawParticles(const World& world, const Camera& camera) {
     for (const Particle& body : world.particles) {
-        renderer.drawCircle(camera, body.position.x, body.position.y, 10.00f, true, SDL_Color{255, 255, 255, 255});
+        renderer.drawCircle(camera, body.position.x, body.position.y, 5.00f, true, SDL_Color{255, 255, 255, 255});
     }
 }
 

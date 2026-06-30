@@ -1,11 +1,11 @@
 #include "Freefall.hpp"
 
-FreefallScenario::FreefallScenario(int steps) : Scenario() {
+Freefall::Freefall(int steps) : Scenario() {
     this->numSteps = steps;
 }
 
 
-void FreefallScenario::start() {
+void Freefall::start() {
 
     // Initialisation Outputs
     std::cout << "SIMULATION INITIALISED: FREEFALL\n\n";
@@ -43,7 +43,7 @@ void FreefallScenario::start() {
 }
 
 
-void FreefallScenario::poll() {
+void Freefall::poll() {
 
     // EVENT: Every Two Seconds
     if (stepID % 120 == 0) {
@@ -62,7 +62,7 @@ void FreefallScenario::poll() {
 }
 
 
-void FreefallScenario::end() {
+void Freefall::end() {
 
     // Conclusion Output
     std::cout << "\n\nSimulation Concluded"

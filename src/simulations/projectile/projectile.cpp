@@ -1,11 +1,11 @@
 #include "projectile.hpp"
 
-ProjectileScenario::ProjectileScenario(int steps) : Scenario() {
+Projectile::Projectile(int steps) : Scenario() {
     this->numSteps = steps;
 }
 
 
-void ProjectileScenario::start() {
+void Projectile::start() {
 
     // Initialisation Outputs
     std::cout << "SIMULATION INITIALISED: PROJECTILE MOTION\n\n";
@@ -35,7 +35,7 @@ void ProjectileScenario::start() {
 }
 
 
-void ProjectileScenario::poll() {
+void Projectile::poll() {
 
     // EVENT: Every Two Seconds
     if (stepID % 120 == 0) {
@@ -44,8 +44,8 @@ void ProjectileScenario::poll() {
         "\nCurrent Height: " << earth.getParticle(apple).position.y << "m" << "\n";
     }
 
-    // EVENT: Every X Seconds
-    if (stepID % 12 == 0) {
+    // EVENT: Every Second
+    if (stepID % 60 == 0) {
         earth.addParticle(0, "Trail Point", Vector(earth.getParticle(apple).position.x, earth.getParticle(apple).position.y));
     }
 
@@ -59,7 +59,7 @@ void ProjectileScenario::poll() {
 }
 
 
-void ProjectileScenario::end() {
+void Projectile::end() {
 
     // Conclusion Output
     std::cout << "\n\nSimulation Concluded"

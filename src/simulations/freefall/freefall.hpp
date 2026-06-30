@@ -1,9 +1,9 @@
 #pragma once
 #include "src/simulations/Scenario.hpp"
 
-class FreefallScenario : public Scenario { // Child Class of Scenario
+class Freefall : public Scenario { // Child Class of Scenario
     public:
-        FreefallScenario(int numSteps = 900);
+        Freefall(int numSteps = 900);
 
         void start() override;
         void poll() override;

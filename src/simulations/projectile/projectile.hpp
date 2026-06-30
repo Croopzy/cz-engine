@@ -1,9 +1,9 @@
 #pragma once
 #include "src/simulations/Scenario.hpp"
 
-class ProjectileScenario : public Scenario { // Child Class of Scenario
+class Projectile : public Scenario { // Child Class of Scenario
     public:
-        ProjectileScenario(int numSteps = 900);
+        Projectile(int numSteps = 900);
 
         void start() override;
         void poll() override;
