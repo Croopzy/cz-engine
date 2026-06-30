@@ -1,4 +1,5 @@
 #include "Renderer.hpp"
+#include <string>
 
 // Renderer Constructor
 Renderer::Renderer(Window& window, Camera& camera)
@@ -38,58 +39,74 @@ void Renderer::drawLine(const Camera& camera, float x1, float y1, float x2, floa
 }
 
 
-void Renderer::drawCircle(const Camera& camera, float centreX, float centreY, float inRadius, bool fillEnabled, SDL_Color colour) { // Bresenham Circle Algorithm (AKA Midpoint Circle Algorithm)
+void Renderer::drawCircle(const Camera& camera, float inCentreX, float inCentreY, float inRadius, bool fillEnabled, SDL_Color colour) { // Bresenham Circle Algorithm (AKA Midpoint Circle Algorithm)
     int radius = (int)inRadius; // Casting Radius To Integer Type
+
+    // Convert Centre Position To Pixels
+    Vector centre(inCentreX, inCentreY); // World Position
+    centre = CameraSpace::worldToScreen(camera, centre); // Screen Position
 
     // Current Position in First Octant (Top of Circle)
     int x = 0;
     int y = radius;
 
     // Evaluation of f(x, y) At Midpoint, Tracked Incrementally
-    int mpCircleF = 3 - (radius * 2); // Dervied From Implicit Circle Equation: f(x, y) = x^2 + y^2 - r^2
+    int decision = 1 - y; // Decision Value, Integer Approximation of p = 1.25 - r
+
+    // Plot One Point (By Pixels)
+    auto plotPoint = [&](int pointX, int pointY) { // Capture All Variables From Surrounding Scope By Reference Using [&]
+        SDL_SetRenderDrawColor(renderer, colour.r, colour.g, colour.b, colour.a);
+        SDL_RenderPoint(renderer, pointX, pointY);
+    };
 
     // Draw Eight Symmetric Points Around Circle
-    auto plotPoints = [&](int offsetX, int offsetY) { // Capture All Variables From Surrounding Scope By Reference Using [&]
-        drawPoint(camera, (centreX + offsetX), (centreY + offsetY), colour);
-        drawPoint(camera, (centreX + offsetX), (centreY - offsetY), colour);
-        drawPoint(camera, (centreX - offsetX), (centreY + offsetY), colour);
-        drawPoint(camera, (centreX - offsetX), (centreY - offsetY), colour);
-        drawPoint(camera, (centreX + offsetY), (centreY + offsetX), colour);
-        drawPoint(camera, (centreX + offsetY), (centreY - offsetX), colour);
-        drawPoint(camera, (centreX - offsetY), (centreY + offsetX), colour);
-        drawPoint(camera, (centreX - offsetY), (centreY - offsetX), colour);
+    auto plot8Points = [&](int offsetX, int offsetY) { // Capture All Variables From Surrounding Scope By Reference Using [&]
+        plotPoint((centre.x + offsetX), (centre.y + offsetY));
+        plotPoint((centre.x + offsetX), (centre.y - offsetY));
+        plotPoint((centre.x - offsetX), (centre.y + offsetY));
+        plotPoint((centre.x - offsetX), (centre.y - offsetY));
+        plotPoint((centre.x + offsetY), (centre.y + offsetX));
+        plotPoint((centre.x + offsetY), (centre.y - offsetX));
+        plotPoint((centre.x - offsetY), (centre.y + offsetX));
+        plotPoint((centre.x - offsetY), (centre.y - offsetX));
+    };
+
+    // Plot One Line (By Pixels)
+    auto plotLine = [&](int point1X, int point1Y, int point2X, int point2Y) { // Capture All Variables From Surrounding Scope By Reference Using [&]
+        SDL_SetRenderDrawColor(renderer, colour.r, colour.g, colour.b, colour.a);
+        SDL_RenderLine(renderer, point1X, point1Y, point2X, point2Y);
     };
 
     // Draw Four Lines Between Symmetric Points Around Circle
-    auto plotLines = [&](int offsetX, int offsetY) { // Capture All Variables From Surrounding Scope By Reference Using [&]
+    auto plot4Lines = [&](int offsetX, int offsetY) { // Capture All Variables From Surrounding Scope By Reference Using [&]
         // Horizontal Span Using (x, y)
-        float leftX  = centreX - offsetX;
-        float rightX = centreX + offsetX;
-        float topY   = centreY + offsetY;
-        float bottomY = centreY - offsetY;
+        float leftX  = centre.x - offsetX;
+        float rightX = centre.x + offsetX;
+        float topY   = centre.y + offsetY;
+        float bottomY = centre.y - offsetY;
         // Horizontal Span Swapped (y, x)
-        float swapLeftX  = centreX - offsetY;
-        float swapRightX = centreX + offsetY;
-        float swapTopY   = centreY + offsetX;
-        float swapBottomY = centreY - offsetX;
+        float swapLeftX  = centre.x - offsetY;
+        float swapRightX = centre.x + offsetY;
+        float swapTopY   = centre.y + offsetX;
+        float swapBottomY = centre.y - offsetX;
         // Draw Lines
-        drawLine(camera, leftX, topY, rightX, topY, colour);
-        drawLine(camera, leftX, bottomY, rightX, bottomY, colour);
-        drawLine(camera, swapLeftX, swapTopY, swapRightX, swapTopY, colour);
-        drawLine(camera, swapLeftX, swapBottomY, swapRightX, swapBottomY, colour);
+        plotLine(leftX, topY, rightX, topY);
+        plotLine(leftX, bottomY, rightX, bottomY);
+        plotLine(swapLeftX, swapTopY, swapRightX, swapTopY);
+        plotLine(swapLeftX, swapBottomY, swapRightX, swapBottomY);
     };
 
     // Walk From Top of Circle To 45° Diagonal
     while (y >= x) { // Continue Until Reaching 45° Diagonal
-        if (fillEnabled) {plotLines(x, y); }
-        else { plotPoints(x, y); }
+        if (fillEnabled) {plot4Lines(x, y); }
+        else { plot8Points(x, y); }
         x++; // Always Move Right (By One Pixel)
-        if (mpCircleF > 0) {// True Curve Below Midpoint (Midpoint Positioned Outside of Circle)
+        if (decision > 0) {// True Curve Below Midpoint (Midpoint Positioned Outside of Circle)
             y--; // Move Down (By One Pixel)
-            mpCircleF += (4 * (x - y)) + 10;
+            decision += (4 * (x - y)) + 10;
         }
         else { // Midpoint Positioned Inside OR On Circle
-            mpCircleF += (4 * x) + 6; // Stay Level
+            decision += (4 * x) + 6; // Stay Level
         }
     }
 
@@ -99,7 +116,7 @@ void Renderer::drawCircle(const Camera& camera, float centreX, float centreY, fl
 /// World Draw Functions///
 void Renderer::drawParticles(const World& world, const Camera& camera) {
     for (const Particle& body : world.particles) {
-        Renderer::drawCircle(camera, body.position.x, body.position.y, 5.00f, true, SDL_Color{255, 255, 255, 255});
+        Renderer::drawCircle(camera, body.position.x, body.position.y, 15.00f, true, SDL_Color{255, 255, 255, 255});
     }
 }
 
