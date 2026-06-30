@@ -3,6 +3,7 @@
 #include "PhysicsConstants.hpp"
 #include "Particle.hpp"
 #include "Spring.hpp"
+#include "src/engine/core/Visuals.hpp"
 
 // World Class: Contains the physics environment, its bodies and its rules
 class World {
@@ -21,6 +22,8 @@ public:
 
     // Plane Collider Structure
     struct PlaneCollider {
+        BasicVisuals visuals;
+
         Vector normal; // Normal Vector To The Plane (Unit Vector)
         float offset; // Shortest Perpendicular Distance From Origin To Plane (Along Normal)
         float restitution; // Elasticity (Perfectly Inelastic: 0.0, Perfectly Elastic: 1.0)

@@ -10,7 +10,7 @@ class Projectile : public Scenario { // Child Class of Scenario
         void end() override;
 
     private:
-        World& earth = getWorld();
-        int apple = earth.addParticle(10.0f, "Apple", Vector(0.0f, 0.0f)); // Create Apple (Mass = inMass) in Earth Simulation, Default: Infinite Mass
+        World& earth;
+        int apple;
         bool groundContact = false;
 };

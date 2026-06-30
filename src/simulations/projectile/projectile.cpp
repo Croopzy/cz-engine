@@ -1,9 +1,12 @@
 #include "projectile.hpp"
 
-Projectile::Projectile(int steps) : Scenario() {
-    this->numSteps = steps;
+Projectile::Projectile(int steps)
+    : Scenario(),
+      earth(getWorld()),
+      apple(-1)
+{
+    numSteps = steps;
 }
-
 
 void Projectile::start() {
 
@@ -21,17 +24,24 @@ void Projectile::start() {
     std::cout << "Enter Apple Mass (kg): ";
     std::cin >> inMass;
 
-    // Configure Apple
-    earth.getParticle(apple).setMass(inMass);
+    // Spawn Apple
+    Projectile::apple = earth.addParticle(10.0f, "Apple", Vector(0.0f, 0.0f)); // Create Apple (Mass = inMass) in Earth Simulation, Default: Infinite Mass
+    Particle& appleTemp = earth.getParticle(apple);
+    appleTemp.setMass(inMass);
     std::cout << "\nParticle Model Created: Apple"
-    << "\n- Apple Mass: " << earth.getParticle(apple).getMass() << "kg" << "\n\n";
-    earth.getParticle(apple).velocity = Vector(10.00f, 30.00f);
+    << "\n- Apple Mass: " << appleTemp.getMass() << "kg" << "\n\n";
+    appleTemp.velocity = Vector(10.00f, 30.00f);
+    appleTemp.visuals.r = 10; appleTemp.visuals.g = 210; appleTemp.visuals.b = 25;
 
     // Display World Information
     std::cout << "Simulation Construction Successful";
     earth.printInfo(true);
 
-    earth.addParticle(0, "Trail Point", Vector(earth.getParticle(apple).position.x, earth.getParticle(apple).position.y));
+    int trail = earth.addParticle(0, "Trail Point", Vector(earth.getParticle(apple).position.x, earth.getParticle(apple).position.y));
+    Particle& trailTemp = earth.getParticle(trail);
+    trailTemp.visuals.r = 50; trailTemp.visuals.g = 0; trailTemp.visuals.b = 250; trailTemp.visuals.a = 50;
+    trailTemp.extras.radius = 1;
+
 }
 
 
@@ -46,7 +56,12 @@ void Projectile::poll() {
 
     // EVENT: Every Second
     if (stepID % 60 == 0) {
-        earth.addParticle(0, "Trail Point", Vector(earth.getParticle(apple).position.x, earth.getParticle(apple).position.y));
+        int trail = earth.addParticle(0, "Trail Point", Vector(earth.getParticle(apple).position.x, earth.getParticle(apple).position.y));
+        earth.getParticle(trail).visuals.r = 50;
+        earth.getParticle(trail).visuals.g = 0;
+        earth.getParticle(trail).visuals.b = 250;
+        earth.getParticle(trail).visuals.a = 50;
+        earth.getParticle(trail).extras.radius = 1;
     }
 
     // EVENT: Apple Hits Ground

@@ -1,7 +1,14 @@
 #pragma once
 #include "src/engine/maths/Vector.hpp"
+#include "src/engine/core/Visuals.hpp"
 
 // STRUCTURES //
+
+struct ParticleVisuals {
+    bool fill = true;
+    float radius = 5.00f;
+};
+
 
 struct Particle {
 private:
@@ -9,6 +16,9 @@ private:
     float inverseMass; // (mass^-1 = 0 when mass -> infinity)
 
 public:
+    BasicVisuals visuals;
+    ParticleVisuals extras;
+
     std::string name; // Printable Name of Particle
 
     Vector position; // Current Position (Unit: metres, m)

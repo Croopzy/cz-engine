@@ -1,7 +1,10 @@
 #pragma once
+#include "src/engine/core/Visuals.hpp"
 
 // Spring Structure (Binary Force Connecting Two Particles)
 struct Spring {
+    BasicVisuals visuals;
+
     // World Indices of Connected Particles
     int particleA;
     int particleB;
