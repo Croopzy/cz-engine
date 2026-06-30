@@ -39,8 +39,8 @@ void Projectile::start() {
 
     int trail = earth.addParticle(0, "Trail Point", Vector(earth.getParticle(apple).position.x, earth.getParticle(apple).position.y));
     Particle& trailTemp = earth.getParticle(trail);
-    trailTemp.visuals.r = 50; trailTemp.visuals.g = 0; trailTemp.visuals.b = 250; trailTemp.visuals.a = 50;
-    trailTemp.extras.radius = 1;
+    trailTemp.visuals.r = 50; trailTemp.visuals.g = 0; trailTemp.visuals.b = 250; trailTemp.visuals.a = 150;
+    trailTemp.extraVisuals.radius = 1;
 
 }
 
@@ -60,8 +60,8 @@ void Projectile::poll() {
         earth.getParticle(trail).visuals.r = 50;
         earth.getParticle(trail).visuals.g = 0;
         earth.getParticle(trail).visuals.b = 250;
-        earth.getParticle(trail).visuals.a = 50;
-        earth.getParticle(trail).extras.radius = 1;
+        earth.getParticle(trail).visuals.a = 150;
+        earth.getParticle(trail).extraVisuals.radius = 1;
     }
 
     // EVENT: Apple Hits Ground

@@ -17,7 +17,7 @@ private:
 
 public:
     BasicVisuals visuals;
-    ParticleVisuals extras;
+    ParticleVisuals extraVisuals;
 
     std::string name; // Printable Name of Particle
 

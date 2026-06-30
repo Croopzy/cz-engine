@@ -32,6 +32,19 @@ Vector screenProjection(const Camera& camera, const float x, const float y)
     return (worldToScreen(camera, worldPosition));
 }
 
+Vector screenToWorld(const Camera& camera, const Vector& screenPosition)
+{
+    // Reverse viewToScreen()
+    float viewX = screenPosition.x - (camera.viewportWidth * 0.5f);
+    float viewY = (camera.viewportHeight * 0.5f) - screenPosition.y; // Undo SDL Y-Flip
+
+    // Reverse worldToView()
+    Vector worldPosition(viewX / camera.zoom, viewY / camera.zoom);
+
+    // Add Camera Position Back
+    return worldPosition + camera.position;
+}
+
 
 /// Camera Adjustment Functions ///
 
