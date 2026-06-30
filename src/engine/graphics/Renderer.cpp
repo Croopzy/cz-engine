@@ -116,7 +116,7 @@ void Renderer::drawCircle(const Camera& camera, float inCentreX, float inCentreY
 /// World Draw Functions///
 void Renderer::drawParticles(const World& world, const Camera& camera) {
     for (const Particle& body : world.particles) {
-        Renderer::drawCircle(camera, body.position.x, body.position.y, 15.00f, true, SDL_Color{255, 255, 255, 255});
+        Renderer::drawCircle(camera, body.position.x, body.position.y, 10.00f, true, SDL_Color{255, 255, 255, 255});
     }
 }
 

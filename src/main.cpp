@@ -2,6 +2,7 @@
 #include "test/test_utils.hpp"
 #include "src/engine/core/Application.hpp"
 #include "src/simulations/freefall/freefall.hpp"
+#include "src/simulations/projectile/projectile.hpp"
 
 int main() {
 
@@ -9,7 +10,8 @@ int main() {
 
     Application demo;
     FreefallScenario freefall(900);
-    demo.run(freefall, true);
+    ProjectileScenario projectile(900);
+    demo.run(projectile, true);
 
 	return 0;
 }
