@@ -28,14 +28,14 @@ void Renderer::present() { SDL_RenderPresent(renderer); }
 void Renderer::drawPoint(const Camera& camera, float x, float y, SDL_Color colour) {
     Vector vecPosition = CameraSpace::screenProjection(camera, x, y);
     SDL_SetRenderDrawColor(renderer, colour.r, colour.g, colour.b, colour.a);
-    SDL_RenderPoint(renderer, (int) vecPosition.x, (int) vecPosition.y);
+    SDL_RenderPoint(renderer, (int) std::round(vecPosition.x), (int) std::round(vecPosition.y));
 }
 
 void Renderer::drawLine(const Camera& camera, float x1, float y1, float x2, float y2, SDL_Color colour) {
     Vector vecPos1 = CameraSpace::screenProjection(camera, x1, y1);
     Vector vecPos2 = CameraSpace::screenProjection(camera, x2, y2);
     SDL_SetRenderDrawColor(renderer, colour.r, colour.g, colour.b, colour.a);
-    SDL_RenderLine(renderer, (int) vecPos1.x, (int) vecPos1.y, (int) vecPos2.x, (int) vecPos2.y);
+    SDL_RenderLine(renderer, (int) std::round(vecPos1.x), (int) std::round(vecPos1.y), (int) std::round(vecPos2.x), (int) std::round(vecPos2.y));
 }
 
 
@@ -45,6 +45,9 @@ void Renderer::drawCircle(const Camera& camera, float inCentreX, float inCentreY
     // Convert Centre Position To Pixels
     Vector centre(inCentreX, inCentreY); // World Position
     centre = CameraSpace::worldToScreen(camera, centre); // Screen Position
+
+    int centreX = std::round(centre.x);
+    int centreY = std::round(centre.y);
 
     // Current Position in First Octant (Top of Circle)
     int x = 0;
@@ -61,14 +64,14 @@ void Renderer::drawCircle(const Camera& camera, float inCentreX, float inCentreY
 
     // Draw Eight Symmetric Points Around Circle
     auto plot8Points = [&](int offsetX, int offsetY) { // Capture All Variables From Surrounding Scope By Reference Using [&]
-        plotPoint((centre.x + offsetX), (centre.y + offsetY));
-        plotPoint((centre.x + offsetX), (centre.y - offsetY));
-        plotPoint((centre.x - offsetX), (centre.y + offsetY));
-        plotPoint((centre.x - offsetX), (centre.y - offsetY));
-        plotPoint((centre.x + offsetY), (centre.y + offsetX));
-        plotPoint((centre.x + offsetY), (centre.y - offsetX));
-        plotPoint((centre.x - offsetY), (centre.y + offsetX));
-        plotPoint((centre.x - offsetY), (centre.y - offsetX));
+        plotPoint((centreX + offsetX), (centreY + offsetY));
+        plotPoint((centreX + offsetX), (centreY - offsetY));
+        plotPoint((centreX - offsetX), (centreY + offsetY));
+        plotPoint((centreX - offsetX), (centreY - offsetY));
+        plotPoint((centreX + offsetY), (centreY + offsetX));
+        plotPoint((centreX + offsetY), (centreY - offsetX));
+        plotPoint((centreX - offsetY), (centreY + offsetX));
+        plotPoint((centreX - offsetY), (centreY - offsetX));
     };
 
     // Plot One Line (By Pixels)
@@ -80,15 +83,15 @@ void Renderer::drawCircle(const Camera& camera, float inCentreX, float inCentreY
     // Draw Four Lines Between Symmetric Points Around Circle
     auto plot4Lines = [&](int offsetX, int offsetY) { // Capture All Variables From Surrounding Scope By Reference Using [&]
         // Horizontal Span Using (x, y)
-        float leftX  = centre.x - offsetX;
-        float rightX = centre.x + offsetX;
-        float topY   = centre.y + offsetY;
-        float bottomY = centre.y - offsetY;
+        float leftX  = centreX - offsetX;
+        float rightX = centreX + offsetX;
+        float topY   = centreY + offsetY;
+        float bottomY = centreY - offsetY;
         // Horizontal Span Swapped (y, x)
-        float swapLeftX  = centre.x - offsetY;
-        float swapRightX = centre.x + offsetY;
-        float swapTopY   = centre.y + offsetX;
-        float swapBottomY = centre.y - offsetX;
+        float swapLeftX  = centreX - offsetY;
+        float swapRightX = centreX + offsetY;
+        float swapTopY   = centreY + offsetX;
+        float swapBottomY = centreY - offsetX;
         // Draw Lines
         plotLine(leftX, topY, rightX, topY);
         plotLine(leftX, bottomY, rightX, bottomY);

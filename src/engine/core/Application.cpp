@@ -23,8 +23,6 @@ void Application::run(Scenario& scenario, bool visualiserEnabled) {
     
     for (int i = 0; i < scenario.numSteps; ++i) {
 
-        nextTick += nativeDelay;
-
         while (SDL_PollEvent(&event)) { // Always Poll Events
             if (event.type == SDL_EVENT_QUIT) visualiserActive = false;
         }
@@ -37,10 +35,11 @@ void Application::run(Scenario& scenario, bool visualiserEnabled) {
             renderFrame(scenario); // Render Frame
         }
 
-        if (auto now = std::chrono::high_resolution_clock::now(); now < nextTick) { // EVENT: Clock Behind -> Skip Delay
-            std::this_thread::sleep_until(nextTick); // Real Time
+        auto now = std::chrono::high_resolution_clock::now();
+        if (now < nextTick) { // EVENT: Clock Behind
+            std::this_thread::sleep_until(nextTick); // Skip Delay
         }
-
+        nextTick += nativeDelay;
 
     }
 
