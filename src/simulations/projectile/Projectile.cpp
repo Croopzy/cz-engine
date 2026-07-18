@@ -1,4 +1,4 @@
-#include "projectile.hpp"
+#include "Projectile.hpp"
 
 Projectile::Projectile(int steps)
     : Scenario(),
