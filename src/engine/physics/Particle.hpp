@@ -67,16 +67,6 @@ public:
         velocity = resolve(angle, speed);
     }
 
-    inline void setVelocity(float inX, float inY) {
-        velocity.x = inX;
-        velocity.y = inY;
-    }
-
-    inline void project(float angle, float speed) {
-        velocity = resolve(angle, speed);
-    }
-
-
     // Apply New Force
     inline void applyForce(const Vector& force) noexcept {
         netForce += force;
