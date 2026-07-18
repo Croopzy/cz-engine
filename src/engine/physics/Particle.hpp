@@ -43,7 +43,7 @@ public:
 
     inline void setMass(float inMass) {
         mass = inMass;
-        inverseMass = (inMass == 0.0f ? 0.0f : 1.0f / inMass); // Repeat Above inverseMass Definition
+        inverseMass = (inMass == 0.0f ? 0.0f : 1.0f / inMass); // Condensed Repetition of Constructor Body
     }
 
     inline float getMass() const { return mass; }
@@ -66,6 +66,16 @@ public:
     inline void project(float angle, float speed) {
         velocity = resolve(angle, speed);
     }
+
+    inline void setVelocity(float inX, float inY) {
+        velocity.x = inX;
+        velocity.y = inY;
+    }
+
+    inline void project(float angle, float speed) {
+        velocity = resolve(angle, speed);
+    }
+
 
     // Apply New Force
     inline void applyForce(const Vector& force) noexcept {

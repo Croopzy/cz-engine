@@ -161,8 +161,8 @@ bool test_vector_perpendicular() {
     return (result.x == vecB.x) && (result.y == vecB.y);
 }
 
-
 /// Geometric Functions ///
+
 
 bool test_angle_case_same() {
     Vector vecA(3.0f, 4.0f);
