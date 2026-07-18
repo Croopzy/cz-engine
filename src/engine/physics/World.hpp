@@ -29,7 +29,7 @@ public:
         float offset; // Shortest Perpendicular Distance From Origin To Plane (Along Normal)
         float restitution; // Elasticity (Perfectly Inelastic: 0.0, Perfectly Elastic: 1.0)
 
-        PlaneCollider(const Vector& vecN = {0.0f, 1.0f}, float planeConstant = 0, float elasticity = 0.3f) noexcept
+        PlaneCollider(const Vector& vecN = {0.0f, 1.0f}, float planeConstant = 0, float elasticity = 0.5f) noexcept
         : normal(isZero(vecN) ? Vector(0.0f, 1.0f) : normalise(vecN)),
         offset(planeConstant),
         restitution(elasticity) {}

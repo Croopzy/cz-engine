@@ -58,8 +58,7 @@ void World::accumulateForces() {
 
 // Step Simulation
 void World::step(float dt) noexcept {
-    stepN++;
-
+    
     // Velocity Verlet Integration: Apply Resultant Force
     accumulateForces();
         
@@ -100,4 +99,5 @@ void World::step(float dt) noexcept {
         }
     }
     
+    stepN++;
 }

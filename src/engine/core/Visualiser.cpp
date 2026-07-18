@@ -16,7 +16,6 @@ bool Visualiser::planeCollision(const World& world, const Particle& body, const 
         Vector adjustedPosition = body.position + (plane.normal * constraintViolation);
         renderer.drawCircle(camera, adjustedPosition.x, adjustedPosition.y, body.extraVisuals.radius, body.extraVisuals.fill, SDL_Color{body.visuals.r, body.visuals.g, body.visuals.b, body.visuals.a});
         recordTrail(world, body, adjustedPosition);
-        drawTrail(world, body, camera);
         return true;
     }
     return false;
@@ -36,22 +35,20 @@ void Visualiser::drawPlanes(const World& world, const Camera& camera) {
 }
 
 void Visualiser::recordTrail(const World& world, const Particle& body, const Vector& position) {
-    if (!body.extraVisuals.trail || (world.stepN % body.extraVisuals.stepT != 0)) return;
-    size_t index = &body - &world.particles[0]; // Find Index of body Within world.particles
-    trails[index].push_back(position); // Add Trail Point To Array for Current Particle
+        if (body.extraVisuals.trail && ((world.stepN == 0) || ((world.stepN % body.extraVisuals.stepT) == 0))) {
+        size_t index = &body - &world.particles[0]; // Find Index of body Within world.particles
+        trails[index].push_back(position); // Add Trail Point To Array for Current Particle
+    }
 }
 
 void Visualiser::drawTrail(const World& world, const Particle& body, const Camera& camera) {
     size_t index = &body - &world.particles[0];
-    for (const Vector& point : trails[index]) { // For All Trail Points of Current Particle
-        renderer.drawCircle(camera, point.x, point.y, 1, true, SDL_Color{50, 0, 250, 150});
+    for (const Vector& position : trails[index]) { // For Each Trail Point of Current Particle Get Position
+        renderer.drawCircle(camera, position.x, position.y, 1, true, SDL_Color{50, 0, 250, 150});
     }
 }
 
 void Visualiser::drawParticles(const World& world, const Camera& camera) {
-    if (trails.size() < world.particles.size()) {
-        trails.resize(world.particles.size());
-    }
     for (const Particle& body : world.particles) {
         // EVENT: Visualisation Disabled 
         if (body.visuals.toggle == false) {
@@ -60,7 +57,7 @@ void Visualiser::drawParticles(const World& world, const Camera& camera) {
         // Detect Plane Collisions, Render Adjusted Particles
         bool collision = false;
         for (const World::PlaneCollider& plane : world.planes) {
-            if (planeCollision(world, body, plane, camera) == true) {
+            if (planeCollision(world, body, plane, camera) == true) { // Detect Plane Collision, Resolve Trail Point Relative To Plane
                 collision = true;
                 break;
             }
@@ -69,8 +66,8 @@ void Visualiser::drawParticles(const World& world, const Camera& camera) {
         if (!collision) {
             renderer.drawCircle(camera, body.position.x, body.position.y, body.extraVisuals.radius, body.extraVisuals.fill, SDL_Color{body.visuals.r, body.visuals.g, body.visuals.b, body.visuals.a});
             recordTrail(world, body, body.position);
-            drawTrail(world, body, camera);
         }
+        drawTrail(world, body, camera);
     }
 }
 
@@ -87,6 +84,9 @@ void Visualiser::drawSprings(const World& world, const Camera& camera) {
     }
 
 void Visualiser::drawWorld(const World& world, const Camera& camera) {
+    if (trails.size() < world.particles.size()) {
+        trails.resize(world.particles.size());
+    }
     drawPlanes(world, camera);
     drawParticles(world, camera);
     drawSprings(world, camera);
