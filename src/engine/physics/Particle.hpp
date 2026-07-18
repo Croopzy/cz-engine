@@ -77,13 +77,19 @@ public:
         netForce = {0.0f, 0.0f};
     }
 
-    // Integrate Particle Motion
-    inline void integrate(float dt) noexcept {
-    if (inverseMass == 0.0f) return; // Special Case: Infinite Mass
-    acceleration = netForce * inverseMass; // Compute Acceleration (From Overall Force)
-    // Semi-Implicit Euler
-    velocity += acceleration * dt; // Update Particle Velocity
-    position += velocity * dt; // Update Particle Position
+    // Velocity Verlet Integration
+    inline void integratePosition(float dt) noexcept {
+        if (inverseMass == 0.0f) return; // Special Case: Infinite Mass
+        // Velocity Verlet Integration
+        acceleration = netForce * inverseMass; // Compute Acceleration (From Overall Force)
+        position += (velocity * dt) + (0.5f * acceleration * dt * dt); // Update Particle Position
+    }
+    inline void integrateVelocity(float dt) noexcept {
+        if (inverseMass == 0.0f) return; // Special Case: Infinite Mass
+        // Velocity Verlet Integration
+        Vector newAcceleration = netForce * inverseMass; // Compute Acceleration (From Overall Force)
+        velocity += (0.5f * (acceleration + newAcceleration) * dt); // Update Particle Velocity
+        acceleration = newAcceleration; // Update Stored Acceleration for Next Frame
     }
 
 };

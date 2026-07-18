@@ -3,7 +3,7 @@
 #include "src/engine/core/Application.hpp"
 #include "src/simulations/freefall/Freefall.hpp"
 #include "src/simulations/projectile/Projectile.hpp"
-#include "src/simulations/pendulum/Pendulum.hpp"
+#include "src/simulations/oscillator/Oscillator.hpp"
 
 int main() {
 
@@ -12,8 +12,8 @@ int main() {
     Application demo;
     Freefall freefall(900);
     Projectile projectile(900);
-    Pendulum pendulum(900);
-    demo.run(pendulum, true); // Run Projectile Motion Simulation With Visualiser
+    Oscillator oscillator(900);
+    demo.run(oscillator, true); // Run Projectile Motion Simulation With Visualiser
 
 	return 0;
 }

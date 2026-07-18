@@ -46,21 +46,33 @@ void World::applySpringForce(const Spring& spring) {
     bodyB.applyForce(-springForce); // B Pulled Towards A
 }
 
-// Step Simulation
-void World::step(float dt) noexcept {
-    // Clear Forces & Simulate Particles Under Gravity
-    for (Particle& body : particles) {
+void World::accumulateForces() {
+        for (Particle& body : particles) {
         body.clearForces(); // Reset Forces For Next Frame
         body.applyForce(gravity * body.getMass()); // Apply World Gravity (W = m * g)
     }
-    // Simulate Spring Connections (With Pairs of Particles)
     for (const Spring& spring : springs) {
         applySpringForce(spring); // Apply Spring Constraints (F = -kx)
     }
+}
+
+// Step Simulation
+void World::step(float dt) noexcept {
+
+    // Velocity Verlet Integration: Apply Resultant Force
+    accumulateForces();
         
-    // Integrate Particle Motion
+    // Velocity Verlet Integration: Update Particle Position
     for (Particle& body : particles) {
-        body.integrate(dt);
+        body.integratePosition(dt);
+    }
+
+    // Velocity Verlet Integration: Apply New Resultant Force
+    accumulateForces();
+
+    // Velocity Verlet Integration: Update Particle Velocity
+    for (Particle& body : particles) {
+        body.integrateVelocity(dt);
     }
 
     // Resolve Collisions (Between Particles and Plane Colliders)

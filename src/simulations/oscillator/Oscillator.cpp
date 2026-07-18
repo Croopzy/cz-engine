@@ -1,6 +1,6 @@
-#include "Pendulum.hpp"
+#include "Oscillator.hpp"
 
-Pendulum::Pendulum(int steps)
+Oscillator::Oscillator(int steps)
     : Scenario(),
       earth(getWorld()),
       bob(-1)
@@ -8,16 +8,13 @@ Pendulum::Pendulum(int steps)
     numSteps = steps;
 }
 
-void Pendulum::start() {
+void Oscillator::start() {
 
     // Initialisation Outputs
-    std::cout << "SIMULATION INITIALISED: ELASTIC PENDULUM\n\n";
+    std::cout << "SIMULATION INITIALISED: MASS-SPRING OSCILLATOR\n\n";
 
     std::cout << "World Simulation Created: " << earth.name << "\n"
     << "Gravity: " << earth.gravity.y << "ms^-2\n\n";
-
-    // Create Earth Surface (Ground Plane Collider)
-    // earth.addPlane({(0.0), (-200.0)});
 
     // Input Bob Initial Mass
     float inMass;
@@ -25,41 +22,37 @@ void Pendulum::start() {
     std::cin >> inMass;
 
     // Input String Length
-    float stringLength;
-    std::cout << "Enter Length of Pendulum (m): ";
-    std::cin >> stringLength;
+    float springLength;
+    std::cout << "Enter Length of Spring (m): ";
+    std::cin >> springLength;
     
-    // Input Bob Angular Displacement
-    float inTheta;
-    std::cout << "Enter Angular Displacement (Degrees): ";
-    std::cin >> inTheta;
-
-    // Input Bob Initial Speed
-    float inSpeed;
-    std::cout << "Enter Initial Speed (m/s): ";
-    std::cin >> inSpeed;
-
-    // Spawn Pivot
-    Pendulum::pivot = earth.addParticle(0, "Pivot", Vector(100, 100)); // Create (White) Pivot (of Infinite Mass)
-    Particle& pivotTemp = earth.getParticle(pivot);
-    std::cout << "\nParticle Model Created: Pivot"
-    << "\n- Pivot Mass: " << "Infinite" << "\n\n"; 
+    // Input Bob Vertical Displacement
+    float inOffset;
+    std::cout << "Enter Vertical Displacement (m): ";
+    std::cin >> inOffset;
 
     // Calculate Bob Position
-    float theta = radians(inTheta);
-    float bobX = pivotTemp.position.x + (sin(theta) * stringLength);
-    float bobY = pivotTemp.position.y - (cos(theta) * stringLength);
+    Vector bobOffset;
+    bobOffset.y -= springLength;
+    bobOffset.y += inOffset;
+
+    // Spawn Anchor
+    Oscillator::anchor = earth.addParticle(0, "Anchor", Vector(100, 100)); // Create (White) Anchor (of Infinite Mass)
+    Particle& anchorTemp = earth.getParticle(anchor);
+    std::cout << "\nParticle Model Created: Anchor"
+    << "\n- Anchor Mass: " << "Infinite" << "\n\n"; 
 
     // Spawn Bob
-    Pendulum::bob = earth.addParticle(inMass, "Bob", Vector(bobX, bobY)); // Create Bob (Mass = inMass) in Earth Simulation, Default: Infinite Mass
+    Oscillator::bob = earth.addParticle(inMass, "Bob", (anchorTemp.position + bobOffset)); // Create Bob (Mass = inMass) in Earth Simulation, Default: Infinite Mass
     Particle& bobTemp = earth.getParticle(bob);
     std::cout << "\nParticle Model Created: Bob"
-    << "\n- Bob Mass: " << bobTemp.getMass() << "kg" << "\n\n"
-    << "\n- Bob Velocity: " << bobTemp.velocity << "m/s" << "\n\n";
+    << "\n- Bob Mass: " << bobTemp.getMass() << "kg" << "\n\n";
     bobTemp.visuals.r = 255; bobTemp.visuals.g = 0; bobTemp.visuals.b = 0; bobTemp.visuals.a = 1;
 
-    // Spawn String (Light, Inextensible) Between Pivot & Bob
-    earth.addSpring(pivot, bob, stringLength, -20.0f, 2.0f);
+    // Spawn Spring(Grey, Light Rod) Between Anchor & Bob
+    int spring = earth.addSpring(anchor, bob, springLength, 300, 10);
+    Spring& springTemp = earth.getSpring(spring);
+    springTemp.visuals.r = 0; springTemp.visuals.g = 0; springTemp.visuals.b = 0; springTemp.visuals.a = 0.5f;
 
     // Display World Information
     std::cout << "Simulation Construction Successful";
@@ -73,7 +66,7 @@ void Pendulum::start() {
 }
 
 
-void Pendulum::poll() {
+void Oscillator::poll() {
 
     // EVENT: Every Second
     if (stepID % 60 == 0) {
@@ -91,7 +84,7 @@ void Pendulum::poll() {
 }
 
 
-void Pendulum::end() {
+void Oscillator::end() {
 
     // Conclusion Output
     std::cout << "\n\nSimulation Concluded"

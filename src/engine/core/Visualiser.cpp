@@ -58,6 +58,18 @@ void Visualiser::drawParticles(const World& world, const Camera& camera) {
     }
 }
 
+void Visualiser::drawSprings(const World& world, const Camera& camera) {
+    for (const Spring& spring : world.springs) {
+        // EVENT: Visualisation Disabled 
+        if (spring.visuals.toggle == false) {
+            continue; // Discard Iteration
+        }
+        const Particle& particleA = world.getParticle(spring.particleA);
+        const Particle& particleB = world.getParticle(spring.particleB);
+        renderer.drawLine(camera, particleA.position.x, particleA.position.y, particleB.position.x, particleB.position.y, SDL_Color{spring.visuals.r, spring.visuals.g, spring.visuals.b, spring.visuals.a});
+        }
+    }
+
 void Visualiser::drawWorld(const World& world, const Camera& camera) {
     drawPlanes(world, camera);
     drawParticles(world, camera);

@@ -11,6 +11,7 @@ class Visualiser {
         bool planeCollision(const Particle& body, const World::PlaneCollider& plane, const Camera& camera);
         void drawPlanes(const World& world, const Camera& camera);
         void drawParticles(const World& world, const Camera& camera);
+        void drawSprings(const World& world, const Camera& camera);
         void drawWorld(const World& world, const Camera& camera);
     private:
         Renderer& renderer;

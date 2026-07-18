@@ -52,8 +52,9 @@ public:
 
 
     // New World Plane Collider
-    inline void addPlane(const Vector& vecN = {0.0f, 1.0f}, float planeConstant = 0, float elasticity = 0.3f) { 
+    inline int addPlane(const Vector& vecN = {0.0f, 1.0f}, float planeConstant = 0, float elasticity = 0.3f) { 
         planes.emplace_back(vecN, planeConstant, elasticity); // Constructor
+        return (planes.size() - 1); // Returns Index of New Plane
     }
 
     // New World Particle
@@ -63,16 +64,36 @@ public:
     }
 
     // New World Spring
-    inline void addSpring(int particleA, int particleB, float naturalLength, float stiffness, float damping) {
+    inline int addSpring(int particleA, int particleB, float naturalLength, float stiffness, float damping) {
         springs.emplace_back(particleA, particleB, naturalLength, stiffness, damping); // Constructor
+        return (springs.size() - 1); // Returns Index of New Spring
     }
 
-    // Apply Spring Force
-    void applySpringForce(const Spring& spring);
 
+    // Get World Plane
+    inline PlaneCollider& getPlane(int index) {
+        return planes[index];
+    }
 
     // Get World Particle
     inline Particle& getParticle(int index) {
         return particles[index];
     }
+
+    // Overload (const): Get World Particle
+    inline const Particle& getParticle(int index) const {
+    return particles[index];
+    }
+
+    // Get World Spring
+    inline Spring& getSpring(int index) {
+        return springs[index];
+    }
+
+
+    // Apply Spring Force
+    void applySpringForce(const Spring& spring);
+
+private:
+    void accumulateForces();
 };

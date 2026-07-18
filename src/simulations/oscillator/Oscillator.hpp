@@ -1,9 +1,9 @@
 #pragma once
 #include "src/simulations/Scenario.hpp"
 
-class Pendulum : public Scenario { // Child Class of Scenario
+class Oscillator : public Scenario { // Child Class of Scenario
     public:
-        Pendulum(int numSteps = 900);
+        Oscillator(int numSteps = 900);
 
         void start() override;
         void poll() override;
@@ -11,6 +11,6 @@ class Pendulum : public Scenario { // Child Class of Scenario
 
     private:
         World& earth;
-        int pivot;
+        int anchor;
         int bob;
 };
