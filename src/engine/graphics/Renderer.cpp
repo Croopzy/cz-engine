@@ -80,14 +80,14 @@ void Renderer::drawCircle(const Camera& camera, float inCentreX, float inCentreY
     // Draw Four Lines Between Symmetric Points Around Circle
     auto plot4Lines = [&](int offsetX, int offsetY) { // Capture All Variables From Surrounding Scope By Reference Using [&]
         // Horizontal Span Using (x, y)
-        float leftX  = centre.x - offsetX;
+        float leftX = centre.x - offsetX;
         float rightX = centre.x + offsetX;
-        float topY   = centre.y + offsetY;
+        float topY = centre.y + offsetY;
         float bottomY = centre.y - offsetY;
         // Horizontal Span Swapped (y, x)
-        float swapLeftX  = centre.x - offsetY;
+        float swapLeftX = centre.x - offsetY;
         float swapRightX = centre.x + offsetY;
-        float swapTopY   = centre.y + offsetX;
+        float swapTopY = centre.y + offsetX;
         float swapBottomY = centre.y - offsetX;
         // Draw Lines
         plotLine(leftX, topY, rightX, topY);
