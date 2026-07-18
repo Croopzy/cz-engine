@@ -11,6 +11,7 @@ public:
 
     // Step Function Declaration
     void step(float dt = (1.0f / 60.0f)) noexcept;
+    int stepN = 0;
 
     // World Constructor
     World(const std::string& inName = "Earth", // Default World: Earth

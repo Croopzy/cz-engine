@@ -13,7 +13,7 @@ int main() {
     Freefall freefall(900);
     Projectile projectile(900);
     Oscillator oscillator(900);
-    demo.run(oscillator, true); // Run Projectile Motion Simulation With Visualiser
+    demo.run(projectile, true); // Run Projectile Motion Simulation With Visualiser
 
 	return 0;
 }

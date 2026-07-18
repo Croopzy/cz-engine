@@ -8,17 +8,15 @@ Visualiser::Visualiser(Renderer& renderer)
 
 /// World Draw Functions ///
 
-bool Visualiser::planeCollision(const Particle& body, const World::PlaneCollider& plane, const Camera& camera) {
+bool Visualiser::planeCollision(const World& world, const Particle& body, const World::PlaneCollider& plane, const Camera& camera) {
     float distance = dot(plane.normal, body.position) - plane.offset; // Signed Shortest Distance Between Centre and Plane (Along Plane's Normal Axis)
     // Event: Particle Visually Penetrates Plane (Due To False Radius)
-    if (distance <= body.extraVisuals.radius) {
-        Vector screenCentre = CameraSpace::worldToScreen(camera, body.position);
-        Vector screenNormal = plane.normal * camera.zoom;
-        screenNormal.y = -screenNormal.y; // SDL Flips Y-Axis
-        screenNormal = normalise(screenNormal);
-        Vector newScreenCentre = screenCentre + (screenNormal * body.extraVisuals.radius);
-        Vector newWorldCentre = CameraSpace::screenToWorld(camera, newScreenCentre);
-        renderer.drawCircle(camera, newWorldCentre.x, newWorldCentre.y, body.extraVisuals.radius, body.extraVisuals.fill, SDL_Color{body.visuals.r, body.visuals.g, body.visuals.b, body.visuals.a});
+    if (distance < body.extraVisuals.radius) {
+        float constraintViolation = body.extraVisuals.radius - distance;
+        Vector adjustedPosition = body.position + (plane.normal * constraintViolation);
+        renderer.drawCircle(camera, adjustedPosition.x, adjustedPosition.y, body.extraVisuals.radius, body.extraVisuals.fill, SDL_Color{body.visuals.r, body.visuals.g, body.visuals.b, body.visuals.a});
+        recordTrail(world, body, adjustedPosition);
+        drawTrail(world, body, camera);
         return true;
     }
     return false;
@@ -37,7 +35,23 @@ void Visualiser::drawPlanes(const World& world, const Camera& camera) {
     }
 }
 
+void Visualiser::recordTrail(const World& world, const Particle& body, const Vector& position) {
+    if (!body.extraVisuals.trail || (world.stepN % body.extraVisuals.stepT != 0)) return;
+    size_t index = &body - &world.particles[0]; // Find Index of body Within world.particles
+    trails[index].push_back(position); // Add Trail Point To Array for Current Particle
+}
+
+void Visualiser::drawTrail(const World& world, const Particle& body, const Camera& camera) {
+    size_t index = &body - &world.particles[0];
+    for (const Vector& point : trails[index]) { // For All Trail Points of Current Particle
+        renderer.drawCircle(camera, point.x, point.y, 1, true, SDL_Color{50, 0, 250, 150});
+    }
+}
+
 void Visualiser::drawParticles(const World& world, const Camera& camera) {
+    if (trails.size() < world.particles.size()) {
+        trails.resize(world.particles.size());
+    }
     for (const Particle& body : world.particles) {
         // EVENT: Visualisation Disabled 
         if (body.visuals.toggle == false) {
@@ -46,7 +60,7 @@ void Visualiser::drawParticles(const World& world, const Camera& camera) {
         // Detect Plane Collisions, Render Adjusted Particles
         bool collision = false;
         for (const World::PlaneCollider& plane : world.planes) {
-            if (planeCollision(body, plane, camera) == true) {
+            if (planeCollision(world, body, plane, camera) == true) {
                 collision = true;
                 break;
             }
@@ -54,6 +68,8 @@ void Visualiser::drawParticles(const World& world, const Camera& camera) {
         // Render Uncollided Particles
         if (!collision) {
             renderer.drawCircle(camera, body.position.x, body.position.y, body.extraVisuals.radius, body.extraVisuals.fill, SDL_Color{body.visuals.r, body.visuals.g, body.visuals.b, body.visuals.a});
+            recordTrail(world, body, body.position);
+            drawTrail(world, body, camera);
         }
     }
 }
@@ -73,4 +89,5 @@ void Visualiser::drawSprings(const World& world, const Camera& camera) {
 void Visualiser::drawWorld(const World& world, const Camera& camera) {
     drawPlanes(world, camera);
     drawParticles(world, camera);
+    drawSprings(world, camera);
 }

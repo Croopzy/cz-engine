@@ -3,8 +3,7 @@
 
 // Renderer Constructor
 Renderer::Renderer(Window& window, Camera& camera)
-    : window(window),
-    camera(camera)
+    : window(window)
 {
     renderer = SDL_CreateRenderer(window.getSDLWindow(), nullptr);
 }
@@ -40,7 +39,7 @@ void Renderer::drawLine(const Camera& camera, float x1, float y1, float x2, floa
 
 
 void Renderer::drawCircle(const Camera& camera, float inCentreX, float inCentreY, float inRadius, bool fillEnabled, SDL_Color colour) { // Bresenham Circle Algorithm (AKA Midpoint Circle Algorithm)
-    int radius = (int)inRadius; // Casting Radius To Integer Type
+    int radius = (int) std::round(inRadius * camera.zoom); // Scale Radius By Zoom
 
     // Convert Centre Position To Pixels
     Vector centre(inCentreX, inCentreY); // World Position

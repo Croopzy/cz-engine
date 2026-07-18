@@ -19,6 +19,5 @@ class Renderer {
     private:
         SDL_Renderer* renderer = nullptr; // Renderer Pointer (Constructed Here)
         Window& window; // Window Reference (Initialised in Application.hpp)
-        Camera& camera; // Camera Reference (Initialised in Application.hpp)
 
 };

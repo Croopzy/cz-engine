@@ -42,8 +42,8 @@ void World::applySpringForce(const Spring& spring) {
     // Total Spring Force Vector (A -> B)
     Vector springForce = stiffnessForce + dampingForce;
     // Apply Equal & Opposite Forces
-    bodyA.applyForce(springForce); // A Pulled Towards B
-    bodyB.applyForce(-springForce); // B Pulled Towards A
+    bodyA.applyForce(-springForce); // A Pulled Towards B
+    bodyB.applyForce(springForce); // B Pulled Towards A
 }
 
 void World::accumulateForces() {
@@ -58,6 +58,7 @@ void World::accumulateForces() {
 
 // Step Simulation
 void World::step(float dt) noexcept {
+    stepN++;
 
     // Velocity Verlet Integration: Apply Resultant Force
     accumulateForces();

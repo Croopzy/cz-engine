@@ -40,15 +40,11 @@ void Projectile::start() {
     << "\n- Apple Mass: " << appleTemp.getMass() << "kg" << "\n\n"
     << "\n- Apple Velocity: " << appleTemp.velocity << "m/s" << "\n\n";
     appleTemp.visuals.r = 10; appleTemp.visuals.g = 210; appleTemp.visuals.b = 25;
+    appleTemp.extraVisuals.trail = true;
 
     // Display World Information
     std::cout << "Simulation Construction Successful";
     earth.printInfo(true);
-
-    int trail = earth.addParticle(0, "Trail Point", Vector(earth.getParticle(apple).position.x, earth.getParticle(apple).position.y));
-    Particle& trailTemp = earth.getParticle(trail);
-    trailTemp.visuals.r = 50; trailTemp.visuals.g = 0; trailTemp.visuals.b = 250; trailTemp.visuals.a = 150;
-    trailTemp.extraVisuals.radius = 1;
 
 }
 
@@ -57,16 +53,10 @@ void Projectile::poll() {
 
     // EVENT: Every Second
     if (stepID % 60 == 0) {
+        Particle& appleTemp = earth.getParticle(apple);
         std::cout << "\n\nCurrent Time: " << (stepID * dt) << "s" <<
-        "\nCurrent Velocity: " << earth.getParticle(apple).velocity << "m/s" <<
-        "\nCurrent Height: " << earth.getParticle(apple).position.y << "m" << "\n";
-
-        int trail = earth.addParticle(0, "Trail Point", Vector(earth.getParticle(apple).position.x, earth.getParticle(apple).position.y));
-        earth.getParticle(trail).visuals.r = 50;
-        earth.getParticle(trail).visuals.g = 0;
-        earth.getParticle(trail).visuals.b = 250;
-        earth.getParticle(trail).visuals.a = 150;
-        earth.getParticle(trail).extraVisuals.radius = 1;
+        "\nCurrent Velocity: " << appleTemp.velocity << "m/s" <<
+        "\nCurrent Height: " << appleTemp.position.y << "m" << "\n";
     }
 
     // EVENT: Apple Hits Ground

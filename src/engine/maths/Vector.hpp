@@ -145,5 +145,5 @@ inline float angle(const Vector& vecA, const Vector& vecB) {
     float cosine = dotProduct / magnitudeProduct;
     if (cosine > 1.0f) cosine = 1.0f; // Clamp To Valid Range (For Floating Point Drift)
     if (cosine < -1.0f) cosine = -1.0f;
-    return std::acos(cosine);
+    return std::acos(cosine); // Return Angle in Radians
 }
