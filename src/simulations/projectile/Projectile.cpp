@@ -24,13 +24,21 @@ void Projectile::start() {
     std::cout << "Enter Apple Mass (kg): ";
     std::cin >> inMass;
 
+    // Input Apple Initial Velocity (By Overall Magnitude and Direction)
+    float inAngle;
+    std::cout << "Enter Projection Angle (Degrees): ";
+    std::cin >> inAngle;
+    float inSpeed;
+    std::cout << "Enter Initial Speed (m/s): ";
+    std::cin >> inSpeed;
+
     // Spawn Apple
-    Projectile::apple = earth.addParticle(10.0f, "Apple", Vector(0.0f, 0.0f)); // Create Apple (Mass = inMass) in Earth Simulation, Default: Infinite Mass
+    Projectile::apple = earth.addParticle(inMass, "Apple", Vector(0.0f, 0.0f)); // Create Apple (Mass = inMass) in Earth Simulation, Default: Infinite Mass
     Particle& appleTemp = earth.getParticle(apple);
-    appleTemp.setMass(inMass);
+    appleTemp.project(radians(inAngle), inSpeed);
     std::cout << "\nParticle Model Created: Apple"
-    << "\n- Apple Mass: " << appleTemp.getMass() << "kg" << "\n\n";
-    appleTemp.velocity = Vector(10.00f, 30.00f);
+    << "\n- Apple Mass: " << appleTemp.getMass() << "kg" << "\n\n"
+    << "\n- Apple Velocity: " << appleTemp.velocity << "m/s" << "\n\n";
     appleTemp.visuals.r = 10; appleTemp.visuals.g = 210; appleTemp.visuals.b = 25;
 
     // Display World Information
