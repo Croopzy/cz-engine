@@ -1,7 +1,6 @@
 #include <iostream>
 #include "test_utils.hpp"
 #include "src/engine/maths/Vector.hpp"
-#include "src/engine/maths/geometry.hpp"
 
 
 ///// Vector Unit Tests /////
@@ -162,12 +161,8 @@ bool test_vector_perpendicular() {
     return (result.x == vecB.x) && (result.y == vecB.y);
 }
 
+/// Geometric Functions ///
 
-
-///// Geometry Unit Tests /////
-
-
-/// Geometry Operations ///
 
 bool test_angle_case_same() {
     Vector vecA(3.0f, 4.0f);

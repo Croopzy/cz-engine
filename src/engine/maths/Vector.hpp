@@ -55,6 +55,11 @@ struct Vector {
 
 /// OPERATIONS ///
 
+// Vector Initialisation by Angle (Measured in Radians From Horizontal) & Magnitude: vectorA.resolve(magnitude, angle)
+[[nodiscard]] inline constexpr Vector resolve(float angle, float magnitude) noexcept {
+	return { (std::cos(angle) * magnitude), (std::sin(angle) * magnitude) };
+}
+
 // Vector Addition: vectorA + vectorB
 [[nodiscard]] inline Vector operator+(const Vector& vecA, const Vector& vecB) noexcept {
 	return { (vecA.x + vecB.x), (vecA.y + vecB.y) };
@@ -117,4 +122,28 @@ struct Vector {
 // Vector Output
 inline std::ostream& operator<<(std::ostream & os, const Vector & vecA) { // Operator Overload (<<)
 	return os << "(" << vecA.x << ", " << vecA.y << ")";
+}
+
+
+/// GEOMETRIC FUNCTIONS ///
+
+// Convert Degrees To Radians: radians(angle)
+inline float radians(float inAngle) {
+	return (inAngle * MathsConstants::PI / 180); // angle (radians) = angle (°) * (2π ⁄ 360) = angle (°) * (π / 180)
+}
+
+// Convert Radians To Degrees: degrees(angle)
+inline float degrees(float inAngle) {
+	return (inAngle * 180 / MathsConstants::PI); // angle (°) = angle (radians) * (360 / 2π) = angle (radians) * (180 / π)
+}
+
+// Unsigned Angle Between Two Vectors (Relative Angle, Unit: Radians): angle(vectorA, vectorB)
+inline float angle(const Vector& vecA, const Vector& vecB) {
+    float dotProduct = dot(vecA, vecB);
+    float magnitudeProduct = magnitude(vecA) * magnitude(vecB);
+    if (magnitudeProduct <= MathsConstants::EPSILON) return 0.0f; // Accounts For Division Singularity
+    float cosine = dotProduct / magnitudeProduct;
+    if (cosine > 1.0f) cosine = 1.0f; // Clamp To Valid Range (For Floating Point Drift)
+    if (cosine < -1.0f) cosine = -1.0f;
+    return std::acos(cosine);
 }
