@@ -52,16 +52,11 @@ void Oscillator::start() {
     // Spawn Spring(Grey, Light Rod) Between Anchor & Bob
     int spring = earth.addSpring(anchor, bob, springLength, 300, 10);
     Spring& springTemp = earth.getSpring(spring);
-    springTemp.visuals.r = 0; springTemp.visuals.g = 0; springTemp.visuals.b = 0; springTemp.visuals.a = 0.5f;
+    springTemp.visuals.r = 105; springTemp.visuals.g = 105; springTemp.visuals.b = 105; springTemp.visuals.a = 0.75f;
 
     // Display World Information
     std::cout << "Simulation Construction Successful";
     earth.printInfo(true);
-
-    int trail = earth.addParticle(0, "Trail Point", Vector(earth.getParticle(bob).position.x, earth.getParticle(bob).position.y));
-    Particle& trailTemp = earth.getParticle(trail);
-    trailTemp.visuals.r = 50; trailTemp.visuals.g = 0; trailTemp.visuals.b = 250; trailTemp.visuals.a = 150;
-    trailTemp.extraVisuals.radius = 1;
 
 }
 
@@ -73,13 +68,6 @@ void Oscillator::poll() {
         std::cout << "\n\nCurrent Time: " << (stepID * dt) << "s" <<
         "\nCurrent Velocity: " << earth.getParticle(bob).velocity << "m/s" <<
         "\nCurrent Height: " << earth.getParticle(bob).position.y << "m" << "\n";
-
-        int trail = earth.addParticle(0, "Trail Point", Vector(earth.getParticle(bob).position.x, earth.getParticle(bob).position.y));
-        earth.getParticle(trail).visuals.r = 50;
-        earth.getParticle(trail).visuals.g = 0;
-        earth.getParticle(trail).visuals.b = 250;
-        earth.getParticle(trail).visuals.a = 150;
-        earth.getParticle(trail).extraVisuals.radius = 1;
     }
 }
 
