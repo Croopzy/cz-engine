@@ -2,7 +2,7 @@
 
 Oscillator::Oscillator(int steps)
     : Scenario(),
-      earth(getWorld()),
+      earth( getWorld() ),
       bob(-1)
 {
     numSteps = steps;

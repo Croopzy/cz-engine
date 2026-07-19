@@ -41,19 +41,19 @@ void World::step(float dt) noexcept {
         body.integratePosition(dt);
     }
 
-    // Collision Detection (Between Particles and Planes) & Impulse Resolution
-    for (Particle& body : particles) {
-        for (Plane& plane : planes) {
-            planeInteract(body, plane);
-        }
-    }
-
     // Update Resultant Force
     accumulateForces();
 
     // Velocity Verlet Integration: Update Particle Velocity
     for (Particle& body : particles) {
         body.integrateVelocity(dt);
+    }
+
+    // Collision Detection (Between Particles and Planes) & Impulse Resolution
+    for (Particle& body : particles) {
+        for (Plane& plane : planes) {
+            planeInteract(body, plane);
+        }
     }
     
     stepN++;

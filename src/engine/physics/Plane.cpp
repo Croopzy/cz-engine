@@ -13,7 +13,7 @@ Plane::Plane(const Vector& vecN, float planeConstant, bool toggle, float elastic
 // Apply Friction To Particle Interacting with Plane
 void applyFriction(Particle& body, Plane& plane, float distance) {
     // EVENT: Body Interacts with Plane
-    if ((distance < PhysicsConstants::GROUND_EPSILON) && (plane.friction > 0) && (plane.friction <= 1)) {
+    if ((distance < 0.0f) && (plane.friction > 0) && (plane.friction <= 1)) {
         Vector tangent = perpendicular(plane.normal); // Unit Vector Parallel To Plane
         float vTangent = dot(body.velocity, tangent); // Signed Speed Along Surface
         float frImpulse = vTangent * plane.friction; // Proportion of Tangential Speed Lost Due To Friction
@@ -24,7 +24,7 @@ void applyFriction(Particle& body, Plane& plane, float distance) {
 // Apply Restitution To Particle Interacting with Plane
 void applyRestitution(Particle& body, Plane& plane, float distance) {
     // EVENT: Body Penetrates Plane
-    if (distance <= 0.0) {
+    if (distance <= 0.0f) {
         float vNormal = dot(body.velocity, plane.normal); // Scalar Magnitude of (Component of) Body Velocity Acting Along Normal
         // Position Correction
         float constraintViolation = -distance; // (Penetration Depth = -distance)
