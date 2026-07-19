@@ -9,57 +9,31 @@ World::World(const std::string& inName, const Vector& inGravity) noexcept // Use
 
 void World::printInfo(const bool listParticles) noexcept {
     std::cout << "\nWorld: " << World::name << "\n"
-    << "- Gravity = " << World::gravity.y << "ms^-2";
+    << "- Gravity = " << World::gravity << "ms^-2";
     if (listParticles) {
         std::cout << "\n- Particles:";
         for (Particle& body : particles) {
-            std::cout << "\n  --> " << body.name << " (" << "Mass = " << body.getMass() << "kg, " << "Position = " << body.position << " ";
+            std::cout << "\n  --> " << body.name << " (" << "Mass = " << body.getMass() << "kg, " << "Position = " << body.position << " )";
         }
     }
     std::cout << "}\n";
 }
 
-// Apply Spring Force
-void World::applySpringForce(const Spring& spring) {
-    // Refer To Both Particles By Index
-    Particle& bodyA = particles[spring.particleA];
-    Particle& bodyB = particles[spring.particleB];
-    // Vector From A -> B
-    Vector delta = bodyB.position - bodyA.position;
-    float currentLength = magnitude(delta);
-    if (currentLength == 0.0f) return; // Avoids Division by Zero
-    Vector direction = normalise(delta); // normalise(delta) == delta / currentLength
-    // (+ve extension = stretched), (-ve extension = compressed)
-    float extension = currentLength - spring.naturalLength;
-    // Hooke's Law: F = -kxd
-    Vector stiffnessForce = -spring.stiffness * extension * direction;
-    // Relative Velocity
-    Vector relativeVelocity = bodyB.velocity - bodyA.velocity; // Velocity of B Relative to Velocity of A
-    // Component of Relative Velocity Along Spring Axis (Signed Scalar)
-    float vParallel = dot(relativeVelocity, direction); // Changes Extension Since Direction Parallel To Plane
-    // Damping Force: F = -kpd
-    Vector dampingForce = -spring.damping * vParallel * direction;
-    // Total Spring Force Vector (A -> B)
-    Vector springForce = stiffnessForce + dampingForce;
-    // Apply Equal & Opposite Forces
-    bodyA.applyForce(-springForce); // A Pulled Towards B
-    bodyB.applyForce(springForce); // B Pulled Towards A
-}
 
 void World::accumulateForces() {
         for (Particle& body : particles) {
         body.clearForces(); // Reset Forces For Next Frame
         body.applyForce(gravity * body.getMass()); // Apply World Gravity (W = m * g)
     }
-    for (const Spring& spring : springs) {
-        applySpringForce(spring); // Apply Spring Constraints (F = -kx)
+    for (Spring& spring : springs) {
+        spring.applyForce(particles); // Apply Spring Constraints (F = -kx)
     }
 }
 
 // Step Simulation
 void World::step(float dt) noexcept {
     
-    // Velocity Verlet Integration: Update Resultant Force
+    // Update Resultant Force
     accumulateForces();
         
     // Velocity Verlet Integration: Update Particle Position
@@ -67,19 +41,19 @@ void World::step(float dt) noexcept {
         body.integratePosition(dt);
     }
 
-    // Velocity Verlet Integration: Update Resultant Force
+    // Collision Detection (Between Particles and Planes) & Impulse Resolution
+    for (Particle& body : particles) {
+        for (Plane& plane : planes) {
+            planeInteract(body, plane);
+        }
+    }
+
+    // Update Resultant Force
     accumulateForces();
 
     // Velocity Verlet Integration: Update Particle Velocity
     for (Particle& body : particles) {
         body.integrateVelocity(dt);
-    }
-
-    // Resolve Collisions & Apply Friction (Between Particles and Plane Colliders)
-    for (Particle& body : particles) {
-        for (Plane& plane : planes) {
-            planeInteract(body, plane);
-        }
     }
     
     stepN++;

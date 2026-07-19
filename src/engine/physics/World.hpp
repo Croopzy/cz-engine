@@ -10,10 +10,6 @@
 class World {
 public:
 
-    // Step Function Declaration
-    void step(float dt = (1.0f / 60.0f)) noexcept;
-    int stepN = 0;
-
     // World Constructor
     World(const std::string& inName = "Earth", // Default World: Earth
     const Vector& inGravity = PhysicsConstants::GRAVITY_EARTH) noexcept;
@@ -78,8 +74,9 @@ public:
     }
 
 
-    // Apply Spring Force
-    void applySpringForce(const Spring& spring);
+    // Step Function Declaration
+    void step(float dt = (1.0f / 60.0f)) noexcept;
+    int stepN = 0;
 
 private:
     // Update Resultant Force
