@@ -77,7 +77,7 @@ void World::step(float dt) noexcept {
 
     // Resolve Collisions & Apply Friction (Between Particles and Plane Colliders)
     for (Particle& body : particles) {
-        for (PlaneCollider& plane : planes) {
+        for (Plane& plane : planes) {
             planeInteract(body, plane);
         }
     }

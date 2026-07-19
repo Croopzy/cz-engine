@@ -8,7 +8,7 @@ Visualiser::Visualiser(Renderer& renderer)
 
 /// World Draw Functions ///
 
-bool Visualiser::planeCollision(const World& world, const Particle& body, const PlaneCollider& plane, const Camera& camera) {
+bool Visualiser::planeCollision(const World& world, const Particle& body, const Plane& plane, const Camera& camera) {
     float distance = dot(plane.normal, body.position) - plane.offset; // Signed Shortest Distance Between Centre and Plane (Along Plane's Normal Axis)
     // Event: Particle Visually Penetrates Plane (Due To False Radius)
     if ((body.collisions == true) && (plane.collisions == true) && (distance < body.extraVisuals.radius)) { // Collisions Enabled & Radius Overlaps with Plane
@@ -22,15 +22,15 @@ bool Visualiser::planeCollision(const World& world, const Particle& body, const 
 }
 
 void Visualiser::drawPlanes(const World& world, const Camera& camera) {
-    for (const PlaneCollider& plane : world.planes) {
-        if (plane.visuals.toggle  == true) {
-            Vector planePoint = plane.normal * plane.offset;
-            Vector tangent = perpendicular(plane.normal);
-            float planeLength = 10000.0f; // Fixed Plane Length (Default -> Infinity)
-            Vector startPoint = planePoint + (tangent * planeLength);
-            Vector endPoint = planePoint - (tangent * planeLength);
-            renderer.drawLine(camera, startPoint.x, startPoint.y, endPoint.x, endPoint.y, SDL_Color{plane.visuals.r, plane.visuals.g, plane.visuals.b, plane.visuals.a});
-        }
+    for (const Plane& plane : world.planes) {
+        // EVENT: Visualisation Disabled 
+        if (plane.visuals.toggle == false) { continue; } // Discard Iteration
+        Vector planePoint = plane.normal * plane.offset;
+        Vector tangent = perpendicular(plane.normal);
+        float planeLength = 10000.0f; // Fixed Plane Length (Default -> Infinity)
+        Vector startPoint = planePoint + (tangent * planeLength);
+        Vector endPoint = planePoint - (tangent * planeLength);
+        renderer.drawLine(camera, startPoint.x, startPoint.y, endPoint.x, endPoint.y, SDL_Color{plane.visuals.r, plane.visuals.g, plane.visuals.b, plane.visuals.a});
     }
 }
 
@@ -51,12 +51,10 @@ void Visualiser::drawTrail(const World& world, const Particle& body, const Camer
 void Visualiser::drawParticles(const World& world, const Camera& camera) {
     for (const Particle& body : world.particles) {
         // EVENT: Visualisation Disabled 
-        if (body.visuals.toggle == false) {
-            continue; // Discard Iteration
-        }
+        if (body.visuals.toggle == false) { continue; } // Discard Iteration
         // Detect Plane Collisions, Render Adjusted Particles
         bool collision = false;
-        for (const PlaneCollider& plane : world.planes) {
+        for (const Plane& plane : world.planes) {
             if (planeCollision(world, body, plane, camera) == true) { // Detect Plane Collision, Resolve Trail Point Relative To Plane
                 collision = true;
                 break;
@@ -74,9 +72,7 @@ void Visualiser::drawParticles(const World& world, const Camera& camera) {
 void Visualiser::drawSprings(const World& world, const Camera& camera) {
     for (const Spring& spring : world.springs) {
         // EVENT: Visualisation Disabled 
-        if (spring.visuals.toggle == false) {
-            continue; // Discard Iteration
-        }
+        if (spring.visuals.toggle == false) { continue; } // Discard Iteration
         const Particle& particleA = world.getParticle(spring.particleA);
         const Particle& particleB = world.getParticle(spring.particleB);
         renderer.drawLine(camera, particleA.position.x, particleA.position.y, particleB.position.x, particleB.position.y, SDL_Color{spring.visuals.r, spring.visuals.g, spring.visuals.b, spring.visuals.a});

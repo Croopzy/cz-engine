@@ -29,7 +29,7 @@ public:
     Vector gravity;
 
     // World Plane Colliders
-    std::vector<PlaneCollider> planes; // Collection of Planes in World
+    std::vector<Plane> planes; // Collection of Planes in World
 
     // World Particles
     std::vector<Particle> particles; // Collection of Particles in World
@@ -58,7 +58,7 @@ public:
 
 
     // Get World Plane
-    inline PlaneCollider& getPlane(int index) {
+    inline Plane& getPlane(int index) {
         return planes[index];
     }
 
