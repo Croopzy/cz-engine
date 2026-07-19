@@ -59,7 +59,7 @@ void World::accumulateForces() {
 // Step Simulation
 void World::step(float dt) noexcept {
     
-    // Velocity Verlet Integration: Apply Resultant Force
+    // Velocity Verlet Integration: Update Resultant Force
     accumulateForces();
         
     // Velocity Verlet Integration: Update Particle Position
@@ -67,7 +67,7 @@ void World::step(float dt) noexcept {
         body.integratePosition(dt);
     }
 
-    // Velocity Verlet Integration: Apply New Resultant Force
+    // Velocity Verlet Integration: Update Resultant Force
     accumulateForces();
 
     // Velocity Verlet Integration: Update Particle Velocity
@@ -79,8 +79,8 @@ void World::step(float dt) noexcept {
     for (Particle& body : particles) {
         for (PlaneCollider& plane : planes) {
             float distance = dot(plane.normal, body.position) - plane.offset; // Signed Shortest Distance Between Body and Plane (Along Plane's Normal Axis)
-            // Event: Body Penetrates Plane
-            if (distance <= 0.0f) {
+            // Event: Body Penetrates Plane (With Collisions Enabled)
+            if ((body.collisions == true) && (plane.collisions == true) && (distance <= 0.0f)) {
                 float vNormal = dot(body.velocity, plane.normal); // Scalar Magnitude of (Component of) Body Velocity Acting Along Normal
                 // Position Correction
                 float constraintViolation = -distance; // (Penetration Depth = -distance)

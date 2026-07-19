@@ -1,4 +1,5 @@
 #include "Visualiser.hpp"
+#include <iostream>
 
 // Visualiser Constructor
 Visualiser::Visualiser(Renderer& renderer)
@@ -11,11 +12,12 @@ Visualiser::Visualiser(Renderer& renderer)
 bool Visualiser::planeCollision(const World& world, const Particle& body, const World::PlaneCollider& plane, const Camera& camera) {
     float distance = dot(plane.normal, body.position) - plane.offset; // Signed Shortest Distance Between Centre and Plane (Along Plane's Normal Axis)
     // Event: Particle Visually Penetrates Plane (Due To False Radius)
-    if (distance < body.extraVisuals.radius) {
+    if ((body.collisions == true) && (plane.collisions == true) && (distance < body.extraVisuals.radius)) { // Collisions Enabled & Radius Overlaps with Plane
         float constraintViolation = body.extraVisuals.radius - distance;
         Vector adjustedPosition = body.position + (plane.normal * constraintViolation);
         renderer.drawCircle(camera, adjustedPosition.x, adjustedPosition.y, body.extraVisuals.radius, body.extraVisuals.fill, SDL_Color{body.visuals.r, body.visuals.g, body.visuals.b, body.visuals.a});
         recordTrail(world, body, adjustedPosition);
+        std::cout << body.name << "COLLISION";
         return true;
     }
     return false;

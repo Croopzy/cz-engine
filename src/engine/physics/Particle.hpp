@@ -5,7 +5,7 @@
 // STRUCTURES //
 
 struct ParticleVisuals {
-    float radius = 5.0f;
+    float radius = 2.5f;
     bool fill = true;
     bool trail = false;
     int stepT = 60; // Step Number When Trail Rendered
@@ -18,24 +18,26 @@ private:
     float inverseMass; // (mass^-1 = 0 when mass -> infinity)
 
 public:
-    BasicVisuals visuals;
-    ParticleVisuals extraVisuals;
-
-    std::string name; // Printable Name of Particle
-
     Vector position; // Current Position (Unit: metres, m)
     Vector velocity; // Current Velocity (Unit: ms^-1)
     Vector acceleration; // Acceleration = netForce * inverseMass (Unit: ms^-2)
-
     Vector netForce; // Resultant Force (Unit: Newtons)
 
-    Particle(float inMass = 0.0f, std::string inName = "DefaultParticle", Vector inPosition = Vector(0.0f, 0.0f)): // Default: Fixed Immovable Point (Infinite Mass)
-        name(inName),
+    bool collisions; // Toggle Collisions with Particle
+
+    BasicVisuals visuals; // General Visual Elements
+    ParticleVisuals extraVisuals; // Visual Elements Specific To Particles
+
+    std::string name; // Printable Name of Particle
+
+    Particle(float inMass = 0.0f, std::string inName = "DefaultParticle", Vector inPosition = Vector(0.0f, 0.0f), bool toggle = true): // Default: Fixed Immovable Point (Infinite Mass)
         mass(inMass),
         position(inPosition.x, inPosition.y),
         velocity(0,0),
         acceleration(0,0),
-        netForce(0,0)
+        netForce(0,0),
+        name(inName),
+        collisions(toggle)
     {
         if (mass == 0.0f) // Infinite Mass
             inverseMass = 0.0f;
@@ -82,14 +84,12 @@ public:
     // Velocity Verlet Integration
     inline void integratePosition(float dt) noexcept {
         if (inverseMass == 0.0f) return; // Special Case: Infinite Mass
-        // Velocity Verlet Integration
         acceleration = netForce * inverseMass; // Compute Acceleration (From Overall Force)
         position += (velocity * dt) + (0.5f * acceleration * dt * dt); // Update Particle Position
     }
     inline void integrateVelocity(float dt) noexcept {
         if (inverseMass == 0.0f) return; // Special Case: Infinite Mass
-        // Velocity Verlet Integration
-        Vector newAcceleration = netForce * inverseMass; // Compute Acceleration (From Overall Force)
+        Vector newAcceleration = netForce * inverseMass; // Compute Acceleration (From New Net Force)
         velocity += (0.5f * (acceleration + newAcceleration) * dt); // Update Particle Velocity
         acceleration = newAcceleration; // Update Stored Acceleration for Next Frame
     }

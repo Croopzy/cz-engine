@@ -27,11 +27,13 @@ public:
 
         Vector normal; // Normal Vector To The Plane (Unit Vector)
         float offset; // Shortest Perpendicular Distance From Origin To Plane (Along Normal)
+        bool collisions; // Toggle Collisions with Plane
         float restitution; // Elasticity (Perfectly Inelastic: 0.0, Perfectly Elastic: 1.0)
 
-        PlaneCollider(const Vector& vecN = {0.0f, 1.0f}, float planeConstant = 0, float elasticity = 0.5f) noexcept
+        PlaneCollider(const Vector& vecN = {0.0f, 1.0f}, float planeConstant = 0, bool toggle = true, float elasticity = 0.5f) noexcept
         : normal(isZero(vecN) ? Vector(0.0f, 1.0f) : normalise(vecN)),
         offset(planeConstant),
+        collisions(toggle),
         restitution(elasticity) {}
     };
 
@@ -96,5 +98,6 @@ public:
     void applySpringForce(const Spring& spring);
 
 private:
+    // Update Resultant Force
     void accumulateForces();
 };
