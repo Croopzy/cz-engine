@@ -8,7 +8,7 @@ class Visualiser {
         Visualiser(Renderer& renderer);
 
         // World Draw Functions
-        bool planeCollision(const World& world, const Particle& body, const World::PlaneCollider& plane, const Camera& camera);
+        bool planeCollision(const World& world, const Particle& body, const PlaneCollider& plane, const Camera& camera);
         void drawPlanes(const World& world, const Camera& camera);
         void drawParticles(const World& world, const Camera& camera);
         void drawSprings(const World& world, const Camera& camera);

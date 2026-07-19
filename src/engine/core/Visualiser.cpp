@@ -8,7 +8,7 @@ Visualiser::Visualiser(Renderer& renderer)
 
 /// World Draw Functions ///
 
-bool Visualiser::planeCollision(const World& world, const Particle& body, const World::PlaneCollider& plane, const Camera& camera) {
+bool Visualiser::planeCollision(const World& world, const Particle& body, const PlaneCollider& plane, const Camera& camera) {
     float distance = dot(plane.normal, body.position) - plane.offset; // Signed Shortest Distance Between Centre and Plane (Along Plane's Normal Axis)
     // Event: Particle Visually Penetrates Plane (Due To False Radius)
     if ((body.collisions == true) && (plane.collisions == true) && (distance < body.extraVisuals.radius)) { // Collisions Enabled & Radius Overlaps with Plane
@@ -22,7 +22,7 @@ bool Visualiser::planeCollision(const World& world, const Particle& body, const 
 }
 
 void Visualiser::drawPlanes(const World& world, const Camera& camera) {
-    for (const World::PlaneCollider& plane : world.planes) {
+    for (const PlaneCollider& plane : world.planes) {
         if (plane.visuals.toggle  == true) {
             Vector planePoint = plane.normal * plane.offset;
             Vector tangent = perpendicular(plane.normal);
@@ -56,7 +56,7 @@ void Visualiser::drawParticles(const World& world, const Camera& camera) {
         }
         // Detect Plane Collisions, Render Adjusted Particles
         bool collision = false;
-        for (const World::PlaneCollider& plane : world.planes) {
+        for (const PlaneCollider& plane : world.planes) {
             if (planeCollision(world, body, plane, camera) == true) { // Detect Plane Collision, Resolve Trail Point Relative To Plane
                 collision = true;
                 break;

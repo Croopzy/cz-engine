@@ -75,10 +75,10 @@ void World::step(float dt) noexcept {
         body.integrateVelocity(dt);
     }
 
-    // Resolve Collisions (Between Particles and Plane Colliders)
+    // Resolve Collisions & Apply Friction (Between Particles and Plane Colliders)
     for (Particle& body : particles) {
         for (PlaneCollider& plane : planes) {
-            collide(body, plane);
+            planeInteract(body, plane);
         }
     }
     

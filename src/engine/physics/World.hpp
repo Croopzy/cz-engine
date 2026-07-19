@@ -39,7 +39,7 @@ public:
 
 
     // New World Plane Collider
-    inline int addPlane(const Vector& vecN = {0.0f, 1.0f}, float planeConstant = 0, bool collisions = true, float elasticity = 0.3f, float roughness = 0.1f) { 
+    inline int addPlane(const Vector& vecN = {0.0f, 1.0f}, float planeConstant = 0, bool collisions = true, float elasticity = 0.3f, float roughness = 0.5f) { 
         planes.emplace_back(vecN, planeConstant, collisions, elasticity, roughness); // Constructor
         return (planes.size() - 1); // Returns Index of New Plane
     }
