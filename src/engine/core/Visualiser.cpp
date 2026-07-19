@@ -1,5 +1,4 @@
 #include "Visualiser.hpp"
-#include <iostream>
 
 // Visualiser Constructor
 Visualiser::Visualiser(Renderer& renderer)
@@ -17,7 +16,6 @@ bool Visualiser::planeCollision(const World& world, const Particle& body, const 
         Vector adjustedPosition = body.position + (plane.normal * constraintViolation);
         renderer.drawCircle(camera, adjustedPosition.x, adjustedPosition.y, body.extraVisuals.radius, body.extraVisuals.fill, SDL_Color{body.visuals.r, body.visuals.g, body.visuals.b, body.visuals.a});
         recordTrail(world, body, adjustedPosition);
-        std::cout << body.name << "COLLISION";
         return true;
     }
     return false;
