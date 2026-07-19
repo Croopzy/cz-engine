@@ -2,7 +2,6 @@
 #include "src/engine/maths/Vector.hpp"
 #include "src/engine/core/Visuals.hpp"
 
-// STRUCTURES //
 
 struct ParticleVisuals {
     float radius = 2.5f;
@@ -30,20 +29,12 @@ public:
 
     std::string name; // Printable Name of Particle
 
-    Particle(float inMass = 0.0f, std::string inName = "DefaultParticle", Vector inPosition = Vector(0.0f, 0.0f), bool toggle = true): // Default: Fixed Immovable Point (Infinite Mass)
-        mass(inMass),
-        position(inPosition.x, inPosition.y),
-        velocity(0,0),
-        acceleration(0,0),
-        netForce(0,0),
-        name(inName),
-        collisions(toggle)
-    {
-        if (mass == 0.0f) // Infinite Mass
-            inverseMass = 0.0f;
-        else
-            inverseMass = 1.0f / mass;
-    }
+    // Particle Constructor
+    Particle(float inMass = 0.0f,
+        const std::string& inName = "DefaultParticle",
+        Vector inPosition = Vector(0.0f, 0.0f),
+        bool toggle = true
+    );
 
     inline void setMass(float inMass) {
         mass = inMass;
@@ -82,16 +73,7 @@ public:
     }
 
     // Velocity Verlet Integration
-    inline void integratePosition(float dt) noexcept {
-        if (inverseMass == 0.0f) return; // Special Case: Infinite Mass
-        acceleration = netForce * inverseMass; // Compute Acceleration (From Overall Force)
-        position += (velocity * dt) + (0.5f * acceleration * dt * dt); // Update Particle Position
-    }
-    inline void integrateVelocity(float dt) noexcept {
-        if (inverseMass == 0.0f) return; // Special Case: Infinite Mass
-        Vector newAcceleration = netForce * inverseMass; // Compute Acceleration (From New Net Force)
-        velocity += (0.5f * (acceleration + newAcceleration) * dt); // Update Particle Velocity
-        acceleration = newAcceleration; // Update Stored Acceleration for Next Frame
-    }
+    void integratePosition(float dt) noexcept;
+    void integrateVelocity(float dt) noexcept;
 
 };
