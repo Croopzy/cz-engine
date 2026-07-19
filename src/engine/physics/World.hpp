@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include "PhysicsConstants.hpp"
+#include "Plane.hpp"
 #include "Particle.hpp"
 #include "Spring.hpp"
 #include "src/engine/core/Visuals.hpp"
@@ -21,23 +22,6 @@ public:
     void printInfo(const bool listParticles = false) noexcept;
 
 
-    // Plane Collider Structure
-    struct PlaneCollider {
-        BasicVisuals visuals;
-
-        Vector normal; // Normal Vector To The Plane (Unit Vector)
-        float offset; // Shortest Perpendicular Distance From Origin To Plane (Along Normal)
-        bool collisions; // Toggle Collisions with Plane
-        float restitution; // Elasticity (Perfectly Inelastic: 0.0, Perfectly Elastic: 1.0)
-
-        PlaneCollider(const Vector& vecN = {0.0f, 1.0f}, float planeConstant = 0, bool toggle = true, float elasticity = 0.5f) noexcept
-        : normal(isZero(vecN) ? Vector(0.0f, 1.0f) : normalise(vecN)),
-        offset(planeConstant),
-        collisions(toggle),
-        restitution(elasticity) {}
-    };
-
-
     // World Name
     std::string name;
 
@@ -55,8 +39,8 @@ public:
 
 
     // New World Plane Collider
-    inline int addPlane(const Vector& vecN = {0.0f, 1.0f}, float planeConstant = 0, bool collisions = true, float elasticity = 0.3f) { 
-        planes.emplace_back(vecN, planeConstant, collisions, elasticity); // Constructor
+    inline int addPlane(const Vector& vecN = {0.0f, 1.0f}, float planeConstant = 0, bool collisions = true, float elasticity = 0.3f, float roughness = 0.1f) { 
+        planes.emplace_back(vecN, planeConstant, collisions, elasticity, roughness); // Constructor
         return (planes.size() - 1); // Returns Index of New Plane
     }
 

@@ -78,24 +78,7 @@ void World::step(float dt) noexcept {
     // Resolve Collisions (Between Particles and Plane Colliders)
     for (Particle& body : particles) {
         for (PlaneCollider& plane : planes) {
-            float distance = dot(plane.normal, body.position) - plane.offset; // Signed Shortest Distance Between Body and Plane (Along Plane's Normal Axis)
-            // Event: Body Penetrates Plane (With Collisions Enabled)
-            if ((body.collisions == true) && (plane.collisions == true) && (distance <= 0.0f)) {
-                float vNormal = dot(body.velocity, plane.normal); // Scalar Magnitude of (Component of) Body Velocity Acting Along Normal
-                // Position Correction
-                float constraintViolation = -distance; // (Penetration Depth = -distance)
-                body.position += plane.normal * constraintViolation; // Teleport Body Out of Plane
-                // Only Bounce IF Body Moving Into Plane
-                if (vNormal < -PhysicsConstants::GROUND_EPSILON){ // Negative (Downward) Velocity Check
-                    float bounceFactor = 1.0f + plane.restitution; // Scalar Proportion of Velocity: Current Kinetic Energy + Bounce Energy
-                    float deltaVn = bounceFactor * vNormal; // Scalar Proportion * (Component of) Current Body Velocity Along Plane Normal
-                    body.velocity -= (plane.normal * deltaVn); // Reverse Body's Normal Velocity and Apply Restitution (Energy Loss Due to Bounce)
-                } else { // Remove Small Normal Velocity When In Resting Contact
-                    body.velocity -= (plane.normal * vNormal);
-                }
-
-            }
-
+            collide(body, plane);
         }
     }
     
