@@ -1,7 +1,7 @@
 #include "Plane.hpp"
 
 // Constructor
-Plane::Plane(const Vector& vecN = {0.0f, 1.0f}, float planeConstant = 0, bool toggle = true, float elasticity = 0.5f, float roughness = 0.5f) noexcept // Uses Intitialiser List To Set World Parameters
+Plane::Plane(const Vector& vecN, float planeConstant, bool toggle, float elasticity, float roughness) noexcept // Uses Intitialiser List To Set World Parameters
     : normal(isZero(vecN) ? Vector(0.0f, 1.0f) : normalise(vecN)),
     offset(planeConstant),
     collisions(toggle),
