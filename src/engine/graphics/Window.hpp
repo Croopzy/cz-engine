@@ -17,6 +17,6 @@ class Window {
 
     private:
         SDL_Window* window = nullptr;
-        int width = 1200;
+        int width = 1280;
         int height = 720;
 };

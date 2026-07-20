@@ -6,6 +6,7 @@ Oscillator::Oscillator(int steps)
       bob(-1)
 {
     numSteps = steps;
+    zoom = 10;
 }
 
 void Oscillator::start() {
@@ -37,7 +38,7 @@ void Oscillator::start() {
     bobOffset.y += inOffset;
 
     // Spawn Anchor
-    Oscillator::anchor = earth.addParticle(0, "Anchor", Vector(100, 100)); // Create (White) Anchor (of Infinite Mass)
+    Oscillator::anchor = earth.addParticle(0, "Anchor", Vector(camX, (camY + (360 / zoom)))); // Create (White) Anchor (of Infinite Mass)
     Particle& anchorTemp = earth.getParticle(anchor);
     std::cout << "\nParticle Model Created: Anchor"
     << "\n- Anchor Mass: " << "Infinite" << "\n\n"; 

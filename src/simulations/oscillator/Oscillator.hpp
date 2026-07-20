@@ -9,8 +9,6 @@ class Oscillator : public Scenario { // Child Class of Scenario
         void poll() override;
         void end() override;
 
-        int zoom = 2.5;
-
     private:
         World& earth;
         int anchor;

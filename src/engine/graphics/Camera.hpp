@@ -4,7 +4,7 @@
 
 // Camera Structure
 struct Camera {
-	Vector position; // Centre Position
+	Vector position; // Camera Centred at Position (Unit: Metres, Vector Relative To Origin)
 	float zoom; // Scale Factor (PPM, Pixels Per Metre)
 	int viewportWidth; // Defines Width (px) of Draw Area
 	int viewportHeight; // Defines Height (px) of Draw Area

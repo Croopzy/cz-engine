@@ -11,7 +11,7 @@ void Application::run(Scenario& scenario, bool visualiserEnabled) {
         // Create Window
         window = std::make_unique<Window>("Cryoze Engine", DEFAULT_WIDTH, DEFAULT_HEIGHT);
         // Create Camera
-        camera = std::make_unique<Camera>(Vector(0, 0), scenario.zoom, DEFAULT_WIDTH, DEFAULT_HEIGHT);
+        camera = std::make_unique<Camera>(Vector(scenario.camX, scenario.camY), scenario.zoom, DEFAULT_WIDTH, DEFAULT_HEIGHT);
         // Create Renderer
         renderer = std::make_unique<Renderer>(*window, *camera);
         // Create Visualiser
@@ -32,7 +32,12 @@ void Application::run(Scenario& scenario, bool visualiserEnabled) {
 
         if (visualiserEnabled) {
             while (SDL_PollEvent(&event)) { // Always Poll Events
-                if (event.type == SDL_EVENT_QUIT) { visualiserActive = false; }
+                if (event.type == SDL_EVENT_QUIT) {
+                    visualiserActive = false;
+                } else if (event.type == SDL_EVENT_WINDOW_RESIZED) {
+                    camera->viewportWidth = event.window.data1;
+                    camera->viewportHeight = event.window.data2;
+                }
             }
         }
 

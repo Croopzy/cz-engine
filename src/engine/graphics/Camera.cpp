@@ -6,17 +6,16 @@ namespace CameraSpace {
 
 Vector worldToView(const Camera& camera, const Vector& worldPosition)
 {
-    Vector relativePosition = worldPosition - camera.position; // Translate Position Vector
-    return (relativePosition * camera.zoom); // Scale Position Vector By Zoom
+    Vector relativeWorldPosition = worldPosition - camera.position; // Translate Position Vector
+    return (relativeWorldPosition * camera.zoom); // Scale Position Vector By Zoom
 }
 
 Vector viewToScreen(const Camera& camera, const Vector& viewPosition)
 {
     // Move Camera To Middle of Screen, Add Offset
-    float cameraX = (camera.viewportWidth * 0.5f) + viewPosition.x;
-    float cameraY = (camera.viewportHeight * 0.5f) - viewPosition.y; // Also Inverts Y-Position (Since SDL Flips Y)
-    Vector screenPosition(cameraX, cameraY);
-    return(screenPosition);
+    float screenX = (camera.viewportWidth * 0.5f) + viewPosition.x;
+    float screenY = (camera.viewportHeight * 0.5f) - viewPosition.y; // Also Inverts Y-Position (Since SDL Flips Y)
+    return(Vector(screenX, screenY));
 }
 
 Vector worldToScreen(const Camera& camera, const Vector& worldPosition)
@@ -28,8 +27,8 @@ Vector worldToScreen(const Camera& camera, const Vector& worldPosition)
 
 Vector screenProjection(const Camera& camera, const float x, const float y)
 {
-    Vector worldPosition(x, y);
-    return (worldToScreen(camera, worldPosition));
+    Vector worldPosition(x, y); // Unit: Metres
+    return (worldToScreen(camera, worldPosition)); // Unit: Pixels
 }
 
 Vector screenToWorld(const Camera& camera, const Vector& screenPosition)

@@ -29,7 +29,10 @@ class Scenario { // Base Class (No Independent Constructor)
         }
 
         // Visualiser Settings
-        int zoom = 25; // Default Zoom = 25 PPM (Pixels Per Metre)
+        float zoom = 25; // Default Zoom = 25 PPM (Pixels Per Metre)
+        float camX = 0; // Unit: Metres (From Origin)
+        float camY = 0; // Unit: Metres (From Origin)
+
 
 
     protected:
