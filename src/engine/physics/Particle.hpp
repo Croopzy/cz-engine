@@ -4,10 +4,11 @@
 
 
 struct ParticleVisuals {
-    float radius = 2.5f;
+    float radius = 0.25f;
     bool fill = true;
     bool trail = false;
-    int stepT = 60; // Step Number When Trail Rendered
+    int trailFrequency = 60; // Step Number When Trail Rendered
+    float trailRadius = 0.1;
 };
 
 

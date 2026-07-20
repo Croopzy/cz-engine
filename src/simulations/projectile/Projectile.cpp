@@ -36,11 +36,11 @@ void Projectile::start() {
     Projectile::apple = earth.addParticle(inMass, "Apple", Vector(0.0f, 0.0f)); // Create Apple (Mass = inMass) in Earth Simulation, Default: Infinite Mass
     Particle& appleTemp = earth.getParticle(apple);
     appleTemp.project(radians(inAngle), inSpeed);
+    appleTemp.visuals.r = 10; appleTemp.visuals.g = 210; appleTemp.visuals.b = 25;
+    appleTemp.extraVisuals.trail = true;
     std::cout << "\nParticle Model Created: Apple"
     << "\n- Apple Mass: " << appleTemp.getMass() << "kg" << "\n\n"
     << "\n- Apple Velocity: " << appleTemp.velocity << "m/s" << "\n\n";
-    appleTemp.visuals.r = 10; appleTemp.visuals.g = 210; appleTemp.visuals.b = 25;
-    appleTemp.extraVisuals.trail = true;
 
     // Display World Information
     std::cout << "Simulation Construction Successful";

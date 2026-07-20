@@ -27,7 +27,7 @@ void Visualiser::drawPlanes(const World& world, const Camera& camera) {
         if (plane.visuals.toggle == false) { continue; } // Discard Iteration
         Vector planePoint = plane.normal * plane.offset;
         Vector tangent = perpendicular(plane.normal);
-        float planeLength = 10000.0f; // Fixed Plane Length (Default -> Infinity)
+        float planeLength = 100000.0f; // Fixed Plane Length (Default -> Infinity)
         Vector startPoint = planePoint + (tangent * planeLength);
         Vector endPoint = planePoint - (tangent * planeLength);
         renderer.drawLine(camera, startPoint.x, startPoint.y, endPoint.x, endPoint.y, SDL_Color{plane.visuals.r, plane.visuals.g, plane.visuals.b, plane.visuals.a});
@@ -35,7 +35,7 @@ void Visualiser::drawPlanes(const World& world, const Camera& camera) {
 }
 
 void Visualiser::recordTrail(const World& world, const Particle& body, const Vector& position) {
-        if (body.extraVisuals.trail && ((world.stepN == 0) || ((world.stepN % body.extraVisuals.stepT) == 0))) {
+        if (body.extraVisuals.trail && ((world.stepN == 0) || ((world.stepN % body.extraVisuals.trailFrequency) == 0))) {
         size_t index = &body - &world.particles[0]; // Find Index of body Within world.particles
         trails[index].push_back(position); // Add Trail Point To Array for Current Particle
     }
@@ -44,7 +44,7 @@ void Visualiser::recordTrail(const World& world, const Particle& body, const Vec
 void Visualiser::drawTrail(const World& world, const Particle& body, const Camera& camera) {
     size_t index = &body - &world.particles[0];
     for (const Vector& position : trails[index]) { // For Each Trail Point of Current Particle Get Position
-        renderer.drawCircle(camera, position.x, position.y, 1, true, SDL_Color{50, 0, 250, 150});
+        renderer.drawCircle(camera, position.x, position.y, body.extraVisuals.trailRadius, true, SDL_Color{50, 0, 250, 150});
     }
 }
 

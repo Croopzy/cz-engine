@@ -28,6 +28,9 @@ class Scenario { // Base Class (No Independent Constructor)
             << "\n- Time: " << (numSteps * dt) << "s";
         }
 
+        // Visualiser Settings
+        int zoom = 25; // Default Zoom = 25 PPM (Pixels Per Metre)
+
 
     protected:
         int stepID = 0;

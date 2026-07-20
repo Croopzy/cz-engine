@@ -48,11 +48,15 @@ Vector screenToWorld(const Camera& camera, const Vector& screenPosition)
 
 /// Camera Adjustment Functions ///
 
+float scaleLength(const Camera& camera, float worldLength) {
+    return worldLength * camera.zoom;
+}
+
 void zoom(Camera& camera, float deltaZoom)
 {
     camera.zoom += deltaZoom; // Update Zoom
 
-    if (camera.zoom < 0.1f) camera.zoom = 0.1f; // Clamp To Prevent Negative Or Zero Zoom
+    if (camera.zoom < 0.001f) camera.zoom = 0.001f; // Clamp To Prevent Negative Or Zero Zoom
 }
 
 void follow(Camera& camera, const Vector& target, float stiffness)

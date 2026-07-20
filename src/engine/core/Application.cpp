@@ -9,7 +9,7 @@ void Application::run(Scenario& scenario, bool visualiserEnabled) {
     // Create Window
     window = std::make_unique<Window>("Cryoze Engine", DEFAULT_WIDTH, DEFAULT_HEIGHT);
     // Create Camera
-    camera = std::make_unique<Camera>(Vector(0, 0), 2.5, DEFAULT_WIDTH, DEFAULT_HEIGHT);
+    camera = std::make_unique<Camera>(Vector(0, 0), scenario.zoom, DEFAULT_WIDTH, DEFAULT_HEIGHT);
     // Create Renderer
     renderer = std::make_unique<Renderer>(*window, *camera);
     // Create Visualiser

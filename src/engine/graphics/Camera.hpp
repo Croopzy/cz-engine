@@ -35,6 +35,9 @@ Vector screenProjection(const Camera& camera, const float x, const float y);
 
 /// Camera Adjustment Functions ///
 
+// Scale World Lengths To Screen Size
+float scaleLength(const Camera& camera, float worldLength);
+
 // Adjust Zoom (Pixels Per Metre)
 void zoom(Camera& camera, float deltaZoom);
 
