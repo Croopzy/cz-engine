@@ -3,22 +3,24 @@
 #include <thread>
 
 void Application::run(Scenario& scenario, bool visualiserEnabled) {
+    bool visualiserActive = false;
 
     scenario.start();
 
-    // Create Window
-    window = std::make_unique<Window>("Cryoze Engine", DEFAULT_WIDTH, DEFAULT_HEIGHT);
-    // Create Camera
-    camera = std::make_unique<Camera>(Vector(0, 0), scenario.zoom, DEFAULT_WIDTH, DEFAULT_HEIGHT);
-    // Create Renderer
-    renderer = std::make_unique<Renderer>(*window, *camera);
-    // Create Visualiser
-    visualiser = std::make_unique<Visualiser>(*renderer);
-
     if (visualiserEnabled) {
-        renderFrame(scenario); // Render Initial Frame
+        // Create Window
+        window = std::make_unique<Window>("Cryoze Engine", DEFAULT_WIDTH, DEFAULT_HEIGHT);
+        // Create Camera
+        camera = std::make_unique<Camera>(Vector(0, 0), scenario.zoom, DEFAULT_WIDTH, DEFAULT_HEIGHT);
+        // Create Renderer
+        renderer = std::make_unique<Renderer>(*window, *camera);
+        // Create Visualiser
+        visualiser = std::make_unique<Visualiser>(*renderer);
+        // Change Flag
+        visualiserActive = true;
+        // Render Initial Frame
+        renderFrame(scenario);
     }
-    bool visualiserActive = true;
 
     SDL_Event event;
 
@@ -28,17 +30,18 @@ void Application::run(Scenario& scenario, bool visualiserEnabled) {
     
     for (int i = 0; i < scenario.numSteps; ++i) {
 
-        while (SDL_PollEvent(&event)) { // Always Poll Events
-            if (event.type == SDL_EVENT_QUIT) visualiserActive = false;
+        if (visualiserEnabled) {
+            while (SDL_PollEvent(&event)) { // Always Poll Events
+                if (event.type == SDL_EVENT_QUIT) { visualiserActive = false; }
+            }
         }
 
         // Update Scenario
+        scenario.poll(); // Handle Events
         scenario.step(); // Step Physics
 
-        scenario.poll(); // Handle Events
-
         // Render Scenario
-        if (visualiserEnabled && visualiserActive) {
+        if (visualiserActive) {
             renderFrame(scenario); // Render Frame
         }
 
