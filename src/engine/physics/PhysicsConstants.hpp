@@ -7,5 +7,5 @@ namespace PhysicsConstants { // Avoids polluting global namespace
     // World Gravity Settings (Acceleration Due To Gravity, Unit: ms^-2)
     inline constexpr Vector GRAVITY_EARTH = Vector(0.0f, -9.81f);
 	// Other Configurables
-    inline constexpr float GROUND_EPSILON = 0.05f;
+    inline constexpr float CONTACT_EPSILON_FACTOR = 1.5f; // Theoretical Minimum = 100%, Safety Margin = 50%
 }

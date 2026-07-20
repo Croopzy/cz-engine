@@ -52,7 +52,7 @@ void World::step(float dt) noexcept {
     // Collision Detection (Between Particles and Planes) & Impulse Resolution
     for (Particle& body : particles) {
         for (Plane& plane : planes) {
-            planeInteract(body, plane);
+            planeInteract(body, plane, dt);
         }
     }
     

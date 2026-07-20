@@ -27,7 +27,7 @@ struct Plane {
 void applyFriction(Particle& body, Plane& plane, float distance);
 
 // Apply Restitution To Particle Interacting with Plane
-void applyRestitution(Particle& body, Plane& plane, float distance);
+void applyRestitution(Particle& body, Plane& plane, float distance, float restEpsilon);
 
 // Handle Interaction Between Particle & Plane
-void planeInteract(Particle& body, Plane& plane);
+void planeInteract(Particle& body, Plane& plane, float dt);

@@ -22,7 +22,7 @@ void applyFriction(Particle& body, Plane& plane, float distance) {
 };
 
 // Apply Restitution To Particle Interacting with Plane
-void applyRestitution(Particle& body, Plane& plane, float distance) {
+void applyRestitution(Particle& body, Plane& plane, float distance, float restEpsilon) {
     // EVENT: Body Penetrates Plane
     if (distance <= 0.0f) {
         float vNormal = dot(body.velocity, plane.normal); // Scalar Magnitude of (Component of) Body Velocity Acting Along Normal
@@ -30,7 +30,7 @@ void applyRestitution(Particle& body, Plane& plane, float distance) {
         float constraintViolation = -distance; // (Penetration Depth = -distance)
         body.position += plane.normal * constraintViolation; // Teleport Body Out of Plane
         // Only Bounce IF Body Moving Into Plane
-        if (vNormal < -PhysicsConstants::GROUND_EPSILON){ // Negative (Downward) Velocity Check
+        if (vNormal < -restEpsilon){ // Negative (Downward) Velocity Check
             float bounceFactor = 1.0f + plane.restitution; // Scalar Proportion of Velocity: Current Kinetic Energy + Bounce Energy
             float deltaVn = bounceFactor * vNormal; // Scalar Proportion * (Component of) Current Body Velocity Along Plane Normal
             body.velocity -= (plane.normal * deltaVn); // Reverse Body's Normal Velocity and Apply Restitution (Energy Loss Due to Bounce)
@@ -42,10 +42,11 @@ void applyRestitution(Particle& body, Plane& plane, float distance) {
 
 
 // Handle Interaction Between Particle & Plane
-void planeInteract(Particle& body, Plane& plane) {
+void planeInteract(Particle& body, Plane& plane, float dt) {
     float distance = dot(plane.normal, body.position) - plane.offset; // Signed Shortest Distance Between Body and Plane (Along Plane's Normal Axis)
     if ((body.collisions == true) && (plane.collisions == true)) { // IF Body-Plane Interacts Enabled
         applyFriction(body, plane, distance);
-        applyRestitution(body, plane, distance);
+        float restEpsilon = magnitude(body.acceleration) * dt * PhysicsConstants::CONTACT_EPSILON_FACTOR; // Change in Speed Per Step (Frame) Due to Net Force, Scaled Up with Safety Margin  
+        applyRestitution(body, plane, distance, restEpsilon);
     }
 }

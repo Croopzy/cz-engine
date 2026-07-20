@@ -2,17 +2,18 @@
 #include <chrono>
 #include <thread>
 
-
-Application::Application()
-    : window("Cryoze Engine", DEFAULT_WIDTH, DEFAULT_HEIGHT),
-    camera(Vector(0, 0), 2.5, DEFAULT_WIDTH, DEFAULT_HEIGHT),
-    renderer(window, camera),
-    visualiser(renderer) {
-}
-
 void Application::run(Scenario& scenario, bool visualiserEnabled) {
 
     scenario.start();
+
+    // Create Window
+    window = std::make_unique<Window>("Cryoze Engine", DEFAULT_WIDTH, DEFAULT_HEIGHT);
+    // Create Camera
+    camera = std::make_unique<Camera>(Vector(0, 0), 2.5, DEFAULT_WIDTH, DEFAULT_HEIGHT);
+    // Create Renderer
+    renderer = std::make_unique<Renderer>(*window, *camera);
+    // Create Visualiser
+    visualiser = std::make_unique<Visualiser>(*renderer);
 
     if (visualiserEnabled) {
         renderFrame(scenario); // Render Initial Frame
@@ -43,8 +44,9 @@ void Application::run(Scenario& scenario, bool visualiserEnabled) {
 
         // Maintain Fixed Timestep
         auto now = std::chrono::high_resolution_clock::now();
-        if (now < nextTick) { // EVENT: Clock Behind
-            std::this_thread::sleep_until(nextTick); // Skip Delay
+        while (now < nextTick) { // EVENT: Clock Behind
+            SDL_Delay(1); // Yield To OS
+            now = std::chrono::high_resolution_clock::now();
         }
         nextTick += nativeDelay;
 
@@ -56,4 +58,12 @@ void Application::run(Scenario& scenario, bool visualiserEnabled) {
     std::cout << "\n\nPRESS ENTER TO END SIMULATION ";
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     std::cin.get(); // Await Input: ENTER
+}
+
+
+// Render Frame
+void Application::renderFrame(Scenario& scenario) {
+    renderer->clear();
+    visualiser->drawWorld(scenario.getWorld(), *camera);
+    renderer->present();
 }
