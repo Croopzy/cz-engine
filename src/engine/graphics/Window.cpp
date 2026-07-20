@@ -4,7 +4,7 @@
 Window::Window(const char* title, int w, int h)
     : width(w), height(h)
 {
-    window = SDL_CreateWindow(title, w, h, SDL_WINDOW_RESIZABLE);
+    window = SDL_CreateWindow(title, w, h, SDL_WINDOW_FULLSCREEN);
 }
 
 // Window Destructor

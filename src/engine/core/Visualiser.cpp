@@ -35,7 +35,7 @@ void Visualiser::drawPlanes(const World& world, const Camera& camera) {
 }
 
 void Visualiser::recordTrail(const World& world, const Particle& body, const Vector& position) {
-        if (body.extraVisuals.trail && ((world.stepN == 0) || ((world.stepN % body.extraVisuals.trailFrequency) == 0))) {
+        if (body.extraVisuals.trail && ((world.stepN == 0) || ((world.stepN % body.extraVisuals.trailPeriod) == 0))) {
         size_t index = &body - &world.particles[0]; // Find Index of body Within world.particles
         trails[index].push_back(position); // Add Trail Point To Array for Current Particle
     }

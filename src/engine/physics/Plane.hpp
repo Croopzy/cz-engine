@@ -17,7 +17,7 @@ struct Plane {
     Plane(const Vector& vecN = {0.0f, 1.0f},
         float planeConstant = 0,
         bool toggle = true,
-        float elasticity = 0.5f,
+        float elasticity = 0.3f,
         float roughness = 0.5f
     ) noexcept;
 

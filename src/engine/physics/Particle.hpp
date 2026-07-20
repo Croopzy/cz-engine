@@ -7,7 +7,7 @@ struct ParticleVisuals {
     float radius = 0.25f;
     bool fill = true;
     bool trail = false;
-    int trailFrequency = 60; // Step Number When Trail Rendered
+    int trailPeriod = 60; // Step Number When Trail Rendered
     float trailRadius = 0.1;
 };
 

@@ -38,6 +38,7 @@ void Projectile::start() {
     appleTemp.project(radians(inAngle), inSpeed);
     appleTemp.visuals.r = 10; appleTemp.visuals.g = 210; appleTemp.visuals.b = 25;
     appleTemp.extraVisuals.trail = true;
+    appleTemp.extraVisuals.trailPeriod = 30;
     std::cout << "\nParticle Model Created: Apple"
     << "\n- Apple Mass: " << appleTemp.getMass() << "kg" << "\n\n"
     << "\n- Apple Velocity: " << appleTemp.velocity << "m/s" << "\n\n";
