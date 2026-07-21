@@ -26,14 +26,11 @@ public:
         bool toggle = true
     );
 
-    inline void setMass(float inMass) {
-        mass = inMass;
-        updateInverseMass();
-    }
-
+    inline void setMass(float inMass) { mass = inMass; updateInverseMass(); }
     inline float getMass() const { return mass; }
     inline float getInverseMass() const { return inverseMass; }
 
+    // Set Velocity By Angle & Speed
     inline void project(float angle, float speed) { velocity = resolve(angle, speed); }
 
     // Apply New Force
