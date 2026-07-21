@@ -11,7 +11,7 @@ Visualiser::Visualiser(Renderer& renderer)
 bool Visualiser::planeCollision(const World& world, const Particle& body, const Plane& plane, const Camera& camera) {
     float distance = dot(plane.normal, body.linear.position) - plane.offset; // Signed Shortest Distance Between Centre and Plane (Along Plane's Normal Axis)
     // Event: Particle Visually Penetrates Plane (Due To False Radius)
-    if ((body.collisions == true) && (plane.collisions == true) && (distance < body.extraVisuals.radius)) { // Collisions Enabled & Radius Overlaps with Plane
+    if ((body.linear.collisions == true) && (plane.collisions == true) && (distance < body.extraVisuals.radius)) { // Collisions Enabled & Radius Overlaps with Plane
         float constraintViolation = body.extraVisuals.radius - distance;
         Vector adjustedPosition = body.linear.position + (plane.normal * constraintViolation);
         renderer.drawCircle(camera, adjustedPosition.x, adjustedPosition.y, body.extraVisuals.radius, body.extraVisuals.fill, SDL_Color{body.linear.visuals.r, body.linear.visuals.g, body.linear.visuals.b, body.linear.visuals.a});
