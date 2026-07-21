@@ -22,10 +22,6 @@ public:
     std::string name; // Printable Name of Particle
 
     // Particle Constructor
-    Particle(float inMass = 0.0f,
-        const std::string& inName = "DefaultParticle",
-        Vector inPosition = Vector(0.0f, 0.0f),
-        bool toggle = true
-    );
-
+    Particle(float inMass = 0.0f, const std::string& inName = "DefaultParticle", Vector inPosition = Vector(0.0f, 0.0f), bool toggle = true)
+        : internal(inMass, inPosition), name(inName) {}
 };
