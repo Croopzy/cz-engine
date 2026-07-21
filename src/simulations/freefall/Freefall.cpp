@@ -28,7 +28,7 @@ void Freefall::start() {
 
     // Configure Apple
     earth.getParticle(apple).setMass(inMass);
-    earth.getParticle(apple).setHeight(inHeight);
+    earth.getParticle(apple).position.y = inHeight;
     std::cout << "\nParticle Model Created: Apple"
     << "\n- Apple Mass: " << earth.getParticle(apple).getMass() << "kg"
     << "\n- Apple Initial Height: " << earth.getParticle(apple).position.y << "m" << "\n\n";

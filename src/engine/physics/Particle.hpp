@@ -15,13 +15,16 @@ struct ParticleVisuals {
 struct Particle {
 private:
     float mass; // Mass (Unit: kilograms, kg)
+
     float inverseMass; // (mass^-1 = 0 when mass -> infinity)
+    void updateInverseMass() noexcept;
+
+    Vector netForce; // Resultant Force (Unit: Newtons)
 
 public:
     Vector position; // Current Position (Unit: metres, m)
     Vector velocity; // Current Velocity (Unit: ms^-1)
     Vector acceleration; // Acceleration = netForce * inverseMass (Unit: ms^-2)
-    Vector netForce; // Resultant Force (Unit: Newtons)
 
     bool collisions; // Toggle Collisions with Particle
 
@@ -39,25 +42,12 @@ public:
 
     inline void setMass(float inMass) {
         mass = inMass;
-        inverseMass = (inMass == 0.0f ? 0.0f : 1.0f / inMass); // Condensed Repetition of Constructor Body
+        updateInverseMass();
     }
 
     inline float getMass() const { return mass; }
     inline float getInverseMass() const { return inverseMass; }
-
-    inline void setPosition(float inX, float inY) {
-        position.x = inX;
-        position.y = inY;
-    }
-
-    inline void setHeight(float inHeight) {
-        position.y = inHeight;
-    }
-
-    inline void setVelocity(float inX, float inY) {
-        velocity.x = inX;
-        velocity.y = inY;
-    }
+        
 
     inline void project(float angle, float speed) {
         velocity = resolve(angle, speed);

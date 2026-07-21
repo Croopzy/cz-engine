@@ -11,7 +11,11 @@ Particle::Particle(float inMass, const std::string& inName, Vector inPosition, b
       name(inName),
       collisions(toggle)
 {
-    mass = std::max(0.0f, mass);
+    updateInverseMass();
+}
+
+void Particle::updateInverseMass() noexcept {
+    mass = std::max(0.0f, mass); // Clamp Mass >= 0
     inverseMass = (mass == 0.0f) ? 0.0f : (1.0f / mass);
 }
 
