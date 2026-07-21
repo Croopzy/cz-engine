@@ -12,7 +12,7 @@ Oscillator::Oscillator(int steps)
 void Oscillator::start() {
 
     // Initialisation Outputs
-    std::cout << "SIMULATION INITIALISED: MASS-SPRING OSCILLATOR\n\n";
+    std::cout << "SIMULATION INITIALISED: DAMPED HARMONIC MOTION\n\n";
 
     std::cout << "World Simulation Created: " << earth.name << "\n"
     << "Gravity: " << earth.gravity.y << "ms^-2\n\n";
