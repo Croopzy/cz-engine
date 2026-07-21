@@ -14,7 +14,7 @@ struct ParticleVisuals {
 
 struct Particle {
 public:
-    PointMass internal; // Composition
+    PointMass linear; // Composition
 
     bool collisions; // Toggle Collisions with Particle
 
