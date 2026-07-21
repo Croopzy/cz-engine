@@ -26,6 +26,7 @@ public:
         bool toggle = true
     );
 
+    // Mass Getters & Setters
     inline void setMass(float inMass) { mass = inMass; updateInverseMass(); }
     inline float getMass() const { return mass; }
     inline float getInverseMass() const { return inverseMass; }
