@@ -1,4 +1,5 @@
 #include "Particle.hpp"
+#include <algorithm>
 
 // Particle Constructor
 Particle::Particle(float inMass, const std::string& inName, Vector inPosition, bool toggle)
@@ -10,10 +11,8 @@ Particle::Particle(float inMass, const std::string& inName, Vector inPosition, b
       name(inName),
       collisions(toggle)
 {
-    if (mass == 0.0f)
-        inverseMass = 0.0f;
-    else
-        inverseMass = 1.0f / mass;
+    mass = std::max(0.0f, mass);
+    inverseMass = (mass == 0.0f) ? 0.0f : (1.0f / mass);
 }
 
 // Velocity Verlet Integration
