@@ -16,8 +16,6 @@ struct Particle {
 public:
     PointMass linear; // Composition
 
-    bool collisions; // Toggle Collisions with Particle
-
     ParticleVisuals extraVisuals; // Visual Elements Specific To Particles
     std::string name; // Printable Name of Particle
 
