@@ -10,7 +10,7 @@ Plane::Plane(const Vector& vecN, float planeConstant, bool toggle, float elastic
 {}
 
 
-// Get Signed Shortest Distance Between Point & Plane
+// Get Signed Shortest Distance Between Point & Plane (Along Plane's Normal Axis)
 float Plane::signedDistance(const Vector& point) const { return dot(normal, point) - offset; }
 
 
@@ -47,7 +47,7 @@ void applyRestitution(PointMass& body, const Plane& plane, float distance, float
 
 // Handle Interaction Between Particle & Plane
 void planeInteract(PointMass& body, const Plane& plane, float dt) {
-    float distance = dot(plane.normal, body.position) - plane.offset; // Signed Shortest Distance Between Body and Plane (Along Plane's Normal Axis)
+    float distance = plane.signedDistance(body.position);
     if ((body.collisions == true) && (plane.collisions == true)) { // IF Body-Plane Interacts Enabled
         applyFriction(body, plane, distance);
         float restEpsilon = magnitude(body.acceleration) * dt * PhysicsConstants::CONTACT_EPSILON_FACTOR; // Change in Speed Per Step (Frame) Due to Net Force, Scaled Up with Safety Margin  
