@@ -1,10 +1,11 @@
 #pragma once
-#include "PhysicsConstants.hpp"
+#include "src/engine/physics/PhysicsConstants.hpp"
 #include "Particle.hpp"
 #include "src/engine/core/Visuals.hpp"
 
 // Plane Structure
 struct Plane {
+public:
     BasicVisuals visuals;
 
     Vector normal; // Normal Vector To The Plane (Unit Vector)
@@ -20,6 +21,10 @@ struct Plane {
         float elasticity = 0.3f,
         float roughness = 0.5f
     ) noexcept;
+
+    // Get Signed Shortest Distance Between Point & Plane
+    float signedDistance(Vector point), Plane& plane);
+
 
 };
 
