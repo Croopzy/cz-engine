@@ -1,6 +1,6 @@
 #pragma once
 #include <memory>
-#include "src/engine/core/Visualiser.hpp"
+#include "src/engine/core/visualiser/Visualiser.hpp"
 #include "src/simulations/Scenario.hpp"
 
 // Forward Declarations

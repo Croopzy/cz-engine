@@ -9,12 +9,12 @@ Visualiser::Visualiser(Renderer& renderer)
 /// World Draw Functions ///
 
 bool Visualiser::planeCollision(const World& world, const Particle& body, const Plane& plane, const Camera& camera) {
-    float distance = dot(plane.normal, body.linear.position) - plane.offset; // Signed Shortest Distance Between Centre and Plane (Along Plane's Normal Axis)
+    float distance = dot(plane.normal, body.linear().position) - plane.offset; // Signed Shortest Distance Between Centre and Plane (Along Plane's Normal Axis)
     // Event: Particle Visually Penetrates Plane (Due To False Radius)
-    if ((body.linear.collisions == true) && (plane.collisions == true) && (distance < body.extraVisuals.radius)) { // Collisions Enabled & Radius Overlaps with Plane
+    if ((body.linear().collisions == true) && (plane.collisions == true) && (distance < body.extraVisuals.radius)) { // Collisions Enabled & Radius Overlaps with Plane
         float constraintViolation = body.extraVisuals.radius - distance;
-        Vector adjustedPosition = body.linear.position + (plane.normal * constraintViolation);
-        renderer.drawCircle(camera, adjustedPosition.x, adjustedPosition.y, body.extraVisuals.radius, body.extraVisuals.fill, SDL_Color{body.linear.visuals.r, body.linear.visuals.g, body.linear.visuals.b, body.linear.visuals.a});
+        Vector adjustedPosition = body.linear().position + (plane.normal * constraintViolation);
+        renderer.drawCircle(camera, adjustedPosition.x, adjustedPosition.y, body.extraVisuals.radius, body.extraVisuals.fill, SDL_Color{body.linear().visuals.r, body.linear().visuals.g, body.linear().visuals.b, body.linear().visuals.a});
         recordTrail(world, body, adjustedPosition);
         return true;
     }
@@ -51,7 +51,7 @@ void Visualiser::drawTrail(const World& world, const Particle& body, const Camer
 void Visualiser::drawParticles(const World& world, const Camera& camera) {
     for (const Particle& body : world.particles) {
         // EVENT: Visualisation Disabled 
-        if (body.linear.visuals.toggle == false) { continue; } // Discard Iteration
+        if (body.linear().visuals.toggle == false) { continue; } // Discard Iteration
         // Detect Plane Collisions, Render Adjusted Particles
         bool collision = false;
         for (const Plane& plane : world.planes) {
@@ -62,8 +62,8 @@ void Visualiser::drawParticles(const World& world, const Camera& camera) {
         }
         // Render Uncollided Particles
         if (!collision) {
-            renderer.drawCircle(camera, body.linear.position.x, body.linear.position.y, body.extraVisuals.radius, body.extraVisuals.fill, SDL_Color{body.linear.visuals.r, body.linear.visuals.g, body.linear.visuals.b, body.linear.visuals.a});
-            recordTrail(world, body, body.linear.position);
+            renderer.drawCircle(camera, body.linear().position.x, body.linear().position.y, body.extraVisuals.radius, body.extraVisuals.fill, SDL_Color{body.linear().visuals.r, body.linear().visuals.g, body.linear().visuals.b, body.linear().visuals.a});
+            recordTrail(world, body, body.linear().position);
         }
         drawTrail(world, body, camera);
     }
@@ -73,9 +73,9 @@ void Visualiser::drawSprings(const World& world, const Camera& camera) {
     for (const Spring& spring : world.springs) {
         // EVENT: Visualisation Disabled 
         if (spring.visuals.toggle == false) { continue; } // Discard Iteration
-        const Particle& particleA = world.getParticle(spring.particleA);
-        const Particle& particleB = world.getParticle(spring.particleB);
-        renderer.drawLine(camera, particleA.position.x, particleA.position.y, particleB.position.x, particleB.position.y, SDL_Color{spring.visuals.r, spring.visuals.g, spring.visuals.b, spring.visuals.a});
+        const PointMass& bodyA = world.getParticle(spring.particleA).linear();
+        const PointMass& bodyB = world.getParticle(spring.particleB).linear();
+        renderer.drawLine(camera, bodyA.position.x, bodyA.position.y, bodyB.position.x, bodyB.position.y, SDL_Color{spring.visuals.r, spring.visuals.g, spring.visuals.b, spring.visuals.a});
         }
     }
 

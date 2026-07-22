@@ -1,9 +1,9 @@
 #pragma once
 #include <vector>
-#include "PhysicsConstants.hpp"
-#include "Plane.hpp"
-#include "Particle.hpp"
-#include "Spring.hpp"
+#include "src/engine/physics/PhysicsConstants.hpp"
+#include "src/engine/physics/collision/Plane.hpp"
+#include "src/engine/physics/bodies/Particle.hpp"
+#include "src/engine/physics/constraints/Spring.hpp"
 #include "src/engine/core/Visuals.hpp"
 
 // World Class: Contains the physics environment, its bodies and its rules

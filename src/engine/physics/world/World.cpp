@@ -13,7 +13,7 @@ void World::printInfo(const bool listParticles) noexcept {
     if (listParticles) {
         std::cout << "\n- Particles:";
         for (Particle& body : particles) {
-            std::cout << "\n  --> " << body.name << " (" << "Mass = " << body.getMass() << "kg, " << "Position = " << body.position << " )";
+            std::cout << "\n  --> " << body.name << " (" << "Mass = " << body.linear().getMass() << "kg, " << "Position = " << body.linear().position << " )";
         }
     }
     std::cout << "}\n";
@@ -22,8 +22,8 @@ void World::printInfo(const bool listParticles) noexcept {
 
 void World::accumulateForces() {
         for (Particle& body : particles) {
-        body.clearForces(); // Reset Forces For Next Frame
-        body.applyForce(gravity * body.getMass()); // Apply World Gravity (W = m * g)
+        body.linear().clearForces(); // Reset Forces For Next Frame
+        body.linear().applyForce(gravity * body.linear().getMass()); // Apply World Gravity (W = m * g)
     }
     for (Spring& spring : springs) {
         spring.applyForce(particles); // Apply Spring Constraints (F = -kx)
@@ -38,7 +38,7 @@ void World::step(float dt) noexcept {
         
     // Velocity Verlet Integration: Update Particle Position
     for (Particle& body : particles) {
-        body.integratePosition(dt);
+        body.linear().integratePosition(dt);
     }
 
     // Update Resultant Force
@@ -46,13 +46,13 @@ void World::step(float dt) noexcept {
 
     // Velocity Verlet Integration: Update Particle Velocity
     for (Particle& body : particles) {
-        body.integrateVelocity(dt);
+        body.linear().integrateVelocity(dt);
     }
 
     // Collision Detection (Between Particles and Planes) & Impulse Resolution
     for (Particle& body : particles) {
         for (Plane& plane : planes) {
-            planeInteract(body, plane, dt);
+            planeInteract(body.linear(), plane, dt);
         }
     }
     

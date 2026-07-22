@@ -1,6 +1,6 @@
 #pragma once
-#include "Window.hpp"
-#include "Camera.hpp"
+#include "src/engine/graphics/window/Window.hpp"
+#include "src/engine/graphics/camera/Camera.hpp"
 
 class Renderer {
     public:

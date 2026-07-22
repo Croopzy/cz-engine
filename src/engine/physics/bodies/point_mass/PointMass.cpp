@@ -7,7 +7,7 @@ PointMass::PointMass(float inMass, Vector inPosition)
       position(inPosition.x, inPosition.y),
       velocity(0.0f, 0.0f),
       acceleration(0.0f, 0.0f),
-      netForce(0.0f, 0.0f),
+      netForce(0.0f, 0.0f)
 {
     updateInverseMass();
 }

@@ -14,8 +14,8 @@ Plane::Plane(const Vector& vecN, float planeConstant, bool toggle, float elastic
 float Plane::signedDistance(const Vector& point) const { return dot(normal, point) - offset; }
 
 
-// Apply Friction To Particle Interacting with Plane
-void applyFriction(Particle& body, Plane& plane, float distance) {
+// Apply Friction To Body Interacting with Plane
+void applyFriction(PointMass& body, const Plane& plane, float distance) {
     // EVENT: Body Interacts with Plane
     if ((distance < 0.0f) && (plane.friction > 0) && (plane.friction <= 1)) {
         Vector tangent = perpendicular(plane.normal); // Unit Vector Parallel To Plane
@@ -25,8 +25,8 @@ void applyFriction(Particle& body, Plane& plane, float distance) {
     }
 };
 
-// Apply Restitution To Particle Interacting with Plane
-void applyRestitution(Particle& body, Plane& plane, float distance, float restEpsilon) {
+// Apply Restitution To Body Interacting with Plane
+void applyRestitution(PointMass& body, const Plane& plane, float distance, float restEpsilon) {
     // EVENT: Body Penetrates Plane
     if (distance <= 0.0f) {
         float vNormal = dot(body.velocity, plane.normal); // Scalar Magnitude of (Component of) Body Velocity Acting Along Normal
@@ -46,7 +46,7 @@ void applyRestitution(Particle& body, Plane& plane, float distance, float restEp
 
 
 // Handle Interaction Between Particle & Plane
-void planeInteract(Particle& body, Plane& plane, float dt) {
+void planeInteract(PointMass& body, const Plane& plane, float dt) {
     float distance = dot(plane.normal, body.position) - plane.offset; // Signed Shortest Distance Between Body and Plane (Along Plane's Normal Axis)
     if ((body.collisions == true) && (plane.collisions == true)) { // IF Body-Plane Interacts Enabled
         applyFriction(body, plane, distance);

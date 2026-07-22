@@ -1,6 +1,6 @@
 #pragma once
 #include "src/engine/physics/PhysicsConstants.hpp"
-#include "Particle.hpp"
+#include "src/engine/physics/bodies/point_mass/PointMass.hpp"
 #include "src/engine/core/Visuals.hpp"
 
 // Plane Structure
@@ -28,11 +28,11 @@ public:
 };
 
 
-// Apply Friction To Particle Interacting with Plane
-void applyFriction(Particle& body, Plane& plane, float distance);
+// Apply Friction To Body Interacting with Plane
+void applyFriction(PointMass& body, const Plane& plane, float distance);
 
-// Apply Restitution To Particle Interacting with Plane
-void applyRestitution(Particle& body, Plane& plane, float distance, float restEpsilon);
+// Apply Restitution To Body Interacting with Plane
+void applyRestitution(PointMass& body, const Plane& plane, float distance, float restEpsilon);
 
-// Handle Interaction Between Particle & Plane
-void planeInteract(Particle& body, Plane& plane, float dt);
+// Handle Interaction Between Body & Plane
+void planeInteract(PointMass& body, const Plane& plane, float dt);

@@ -1,7 +1,7 @@
 #pragma once
-#include "src/engine/physics/World.hpp"
-#include "src/engine/graphics/Camera.hpp"
-#include "src/engine/graphics/Renderer.hpp"
+#include "src/engine/physics/world/World.hpp"
+#include "src/engine/graphics/camera/Camera.hpp"
+#include "src/engine/graphics/renderer/Renderer.hpp"
 
 class Visualiser {
     public:

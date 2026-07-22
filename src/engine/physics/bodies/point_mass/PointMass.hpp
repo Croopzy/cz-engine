@@ -21,10 +21,7 @@ public:
     BasicVisuals visuals; // General Visual Elements
 
     // Point Mass Constructor
-    PointMass(float inMass = 0.0f,
-        Vector inPosition = Vector(0.0f, 0.0f),
-        bool toggle = true
-    );
+    PointMass(float inMass = 0.0f, Vector inPosition = Vector(0.0f, 0.0f));
 
     // Mass Getters & Setters
     inline void setMass(float inMass) { mass = inMass; updateInverseMass(); }
