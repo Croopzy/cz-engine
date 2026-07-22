@@ -20,11 +20,9 @@ public:
     ParticleVisuals extraVisuals{}; // Visual Elements Specific To Particles
     std::string name; // Printable Name of Particle
 
-    bool collisions; // Enable or Disable Collisions with Particle
-
     // Particle Constructor
     explicit Particle(float inMass = 0.0f, const std::string& inName = "DefaultParticle", Vector inPosition = Vector(0.0f, 0.0f), bool toggle = true)
-        : linearState(inMass, inPosition), name(inName), collisions(toggle) {}
+        : linearState(inMass, inPosition, toggle), name(inName) {}
 private:
     PointMass linearState;
 };

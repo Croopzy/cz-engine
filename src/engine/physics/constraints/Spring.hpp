@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 #include "src/engine/core/Visuals.hpp"
-#include "Particle.hpp"
+#include "src/engine/physics/bodies/Particle.hpp"
 
 // Spring Structure (Binary Force Connecting Two Particles)
 struct Spring {

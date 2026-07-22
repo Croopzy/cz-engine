@@ -2,7 +2,8 @@
 
 Oscillator::Oscillator(int steps)
     : Scenario(),
-      earth( getWorld() ),
+      earth(getWorld()),
+      anchor(-1),
       bob(-1)
 {
     numSteps = steps;
@@ -39,13 +40,13 @@ void Oscillator::start() {
 
     // Spawn Anchor
     Oscillator::anchor = earth.addParticle(0, "Anchor", Vector(camX, (camY + (360 / zoom)))); // Create (White) Anchor (of Infinite Mass)
-    Particle& anchorTemp = earth.getParticle(anchor);
+    PointMass& anchorTemp = earth.getParticle(anchor).linear();
     std::cout << "\nParticle Model Created: Anchor"
     << "\n- Anchor Mass: " << "Infinite" << "\n\n"; 
 
     // Spawn Bob
     Oscillator::bob = earth.addParticle(inMass, "Bob", (anchorTemp.position + bobOffset)); // Create Bob (Mass = inMass) in Earth Simulation, Default: Infinite Mass
-    Particle& bobTemp = earth.getParticle(bob);
+    PointMass& bobTemp = earth.getParticle(bob).linear();
     std::cout << "\nParticle Model Created: Bob"
     << "\n- Bob Mass: " << bobTemp.getMass() << "kg" << "\n\n";
     bobTemp.visuals.r = 255; bobTemp.visuals.g = 0; bobTemp.visuals.b = 0; bobTemp.visuals.a = 1;
@@ -64,11 +65,13 @@ void Oscillator::start() {
 
 void Oscillator::poll() {
 
+    PointMass& bobTemp = earth.getParticle(bob).linear();
+
     // EVENT: Every Second
     if (stepID % 60 == 0) {
         std::cout << "\n\nCurrent Time: " << (stepID * dt) << "s" <<
-        "\nCurrent Velocity: " << earth.getParticle(bob).velocity << "m/s" <<
-        "\nCurrent Height: " << earth.getParticle(bob).position.y << "m" << "\n";
+        "\nCurrent Velocity: " << bobTemp.velocity << "m/s" <<
+        "\nCurrent Height: " << bobTemp.position.y << "m" << "\n";
     }
 }
 
@@ -78,7 +81,7 @@ void Oscillator::end() {
     // Conclusion Output
     std::cout << "\n\nSimulation Concluded"
     << "\n- Time: " << (numSteps * dt) << "s"
-    << "\n- Final Velocity: " << earth.getParticle(bob).velocity << "m/s";
+    << "\n- Final Velocity: " << earth.getParticle(bob).linear().velocity << "m/s";
 
     std::cout << "\n\n";
 }

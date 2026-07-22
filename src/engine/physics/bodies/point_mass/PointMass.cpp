@@ -2,12 +2,13 @@
 #include <algorithm>
 
 // Point Mass Constructor
-PointMass::PointMass(float inMass, Vector inPosition)
+PointMass::PointMass(float inMass, Vector inPosition, bool toggle)
     : mass(inMass),
       position(inPosition.x, inPosition.y),
       velocity(0.0f, 0.0f),
       acceleration(0.0f, 0.0f),
-      netForce(0.0f, 0.0f)
+      netForce(0.0f, 0.0f),
+      collisions(toggle)
 {
     updateInverseMass();
 }

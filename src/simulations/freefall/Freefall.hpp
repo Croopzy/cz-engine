@@ -9,10 +9,10 @@ class Freefall : public Scenario { // Child Class of Scenario
         void poll() override;
         void end() override;
 
-        int zoom = 2.5;
+        float zoom = 2.5;
 
     private:
         World& earth = getWorld();
-        int apple = earth.addParticle(10.0f, "Apple", Vector(0.0f, 100.0f)); // Create Apple (Mass = inMass) in Earth Simulation, Default: Infinite Mass
+        int apple;
         bool groundContact = false;
 };

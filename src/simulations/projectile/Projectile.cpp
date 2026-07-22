@@ -34,11 +34,11 @@ void Projectile::start() {
 
     // Spawn Apple
     Projectile::apple = earth.addParticle(inMass, "Apple", Vector(0.0f, 0.0f)); // Create Apple (Mass = inMass) in Earth Simulation, Default: Infinite Mass
-    Particle& appleTemp = earth.getParticle(apple);
+    PointMass& appleTemp = earth.getParticle(apple).linear();
     appleTemp.project(radians(inAngle), inSpeed);
     appleTemp.visuals.r = 10; appleTemp.visuals.g = 210; appleTemp.visuals.b = 25;
-    appleTemp.extraVisuals.trail = true;
-    appleTemp.extraVisuals.trailPeriod = 30;
+    earth.getParticle(apple).extraVisuals.trail = true;
+    earth.getParticle(apple).extraVisuals.trailPeriod = 30;
     std::cout << "\nParticle Model Created: Apple"
     << "\n- Apple Mass: " << appleTemp.getMass() << "kg" << "\n\n"
     << "\n- Apple Velocity: " << appleTemp.velocity << "m/s" << "\n\n";
@@ -52,20 +52,21 @@ void Projectile::start() {
 
 void Projectile::poll() {
 
+    PointMass& appleTemp = earth.getParticle(apple).linear();
+
     // EVENT: Every Second
     if (stepID % 60 == 0) {
-        Particle& appleTemp = earth.getParticle(apple);
         std::cout << "\n\nCurrent Time: " << (stepID * dt) << "s" <<
         "\nCurrent Velocity: " << appleTemp.velocity << "m/s" <<
         "\nCurrent Height: " << appleTemp.position.y << "m" << "\n";
     }
 
     // EVENT: Apple Hits Ground
-    if (groundContact == false && earth.getParticle(apple).position.y <= 0.0f) {
+    if (groundContact == false && appleTemp.position.y <= 0.0f) {
         groundContact = true;
         std::cout << "\n\nGROUND REACHED"
         << "\n- Time: " << (stepID * dt) << "s" // stepCount * dt = Time
-        << "\n- Velocity: " << earth.getParticle(apple).velocity << "m/s" << "\n";
+        << "\n- Velocity: " << appleTemp.velocity << "m/s" << "\n";
     }
 }
 
@@ -75,10 +76,10 @@ void Projectile::end() {
     // Conclusion Output
     std::cout << "\n\nSimulation Concluded"
     << "\n- Time: " << (numSteps * dt) << "s"
-    << "\n- Final Velocity: " << earth.getParticle(apple).velocity.y << "m/s";
+    << "\n- Final Velocity: " << earth.getParticle(apple).linear().velocity.y << "m/s";
 
     // Additional Ouput (Event)
     if (!groundContact) { // Apple Does Not Intersect Ground During Simulation Time Interval
-        std::cout << "\n- Final Height: " << earth.getParticle(apple).position.y << "m" << "\n\n";
+        std::cout << "\n- Final Height: " << earth.getParticle(apple).linear().position.y << "m" << "\n\n";
     } else std::cout << "\n\n";
 }
