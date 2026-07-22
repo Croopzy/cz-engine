@@ -23,10 +23,10 @@ public:
     ) noexcept;
 
     // Get Signed Shortest Distance Between Point & Plane
-    float signedDistance(Vector point), Plane& plane);
-
+    float signedDistance(const Vector& point) const;
 
 };
+
 
 // Apply Friction To Particle Interacting with Plane
 void applyFriction(Particle& body, Plane& plane, float distance);
