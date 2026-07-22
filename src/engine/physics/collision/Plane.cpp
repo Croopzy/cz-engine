@@ -11,7 +11,7 @@ Plane::Plane(const Vector& vecN, float planeConstant, bool toggle, float elastic
 
 
 // Get Signed Shortest Distance Between Point & Plane
-float Plane::signedDistance(const Vector& point), Plane& plane) const { return dot(normal, point) - offset; }
+float Plane::signedDistance(const Vector& point) const { return dot(normal, point) - offset; }
 
 
 // Apply Friction To Particle Interacting with Plane
