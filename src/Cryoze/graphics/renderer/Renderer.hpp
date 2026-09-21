@@ -1,6 +1,6 @@
 #pragma once
-#include "src/engine/graphics/window/Window.hpp"
-#include "src/engine/graphics/camera/Camera.hpp"
+#include "src/Cryoze/graphics/window/Window.hpp"
+#include "src/Cryoze/graphics/camera/Camera.hpp"
 
 class Renderer {
     public:

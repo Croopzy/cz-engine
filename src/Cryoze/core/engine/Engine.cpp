@@ -1,8 +1,8 @@
-#include "Application.hpp"
+#include "Engine.hpp"
 #include <chrono>
 #include <thread>
 
-void Application::run(Scenario& scenario, bool visualiserEnabled) {
+void Engine::run(Scenario& scenario, bool visualiserEnabled) {
     bool visualiserActive = false;
 
     scenario.start();
@@ -70,7 +70,7 @@ void Application::run(Scenario& scenario, bool visualiserEnabled) {
 
 
 // Render Frame
-void Application::renderFrame(Scenario& scenario) {
+void Engine::renderFrame(Scenario& scenario) {
     renderer->clear();
     visualiser->drawWorld(scenario.getWorld(), *camera);
     renderer->present();

@@ -1,7 +1,7 @@
 #pragma once
-#include "src/engine/maths/Vector.hpp"
-#include "src/engine/core/Visuals.hpp"
-#include "src/engine/physics/bodies/point_mass/PointMass.hpp"
+#include "src/Cryoze/maths/Vector.hpp"
+#include "src/Cryoze/core/Visuals.hpp"
+#include "src/Cryoze/physics/bodies/point_mass/PointMass.hpp"
 
 struct ParticleVisuals {
     float radius = 0.25f;

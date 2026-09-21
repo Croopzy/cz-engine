@@ -1,10 +1,10 @@
 #pragma once
 #include <vector>
-#include "src/engine/physics/PhysicsConstants.hpp"
-#include "src/engine/physics/collision/Plane.hpp"
-#include "src/engine/physics/bodies/Particle.hpp"
-#include "src/engine/physics/constraints/Spring.hpp"
-#include "src/engine/core/Visuals.hpp"
+#include "src/Cryoze/physics/PhysicsConstants.hpp"
+#include "src/Cryoze/physics/collision/Plane.hpp"
+#include "src/Cryoze/physics/bodies/Particle.hpp"
+#include "src/Cryoze/physics/constraints/Spring.hpp"
+#include "src/Cryoze/core/Visuals.hpp"
 
 // World Class: Contains the physics environment, its bodies and its rules
 class World {

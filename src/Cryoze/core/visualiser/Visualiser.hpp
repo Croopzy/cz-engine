@@ -1,7 +1,7 @@
 #pragma once
-#include "src/engine/physics/world/World.hpp"
-#include "src/engine/graphics/camera/Camera.hpp"
-#include "src/engine/graphics/renderer/Renderer.hpp"
+#include "src/Cryoze/physics/world/World.hpp"
+#include "src/Cryoze/graphics/camera/Camera.hpp"
+#include "src/Cryoze/graphics/renderer/Renderer.hpp"
 
 class Visualiser {
     public:

@@ -1,6 +1,6 @@
 #pragma once
 #include <memory>
-#include "src/engine/core/visualiser/Visualiser.hpp"
+#include "src/Cryoze/core/visualiser/Visualiser.hpp"
 #include "src/simulations/Scenario.hpp"
 
 // Forward Declarations
@@ -10,9 +10,9 @@ class Renderer;
 class Visualiser;
 
 
-class Application {
+class Engine {
     public:
-        Application() {};
+        Engine() {};
 
         void run(Scenario& scenario, bool visualiserEnabled = true);
 

@@ -1,6 +1,6 @@
 #pragma once
-#include "src/engine/maths/Vector.hpp"
-#include "src/engine/core/Visuals.hpp"
+#include "src/Cryoze/maths/Vector.hpp"
+#include "src/Cryoze/core/Visuals.hpp"
 
 class PointMass {
 private:

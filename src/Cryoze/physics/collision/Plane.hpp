@@ -1,7 +1,7 @@
 #pragma once
-#include "src/engine/physics/PhysicsConstants.hpp"
-#include "src/engine/physics/bodies/point_mass/PointMass.hpp"
-#include "src/engine/core/Visuals.hpp"
+#include "src/Cryoze/physics/PhysicsConstants.hpp"
+#include "src/Cryoze/physics/bodies/point_mass/PointMass.hpp"
+#include "src/Cryoze/core/Visuals.hpp"
 
 // Plane Structure
 struct Plane {
