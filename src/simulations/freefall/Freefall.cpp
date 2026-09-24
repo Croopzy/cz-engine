@@ -1,14 +1,18 @@
 #include "Freefall.hpp"
 
-Freefall::Freefall(int steps) : Scenario() {
-    this->numSteps = steps;
+Freefall::Freefall(int steps)
+    : Scenario(),
+      earth(getWorld()),
+      apple(-1)
+{
+    numSteps = steps;
 }
 
 
 void Freefall::start() {
 
     // Initialisation Outputs
-    std::cout << "SIMULATION INITIALISED: FREEFALL\n\n";
+    std::cout << "SIMULATION INITIALISED: " << scenarioName << "\n\n";
 
     std::cout << "World Simulation Created: " << earth.name << "\n"
     << "Gravity: " << earth.gravity.y << "ms^-2\n\n";
@@ -27,7 +31,7 @@ void Freefall::start() {
     std::cin >> inHeight;
 
     // Configure Apple
-    earth.addParticle(inMass, "Apple", Vector(0, inHeight));
+    apple = earth.addParticle(inMass, "Apple", Vector(0, inHeight));
     PointMass& appleTemp = earth.getParticle(apple).linear();
     std::cout << "\nParticle Model Created: Apple"
     << "\n- Apple Mass: " << appleTemp.getMass() << "kg"

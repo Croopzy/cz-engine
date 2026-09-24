@@ -12,7 +12,8 @@ class Freefall : public Scenario { // Child Class of Scenario
         float zoom = 2.5;
 
     private:
-        World& earth = getWorld();
+        std::string scenarioName = "FREEFALL";
+        World& earth;
         int apple;
         bool groundContact = false;
 };

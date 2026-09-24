@@ -10,6 +10,7 @@ class Projectile : public Scenario { // Child Class of Scenario
         void end() override;
 
     private:
+        std::string scenarioName = "PROJECTILE MOTION";
         World& earth;
         int apple;
         bool groundContact = false;

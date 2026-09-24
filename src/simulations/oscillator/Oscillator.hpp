@@ -10,6 +10,7 @@ class Oscillator : public Scenario { // Child Class of Scenario
         void end() override;
 
     private:
+        std::string scenarioName = "DAMPED HARMONIC MOTION";
         World& earth;
         int anchor;
         int bob;

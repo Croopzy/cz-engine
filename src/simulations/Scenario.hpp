@@ -1,6 +1,7 @@
 #pragma once
 #include "src/Cryoze/physics/world/World.hpp"
 #include <iostream>
+#include <string>
 
 class Scenario { // Base Class (No Independent Constructor)
     public:
@@ -9,7 +10,7 @@ class Scenario { // Base Class (No Independent Constructor)
         World& getWorld() { return world; }
 
         virtual void start() {
-            std::cout << "SIMULATION INITIALISED" << "\n\n";
+            std::cout << "SIMULATION INITIALISED: " << scenarioName << "\n\n";
             world.printInfo(false);
         }
 
@@ -34,8 +35,8 @@ class Scenario { // Base Class (No Independent Constructor)
         float camY = 0; // Unit: Metres (From Origin)
 
 
-
     protected:
+        std::string scenarioName = "NEW SIMULATION";
         int stepID = 0;
 
     private:

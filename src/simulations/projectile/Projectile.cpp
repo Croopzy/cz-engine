@@ -2,7 +2,7 @@
 
 Projectile::Projectile(int steps)
     : Scenario(),
-      earth(getWorld()),
+      earth( getWorld() ),
       apple(-1)
 {
     numSteps = steps;
@@ -11,7 +11,7 @@ Projectile::Projectile(int steps)
 void Projectile::start() {
 
     // Initialisation Outputs
-    std::cout << "SIMULATION INITIALISED: PROJECTILE MOTION\n\n";
+    std::cout << "SIMULATION INITIALISED: " << scenarioName << "\n\n";
 
     std::cout << "World Simulation Created: " << earth.name << "\n"
     << "Gravity: " << earth.gravity.y << "ms^-2\n\n";
@@ -24,7 +24,7 @@ void Projectile::start() {
     std::cout << "Enter Apple Mass (kg): ";
     std::cin >> inMass;
 
-    // Input Apple Initial Velocity (By Overall Magnitude and Direction)
+    // Input Apple Initial Velocity (By Magnitude and Direction)
     float inAngle;
     std::cout << "Enter Projection Angle (Degrees): ";
     std::cin >> inAngle;
