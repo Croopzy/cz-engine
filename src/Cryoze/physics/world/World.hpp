@@ -6,6 +6,11 @@
 #include "src/Cryoze/physics/constraints/Spring.hpp"
 #include "src/Cryoze/core/Visuals.hpp"
 
+// Enumerators Distinguish Indexes to Planes, Particles and Springs
+enum class PlaneID : int {};
+enum class ParticleID : int {};
+enum class SpringID : int {};
+
 // World Class: Contains the physics environment, its bodies and its rules
 class World {
 public:
@@ -36,42 +41,42 @@ public:
 
 
     // New World Plane Collider
-    inline int addPlane(const Vector& vecN = {0.0f, 1.0f}, float planeConstant = 0, bool collisions = true, float elasticity = 0.3f, float roughness = 0.5f) { 
+    inline PlaneID addPlane(const Vector& vecN = {0.0f, 1.0f}, float planeConstant = 0, bool collisions = true, float elasticity = 0.3f, float roughness = 0.5f) { 
         planes.emplace_back(vecN, planeConstant, collisions, elasticity, roughness); // Constructor
-        return (planes.size() - 1); // Returns Index of New Plane
+        return static_cast<PlaneID>(planes.size() - 1);; // Returns Index of New Plane
     }
 
     // New World Particle
-    inline int addParticle(float mass = 0.0f, std::string name = "DefaultParticle", Vector position = Vector(0.0f, 0.0f)) { 
+    inline ParticleID addParticle(float mass = 0.0f, std::string name = "DefaultParticle", Vector position = Vector(0.0f, 0.0f)) { 
         particles.emplace_back(mass, name, position); // Constructs Particle Directly Inside Particles Vector
-        return (particles.size() - 1); // Returns Index of New Particle
+        return static_cast<ParticleID>(particles.size() - 1); // Returns Index of New Particle
     }
 
     // New World Spring
-    inline int addSpring(int particleA, int particleB, float naturalLength, float stiffness, float damping) {
+    inline SpringID addSpring(int particleA, int particleB, float naturalLength, float stiffness, float damping) {
         springs.emplace_back(particleA, particleB, naturalLength, stiffness, damping); // Constructor
-        return (springs.size() - 1); // Returns Index of New Spring
+        return static_cast<SpringID>(springs.size() - 1); // Returns Index of New Spring
     }
 
 
     // Get World Plane
-    inline Plane& getPlane(int index) {
-        return planes[index];
+    inline Plane& getPlane(PlaneID id) {
+        return planes.at(static_cast<size_t>(id));
     }
 
     // Get World Particle
-    inline Particle& getParticle(int index) {
-        return particles[index];
+    inline Particle& getParticle(ParticleID id) {
+        return particles.at(static_cast<size_t>(id));
     }
 
     // Overload (const): Get World Particle
-    inline const Particle& getParticle(int index) const {
-    return particles[index];
+    inline const Particle& getParticle(ParticleID id) const {
+        return particles.at(static_cast<size_t>(id));
     }
 
     // Get World Spring
-    inline Spring& getSpring(int index) {
-        return springs[index];
+    inline Spring& getSpring(SpringID id) {
+        return springs.at(static_cast<size_t>(id));
     }
 
 

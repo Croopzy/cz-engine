@@ -1,5 +1,6 @@
 #pragma once
 #include "src/simulations/Scenario.hpp"
+#include <optional>
 
 class Freefall : public Scenario { // Child Class of Scenario
     public:
@@ -14,6 +15,7 @@ class Freefall : public Scenario { // Child Class of Scenario
     private:
         std::string scenarioName = "FREEFALL";
         World& earth;
-        int apple;
+        std::optional<ParticleID> appleID;
+        PointMass& apple() { return earth.getParticle(appleID.value()).linear(); }
         bool groundContact = false;
 };
