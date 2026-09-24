@@ -2,7 +2,7 @@
 #include <vector>
 #include "src/Cryoze/physics/PhysicsConstants.hpp"
 #include "src/Cryoze/physics/collision/Plane.hpp"
-#include "src/Cryoze/physics/bodies/Particle.hpp"
+#include "src/Cryoze/physics/bodies/particle/Particle.hpp"
 #include "src/Cryoze/physics/constraints/Spring.hpp"
 #include "src/Cryoze/core/Visuals.hpp"
 
