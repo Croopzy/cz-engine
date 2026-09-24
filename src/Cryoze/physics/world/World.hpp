@@ -53,7 +53,7 @@ public:
     }
 
     // New World Spring
-    inline SpringID addSpring(int particleA, int particleB, float naturalLength, float stiffness, float damping) {
+    inline SpringID addSpring(ParticleID particleA, ParticleID particleB, float naturalLength, float stiffness, float damping) {
         springs.emplace_back(particleA, particleB, naturalLength, stiffness, damping); // Constructor
         return static_cast<SpringID>(springs.size() - 1); // Returns Index of New Spring
     }

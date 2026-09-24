@@ -1,5 +1,6 @@
 #pragma once
 #include "src/simulations/Scenario.hpp"
+#include "src/Cryoze/physics/bodies/particle/ParticleHandle.hpp"
 
 class Projectile : public Scenario { // Child Class of Scenario
     public:
@@ -12,6 +13,6 @@ class Projectile : public Scenario { // Child Class of Scenario
     private:
         std::string scenarioName = "PROJECTILE MOTION";
         World& earth;
-        int apple;
+        ParticleHandle apple{earth};
         bool groundContact = false;
 };

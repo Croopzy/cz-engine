@@ -2,9 +2,7 @@
 
 Oscillator::Oscillator(int steps)
     : Scenario(),
-      earth(getWorld()),
-      anchor(-1),
-      bob(-1)
+      earth( getWorld() )
 {
     numSteps = steps;
     zoom = 10;
@@ -40,19 +38,17 @@ void Oscillator::start() {
 
     // Spawn Anchor
     Oscillator::anchor = earth.addParticle(0, "Anchor", Vector(camX, (camY + (360 / zoom)))); // Create (White) Anchor (of Infinite Mass)
-    PointMass& anchorTemp = earth.getParticle(anchor).linear();
     std::cout << "\nParticle Model Created: Anchor"
     << "\n- Anchor Mass: " << "Infinite" << "\n\n"; 
 
     // Spawn Bob
-    Oscillator::bob = earth.addParticle(inMass, "Bob", (anchorTemp.position + bobOffset)); // Create Bob (Mass = inMass) in Earth Simulation, Default: Infinite Mass
-    PointMass& bobTemp = earth.getParticle(bob).linear();
+    Oscillator::bob = earth.addParticle(inMass, "Bob", (anchor->linear().position + bobOffset)); // Create Bob (Mass = inMass) in Earth Simulation, Default: Infinite Mass
     std::cout << "\nParticle Model Created: Bob"
-    << "\n- Bob Mass: " << bobTemp.getMass() << "kg" << "\n\n";
-    bobTemp.visuals.r = 255; bobTemp.visuals.g = 0; bobTemp.visuals.b = 0; bobTemp.visuals.a = 1;
+    << "\n- Bob Mass: " << bob->linear().getMass() << "kg" << "\n\n";
+    bob->linear().visuals.r = 255; bob->linear().visuals.g = 0; bob->linear().visuals.b = 0; bob->linear().visuals.a = 1;
 
     // Spawn Spring(Grey, Light Rod) Between Anchor & Bob
-    int spring = earth.addSpring(anchor, bob, springLength, 300, 10);
+    SpringID spring = earth.addSpring(anchor.particleID(), bob.particleID(), springLength, 300, 10);
     Spring& springTemp = earth.getSpring(spring);
     springTemp.visuals.r = 105; springTemp.visuals.g = 105; springTemp.visuals.b = 105; springTemp.visuals.a = 0.75f;
 
@@ -65,13 +61,11 @@ void Oscillator::start() {
 
 void Oscillator::poll() {
 
-    PointMass& bobTemp = earth.getParticle(bob).linear();
-
     // EVENT: Every Second
     if (stepID % 60 == 0) {
         std::cout << "\n\nCurrent Time: " << (stepID * dt) << "s" <<
-        "\nCurrent Velocity: " << bobTemp.velocity << "m/s" <<
-        "\nCurrent Height: " << bobTemp.position.y << "m" << "\n";
+        "\nCurrent Velocity: " << bob->linear().velocity << "m/s" <<
+        "\nCurrent Height: " << bob->linear().position.y << "m" << "\n";
     }
 }
 
@@ -81,7 +75,7 @@ void Oscillator::end() {
     // Conclusion Output
     std::cout << "\n\nSimulation Concluded"
     << "\n- Time: " << (numSteps * dt) << "s"
-    << "\n- Final Velocity: " << earth.getParticle(bob).linear().velocity << "m/s";
+    << "\n- Final Velocity: " << bob->linear().velocity << "m/s";
 
     std::cout << "\n\n";
 }

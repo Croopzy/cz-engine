@@ -12,8 +12,10 @@ public:
         return *this; // Each Call Returns The ParticleHandle Object
     }
 
-    PointMass& operator*() const { return world.getParticle(id.value()).linear(); } // Usage: (*myParticle).linearAttribute = ...
-    PointMass* operator->() const { return &**this; } // Usage:: myParticle->particleAttribute
+    Particle& operator*() const { return world.getParticle(id.value()); } // Usage: (*myParticle).particleAttribute = ...
+    Particle* operator->() const { return &**this; } // Usage:: myParticle->particleAttribute
+
+    ParticleID particleID() const { return id.value(); } // Usage: myWorld.addSpring(myParticleA.particleId(), myParticleB.particleId(), ...)
 
 
 private:

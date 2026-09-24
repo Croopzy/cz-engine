@@ -9,8 +9,8 @@ struct Spring {
     BasicVisuals visuals;
 
     // World Indices of Connected Particles
-    int particleA;
-    int particleB;
+    ParticleID particleA;
+    ParticleID particleB;
     
     // Spring Properties
     float naturalLength; // Unaltered Spring 'Length'
@@ -18,7 +18,7 @@ struct Spring {
     float damping; // Resistance To Relative Motion
 
     // Spring Constructor
-    Spring(int a, int b, float l, float k, float d)
+    Spring(ParticleID a, ParticleID b, float l, float k, float d)
         : particleA(a),
           particleB(b),
           naturalLength(l),

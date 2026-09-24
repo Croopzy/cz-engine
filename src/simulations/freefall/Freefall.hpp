@@ -1,6 +1,6 @@
 #pragma once
 #include "src/simulations/Scenario.hpp"
-#include <optional>
+#include "src/Cryoze/physics/bodies/particle/ParticleHandle.hpp"
 
 class Freefall : public Scenario { // Child Class of Scenario
     public:
@@ -15,7 +15,6 @@ class Freefall : public Scenario { // Child Class of Scenario
     private:
         std::string scenarioName = "FREEFALL";
         World& earth;
-        std::optional<ParticleID> appleID;
-        PointMass& apple() { return earth.getParticle(appleID.value()).linear(); }
+        ParticleHandle apple{earth};
         bool groundContact = false;
 };

@@ -1,5 +1,6 @@
 #pragma once
 #include "src/simulations/Scenario.hpp"
+#include "src/Cryoze/physics/bodies/particle/ParticleHandle.hpp"
 
 class Oscillator : public Scenario { // Child Class of Scenario
     public:
@@ -12,6 +13,6 @@ class Oscillator : public Scenario { // Child Class of Scenario
     private:
         std::string scenarioName = "DAMPED HARMONIC MOTION";
         World& earth;
-        int anchor;
-        int bob;
+        ParticleHandle anchor{earth};
+        ParticleHandle bob{earth};
 };
