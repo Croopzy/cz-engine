@@ -3,6 +3,8 @@
 #include "src/Cryoze/core/Visuals.hpp"
 #include "src/Cryoze/physics/bodies/particle/Particle.hpp"
 
+enum class ParticleID : int; // Forward Declaration
+
 // Spring Structure (Binary Force Connecting Two Particles)
 struct Spring {
     public:

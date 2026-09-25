@@ -76,8 +76,8 @@ void Visualiser::drawSprings(const World& world, const Camera& camera) {
         const PointMass& bodyA = world.getParticle(spring.particleA).linear();
         const PointMass& bodyB = world.getParticle(spring.particleB).linear();
         renderer.drawLine(camera, bodyA.position.x, bodyA.position.y, bodyB.position.x, bodyB.position.y, SDL_Color{spring.visuals.r, spring.visuals.g, spring.visuals.b, spring.visuals.a});
-        }
     }
+}
 
 void Visualiser::drawWorld(const World& world, const Camera& camera) {
     if (trails.size() < world.particles.size()) {
