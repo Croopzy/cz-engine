@@ -14,29 +14,28 @@ int main() {
 
     Engine demo;
 
-    std::vector<std::string> names = {"Freefall", "Projectile", "Oscillator"}; // Update Manually
-    mergeSort<std::string>(names, 0, static_cast<int>(names.size()) - 1);
+    Freefall freefall(900);
+    Projectile projectile(900);
+    Oscillator oscillator(900);
+
+    std::vector<std::string> scenarios = {"Freefall", "Projectile", "Oscillator"}; // Update List Manually
+    mergeSort<std::string>(scenarios, 0, static_cast<int>(scenarios.size()) - 1);
 
     std::cout << "Available Simulations:\n";
-    for (size_t i = 0; i < names.size(); ++i) {
-        std::cout << "  " << (i + 1) << ": " << names[i] << "\n";
+    for (size_t i = 0; i < scenarios.size(); ++i) {
+        std::cout << "  " << (i + 1) << ": " << scenarios[i] << "\n";
     }
 
     std::cout << "\nYour Selection: ";
     size_t selection;
-    std::cin >> selection;
-    std::cout << "\n\n";
+    std::cin >> selection; std::cout << "\n\n";
 
-    if ((selection < 1) || (selection > names.size())) {
+    if ((selection < 1) || (selection > scenarios.size())) {
         std::cout << "Invalid Selection.\n";
         return 1; // Indicates Failed Input
     }
 
-    const std::string& selected = names[selection - 1];
-
-    Freefall freefall(900);
-    Projectile projectile(900);
-    Oscillator oscillator(900);
+    const std::string& selected = scenarios[selection - 1];
 
     if (selected == "Freefall") demo.run(freefall, true);
     else if (selected == "Projectile") demo.run(projectile, true);
