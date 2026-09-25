@@ -3,8 +3,8 @@
 // Apply Spring Force on Connected Particles
 void Spring::applyForce(std::vector<Particle>& particles) {
     // Refer To Both Particles By Index
-    PointMass& bodyA = particles[particleA].linear();
-    PointMass& bodyB = particles[particleB].linear();
+    PointMass& bodyA = particles[static_cast<size_t>(particleA)].linear();
+	PointMass& bodyB = particles[static_cast<size_t>(particleB)].linear();
     // Vector From A -> B
     Vector delta = bodyB.position - bodyA.position;
     float currentLength = magnitude(delta);
