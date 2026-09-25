@@ -1,5 +1,5 @@
 #pragma once
-#include "src/simulations/Scenario.hpp"
+#include "src/Cryoze/simulation/Scenario.hpp"
 #include "src/Cryoze/physics/bodies/particle/ParticleHandle.hpp"
 
 class Freefall : public Scenario { // Child Class of Scenario

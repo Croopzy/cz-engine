@@ -1,7 +1,7 @@
 #pragma once
 #include <memory>
 #include "src/Cryoze/core/visualiser/Visualiser.hpp"
-#include "src/simulations/Scenario.hpp"
+#include "src/Cryoze/simulation/Scenario.hpp"
 
 // Forward Declarations
 class Window;
