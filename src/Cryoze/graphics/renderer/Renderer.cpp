@@ -2,7 +2,7 @@
 #include <string>
 
 // Renderer Constructor
-Renderer::Renderer(Window& window, Camera& camera)
+Renderer::Renderer(Window& window)
     : window(window)
 {
     renderer = SDL_CreateRenderer(window.getSDLWindow(), nullptr);
@@ -39,6 +39,7 @@ void Renderer::drawLine(const Camera& camera, float x1, float y1, float x2, floa
 
 
 void Renderer::drawCircle(const Camera& camera, float inCentreX, float inCentreY, float inRadius, bool fillEnabled, SDL_Color colour) { // Bresenham Circle Algorithm (AKA Midpoint Circle Algorithm)
+    SDL_SetRenderDrawColor(renderer, colour.r, colour.g, colour.b, colour.a);
     int radius = (int) std::round(inRadius * camera.zoom); // Scale Radius By Zoom
 
     // Convert Centre Position To Pixels
@@ -57,7 +58,6 @@ void Renderer::drawCircle(const Camera& camera, float inCentreX, float inCentreY
 
     // Plot One Point (By Pixels)
     auto plotPoint = [&](int pointX, int pointY) { // Capture All Variables From Surrounding Scope By Reference Using [&]
-        SDL_SetRenderDrawColor(renderer, colour.r, colour.g, colour.b, colour.a);
         SDL_RenderPoint(renderer, pointX, pointY);
     };
 
@@ -75,7 +75,6 @@ void Renderer::drawCircle(const Camera& camera, float inCentreX, float inCentreY
 
     // Plot One Line (By Pixels)
     auto plotLine = [&](int point1X, int point1Y, int point2X, int point2Y) { // Capture All Variables From Surrounding Scope By Reference Using [&]
-        SDL_SetRenderDrawColor(renderer, colour.r, colour.g, colour.b, colour.a);
         SDL_RenderLine(renderer, point1X, point1Y, point2X, point2Y);
     };
 

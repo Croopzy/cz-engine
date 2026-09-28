@@ -13,7 +13,7 @@ void Engine::run(Scenario& scenario, bool visualiserEnabled) {
         // Create Camera
         camera = std::make_unique<Camera>(Vector(scenario.camX, scenario.camY), scenario.zoom, DEFAULT_WIDTH, DEFAULT_HEIGHT);
         // Create Renderer
-        renderer = std::make_unique<Renderer>(*window, *camera);
+        renderer = std::make_unique<Renderer>(*window);
         // Create Visualiser
         visualiser = std::make_unique<Visualiser>(*renderer);
         // Change Flag

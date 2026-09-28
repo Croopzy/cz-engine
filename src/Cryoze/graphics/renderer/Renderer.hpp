@@ -4,7 +4,7 @@
 
 class Renderer {
     public:
-        Renderer(Window& window, Camera& camera); // Constructor
+        Renderer(Window& window); // Constructor
         ~Renderer(); // Destructor
 
         // Core Functions

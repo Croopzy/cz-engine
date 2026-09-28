@@ -15,7 +15,7 @@ public:
     Particle& operator*() const { return world.getParticle(id.value()); } // Usage: (*myParticle).particleAttribute = ...
     Particle* operator->() const { return &**this; } // Usage:: myParticle->particleAttribute
 
-    ParticleID particleID() const { return id.value(); } // Usage: myWorld.addSpring(myParticleA.particleId(), myParticleB.particleId(), ...)
+    ParticleID particleID() const { return id.value(); } // Usage: myWorld.addSpring(myParticleA.particleID(), myParticleB.particleID(), ...)
 
 
 private:
