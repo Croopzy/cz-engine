@@ -32,6 +32,9 @@ Vector worldToScreen(const Camera& camera, const Vector& worldPosition);
 // Project Position Onto Screen
 Vector screenProjection(const Camera& camera, const float x, const float y);
 
+// Reverse Projection
+Vector screenToWorld(const Camera& camera, const Vector& screenPosition);
+
 
 /// Camera Adjustment Functions ///
 
