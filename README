@@ -16,7 +16,7 @@ Each simulation is a self-contained Scenario, which belongs in a single class
 
  ## Example Simulations
 
-*Scenario | Purpose*
-Freefall | Demonstrate constant acceleration under gravity and bouncing masses (rebounding.)
-Projectile | Demonstrate projectile motion and simulate expected results without use of SUVAT calculations.
-Oscillator | Demonstrate damped oscillations in mass-spring systems.
+Scenario | Purpose:
+	- Freefall | Demonstrate constant acceleration under gravity and bouncing masses (rebounding.)
+	- Projectile | Demonstrate projectile motion and simulate expected results without use of SUVAT calculations.
+	- Oscillator | Demonstrate damped oscillations in mass-spring systems.
