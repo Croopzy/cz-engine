@@ -1,0 +1,22 @@
+# Cryoze Engine
+
+A 2D physics engine written in C++ using the SDL3 library for graphics rendering.
+
+Cryoze is a modular simulation framework designed for developers who want to build accurate physics demos and interactive applications without manually developing an engine backend.
+Each simulation is a self-contained Scenario, which belongs in a single class
+
+
+## Features
+
+- Particle dynamics using forces and mass-spring constraints.
+- Plane collisions with restitution and friction.
+- Fixed-timestep simulation loop using velocity verlet integration for stable, reproducible results.
+- (Optional) Scenario selection menu included for code-free control of example simulations.
+
+
+ ## Example Simulations
+
+*Scenario | Purpose*
+Freefall | Demonstrate constant acceleration under gravity and bouncing masses (rebounding.)
+Projectile | Demonstrate projectile motion and simulate expected results without use of SUVAT calculations.
+Oscillator | Demonstrate damped oscillations in mass-spring systems.
